@@ -1,0 +1,6 @@
+/* Case study data */
+window.CASE_STUDIES = [
+  { sector: "Customer Service", title: "A contact-centre team, scaled fast", client: "Serco Integrated Services", challenge: "A new public-sector contract needed a team of trained advisors at short notice without dropping service quality.", result: "A cohort of vetted, interview-ready advisors placed quickly \u2014 with strong retention well beyond the settling-in period.", metrics: [["18", "advisors"], ["4 wks", "to staff"], ["90%", "retention"]] },
+  { sector: "Finance & Accounts", title: "Temp-to-perm finance support", client: "ACS", challenge: "A growing finance function needed immediate cover that could become permanent for the right person.", result: "A temporary finance assistant who impressed from week one and converted to a permanent role within three months.", metrics: [["1", "key hire"], ["3 mths", "temp-to-perm"], ["100%", "compliance"]] },
+  { sector: "Sales & Logistics", title: "Permanent sales & planning hires", client: "ExactLogistics", challenge: "Expansion meant hiring commercial and transport-planning talent quickly, on a success-fee basis.", result: "Multiple permanent hires across sales and planning, each backed by our guarantee period for peace of mind.", metrics: [["5", "permanent hires"], ["Success", "fee model"], ["0", "guarantee claims"]] },
+];
