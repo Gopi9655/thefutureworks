@@ -1,9 +1,10 @@
+import "./home-hero.css";
 import { Icon } from "@/components/Icon";
-import { Orb, Reveal, CountUp } from "@/components/primitives";
+import { Reveal, CountUp } from "@/components/primitives";
 import { Button } from "@/components/Button";
-import { HeroScene, MobileHeroScene } from "@/components/HeroScene";
 import { NetworkMapBg } from "@/components/NetworkMap";
 import { JobCard, TestimonialCard, CTABand, TrustStrip, SectionHead } from "@/components/sections";
+import { HomeMatchingHero } from "@/components/home/HomeMatchingHero";
 import { SplitJourney } from "@/components/home/SplitJourney";
 import { RegionSection } from "@/components/home/RegionSection";
 import { JOBS } from "@/data/jobs";
@@ -21,45 +22,7 @@ function HomeHero() {
   return (
     <section className="hero-light" style={{ position: "relative", overflow: "hidden" }}>
       <div className="wrap" style={{ position: "relative", zIndex: 2 }}>
-        <div style={{ display: "grid", gridTemplateColumns: "minmax(0,1fr) minmax(0,1.05fr)", gap: 40, alignItems: "center", minHeight: "min(56vh, 540px)", paddingBlock: "18px 26px" }} className="home-hero-grid">
-          <div style={{ minWidth: 0 }}>
-            <Reveal as="span" className="chip" style={{ marginBottom: 14 }}>
-              <Orb size={16} /> Coventry University-owned · Established 2005
-            </Reveal>
-            <Reveal as="h1" d={1} style={{ color: "var(--ink-800)", margin: "12px 0 0", fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "clamp(40px, 10.5vw, 70px)", lineHeight: 1.02, letterSpacing: "-0.025em" }}>
-              Find work. Hire talent.<br />
-              <span style={{ color: "var(--g-green)" }}>Build Coventry&apos;s future.</span>
-            </Reveal>
-            <Reveal as="p" d={2} className="lead" style={{ margin: "16px 0 0", maxWidth: 480 }}>
-              Coventry University-owned recruitment support for candidates, graduates and employers across Coventry, Warwickshire and the West Midlands.
-            </Reveal>
-            <Reveal d={3} className="hero-cta-row">
-              <Button to="/vacancies" variant="primary" size="lg" icon="arrowRight">Find jobs</Button>
-              <Button to="/employers" variant="ghost-blue" size="lg" iconLeft="building">Hire staff</Button>
-              <Button to="/apply" variant="outline" size="lg" iconLeft="send">Submit CV</Button>
-            </Reveal>
-            <Reveal d={4} style={{ display: "flex", alignItems: "center", gap: 20, marginTop: 20, flexWrap: "wrap" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <span style={{ display: "grid", placeItems: "center", width: 28, height: 28, borderRadius: 50, background: "rgba(95,168,42,.16)" }}>
-                  <Icon name="check" size={14} stroke={2.4} style={{ color: "var(--g-green)" }} />
-                </span>
-                <span style={{ fontSize: 13, color: "var(--t-ink-mut)" }}>8,196 candidates registered</span>
-              </div>
-              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <span style={{ display: "grid", placeItems: "center", width: 28, height: 28, borderRadius: 50, background: "rgba(30,111,184,.16)" }}>
-                  <Icon name="shield" size={14} style={{ color: "var(--g-blue)" }} />
-                </span>
-                <span style={{ fontSize: 13, color: "var(--t-ink-mut)" }}>Employer advice is always free</span>
-              </div>
-            </Reveal>
-          </div>
-          <div className="home-hero-scene hero-scene-desktop" style={{ position: "relative", height: "min(54vh, 480px)", minHeight: 400, borderRadius: "var(--radius-lg)", background: "linear-gradient(160deg, rgba(8,14,38,0.04) 0%, rgba(8,14,38,0.09) 100%)", border: "1px solid rgba(30,111,184,0.10)", overflow: "hidden" }}>
-            <HeroScene />
-          </div>
-        </div>
-        <div className="hero-scene-mobile">
-          <MobileHeroScene />
-        </div>
+        <HomeMatchingHero />
       </div>
       <TrustStrip />
     </section>
