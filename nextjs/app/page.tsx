@@ -26,7 +26,7 @@ function HomeHero() {
             <Reveal as="span" className="chip" style={{ marginBottom: 14 }}>
               <Orb size={16} /> Coventry University-owned · Established 2005
             </Reveal>
-            <Reveal as="h1" d={1} style={{ color: "var(--ink-800)", margin: "12px 0 0", fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "clamp(34px, 4.6vw, 54px)", lineHeight: 1.06, letterSpacing: "-0.025em" }}>
+            <Reveal as="h1" d={1} style={{ color: "var(--ink-800)", margin: "12px 0 0", fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "clamp(40px, 10.5vw, 70px)", lineHeight: 1.02, letterSpacing: "-0.025em" }}>
               Find work. Hire talent.<br />
               <span style={{ color: "var(--g-green)" }}>Build Coventry&apos;s future.</span>
             </Reveal>
@@ -53,7 +53,7 @@ function HomeHero() {
               </div>
             </Reveal>
           </div>
-          <div className="home-hero-scene hero-scene-desktop" style={{ position: "relative", height: "min(54vh, 480px)", minHeight: 400, borderRadius: "var(--radius-lg)", border: "1px solid var(--platform-line)", overflow: "hidden", boxShadow: "var(--platform-shadow), 0 1px 0 rgba(255,255,255,0.7) inset" }}>
+          <div className="home-hero-scene hero-scene-desktop" style={{ position: "relative", height: "min(54vh, 480px)", minHeight: 400, borderRadius: "var(--radius-lg)", background: "linear-gradient(160deg, rgba(8,14,38,0.04) 0%, rgba(8,14,38,0.09) 100%)", border: "1px solid rgba(30,111,184,0.10)", overflow: "hidden" }}>
             <HeroScene />
           </div>
         </div>
