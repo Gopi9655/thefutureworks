@@ -5,13 +5,16 @@ import { Float } from "@react-three/drei";
 
 export function PlatformScenePlaceholder({
   label = "Advanced platform concept scene",
+  decorative = false,
 }: {
   label?: string;
+  decorative?: boolean;
 }) {
   return (
     <div
-      role="img"
-      aria-label={label}
+      role={decorative ? undefined : "img"}
+      aria-label={decorative ? undefined : label}
+      aria-hidden={decorative ? true : undefined}
       style={{ width: "100%", minHeight: 260, borderRadius: 8, overflow: "hidden", background: "linear-gradient(135deg, #0A0E1A, #111827)" }}
     >
       <Canvas camera={{ position: [0, 0, 4.4], fov: 42 }} dpr={[1, 1.5]}>

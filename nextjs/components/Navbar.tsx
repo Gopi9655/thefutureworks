@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { Logo } from "./primitives";
 import { Icon } from "./Icon";
 import { Button } from "./Button";
-import { NAV, CONTACT } from "@/data/site";
+import { NAV, CONTACT, type NavItem } from "@/data/site";
 
 export function Navbar() {
   const [solid, setSolid] = useState(false);
@@ -24,6 +24,7 @@ export function Navbar() {
   useEffect(() => { setOpen(false); }, [pathname]);
 
   const active = (to: string) => pathname === to || (to !== "/" && pathname.startsWith(to));
+  const itemActive = (item: NavItem) => active(item.to) || !!item.sub?.some((subItem) => active(subItem.to));
 
   return (
     <header className={"nav " + (solid || open ? "solid" : "")}>
@@ -33,7 +34,7 @@ export function Navbar() {
         <nav style={{ display: "flex", alignItems: "center", gap: 30 }} className="nav-desktop" aria-label="Primary">
           {NAV.map((item) => (
             <div key={item.label} className="has-flyout" style={{ position: "relative" }}>
-              <Link href={item.to} className={"nav-link " + (active(item.to) ? "active" : "")} style={{ display: "inline-flex", alignItems: "center", gap: 5 }}>
+              <Link href={item.to} className={"nav-link " + (itemActive(item) ? "active" : "")} style={{ display: "inline-flex", alignItems: "center", gap: 5 }}>
                 {item.label}
                 {item.sub && <Icon name="chevronDown" size={14} stroke={2} style={{ opacity: 0.6 }} />}
               </Link>

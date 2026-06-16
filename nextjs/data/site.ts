@@ -47,6 +47,16 @@ export const NAV: NavItem[] = [
       { to: "/employers", label: "Our process", desc: "How we match and place", icon: "target" },
     ],
   },
+  {
+    to: "/dashboard",
+    label: "Dashboard",
+    sub: [
+      { to: "/dashboard", label: "Dashboard", desc: "Platform concept overview", icon: "chart" },
+      { to: "/request-staff", label: "Request staff", desc: "Structured intake concept", icon: "building" },
+      { to: "/dashboard/candidates", label: "Candidate dashboard", desc: "Synthetic candidate profiles", icon: "users" },
+      { to: "/dashboard/employers", label: "Employer dashboard", desc: "Synthetic employer requests", icon: "briefcase" },
+    ],
+  },
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
 ];

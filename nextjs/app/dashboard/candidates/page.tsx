@@ -1,84 +1,154 @@
 import type { Metadata } from "next";
 import { Icon } from "@/components/Icon";
 import {
-  PlatformCardGrid,
+  PlatformCard,
+  PlatformCTA,
   PlatformFieldList,
-  PlatformPageIntro,
-  PlatformPrototypeNote,
-  PlatformRecordPanel,
+  PlatformPageHeader,
+  PlatformPill,
   PlatformSection,
-} from "@/components/platform/PlatformScaffold";
-import { candidateProfiles, matchSignals } from "@/data/platform";
+  PlatformShell,
+} from "@/components/platform";
+import { candidateProfiles, matchSignals, platformJobs } from "@/data/platform";
 
 export const metadata: Metadata = {
   title: "Candidate dashboard concept",
-  description: "Phase 1 scaffold route for synthetic candidate profile records.",
+  description: "Phase 2 premium candidate dashboard shell using synthetic candidate profile records.",
 };
+
+const availabilitySummary = [
+  { label: "Immediate", value: candidateProfiles.filter((candidate) => candidate.availability === "Immediate").length },
+  { label: "Within three weeks", value: candidateProfiles.filter((candidate) => candidate.availability !== "One month").length },
+  { label: "Hybrid ready", value: candidateProfiles.filter((candidate) => candidate.workMode === "Hybrid").length },
+];
 
 export default function CandidateDashboardPage() {
   return (
-    <>
-      <PlatformPageIntro
+    <PlatformShell>
+      <PlatformPageHeader
         eyebrow="Candidate intelligence"
         icon="users"
-        title="Candidate dashboard scaffold"
-        description="Synthetic candidate profile cards for future shortlist, filter and matching views. No real candidate data is used."
+        title={<>Candidate pipeline <span className="platform-gradient-text">concept</span></>}
+        description="A premium static dashboard for viewing synthetic candidate readiness, skills and match signals. No real candidate data is used."
         actions={[
-          { label: "Dashboard", href: "/dashboard", icon: "arrowRight" },
-          { label: "Existing candidates page", href: "/candidates", icon: "arrowUpRight" },
+          { label: "Back to dashboard", href: "/dashboard", icon: "arrowRight" },
+          { label: "Existing candidates page", href: "/candidates", icon: "arrowUpRight", variant: "outline" },
         ]}
+        aside={
+          <div>
+            <PlatformPill tone="green" icon="users">Opportunity pipeline</PlatformPill>
+            <h2 className="platform-card-title" style={{ fontSize: 24, marginTop: 18 }}>Candidate readiness summary</h2>
+            <p className="platform-muted" style={{ lineHeight: 1.6, margin: "12px 0 18px" }}>
+              Profiles use placeholder names and concept-only attributes to test the v2 dashboard layout.
+            </p>
+            <PlatformFieldList
+              items={[
+                { label: "Profiles", value: candidateProfiles.length },
+                { label: "Average score", value: `${Math.round(candidateProfiles.reduce((sum, candidate) => sum + candidate.matchScore, 0) / candidateProfiles.length)}%` },
+                { label: "Signals", value: matchSignals.length },
+              ]}
+            />
+          </div>
+        }
       />
 
       <PlatformSection
+        id="candidate-boundary"
         eyebrow={<><Icon name="shield" size={14} /> Prototype data</>}
-        title="Synthetic profiles only"
-        sub="The records below are placeholders for a high-fidelity platform concept."
+        title="Synthetic candidate data only"
+        description="The page demonstrates the future candidate intelligence shell without CV uploads, real profiles or authentication."
       >
-        <PlatformPrototypeNote />
+        <div className="platform-grid-3">
+          {availabilitySummary.map((item) => (
+            <PlatformCard key={item.label} icon="clock" tone="green">
+              <PlatformPill tone="green">{item.label}</PlatformPill>
+              <div style={{ marginTop: 16, fontFamily: "var(--font-display)", fontSize: 42, lineHeight: 1, fontWeight: 800 }}>{item.value}</div>
+              <p className="platform-muted" style={{ margin: "10px 0 0", lineHeight: 1.5 }}>Synthetic readiness count for shell layout testing.</p>
+            </PlatformCard>
+          ))}
+        </div>
       </PlatformSection>
 
       <PlatformSection
-        tone="paper-2"
+        id="candidate-records"
+        tone="navy"
         eyebrow={<><Icon name="users" size={14} /> Candidate records</>}
-        title="Candidate profile scaffold"
-        sub="Typed sample records with sectors, skills, work mode and availability fields."
+        title="Profile cards with skills, sectors and match context"
+        description="Green surfaces emphasize candidate opportunity and movement through a future shortlist workflow."
       >
-        <PlatformCardGrid columns={4}>
+        <div className="platform-grid-4">
           {candidateProfiles.map((candidate) => {
             const signals = matchSignals.filter((signal) => signal.candidateId === candidate.id);
 
             return (
-              <PlatformRecordPanel
+              <PlatformCard
                 key={candidate.id}
                 title={candidate.displayName}
-                meta={`${candidate.roleTarget} · ${candidate.location}`}
                 icon="users"
-                accent="var(--g-green)"
+                tone="green"
+                eyebrow={<PlatformPill tone="green">{candidate.matchScore}% match</PlatformPill>}
+                footer={<PlatformPill tone="navy">{signals.length} linked signals</PlatformPill>}
               >
+                <p className="platform-muted" style={{ margin: 0, lineHeight: 1.5 }}>{candidate.summary}</p>
                 <PlatformFieldList
                   items={[
-                    { label: "Match score", value: `${candidate.matchScore}%` },
-                    { label: "Availability", value: candidate.availability },
+                    { label: "Target", value: candidate.roleTarget },
+                    { label: "Location", value: candidate.location },
+                    { label: "Available", value: candidate.availability },
                     { label: "Work mode", value: candidate.workMode },
-                    { label: "Seniority", value: candidate.seniority },
                   ]}
                 />
-                <p className="t-mut" style={{ margin: "16px 0 12px", lineHeight: 1.55 }}>{candidate.summary}</p>
-                <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-                  {candidate.skills.map((skill) => (
-                    <span key={skill} className="chip">{skill}</span>
-                  ))}
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 16 }}>
+                  {candidate.skills.map((skill) => <PlatformPill key={skill} tone="green">{skill}</PlatformPill>)}
                 </div>
-                {signals.length > 0 && (
-                  <p className="t-mut" style={{ margin: "14px 0 0", fontSize: 13.5 }}>
-                    {signals.length} synthetic signal{signals.length === 1 ? "" : "s"} linked.
-                  </p>
-                )}
-              </PlatformRecordPanel>
+              </PlatformCard>
             );
           })}
-        </PlatformCardGrid>
+        </div>
       </PlatformSection>
-    </>
+
+      <PlatformSection
+        id="candidate-matches"
+        eyebrow={<><Icon name="target" size={14} /> Match signals</>}
+        title="Candidate-to-role signal cards"
+        description="Each card explains a future matching rationale while keeping the current data model static and transparent."
+      >
+        <div className="platform-grid-3">
+          {matchSignals.map((signal) => {
+            const job = platformJobs.find((record) => record.id === signal.jobId);
+
+            return (
+              <PlatformCard
+                key={signal.id}
+                title={signal.label}
+                icon={signal.kind === "availability" ? "clock" : "target"}
+                tone="green"
+                eyebrow={<PlatformPill tone="green">{signal.strength}% strength</PlatformPill>}
+              >
+                <p className="platform-muted" style={{ margin: 0, lineHeight: 1.55 }}>{signal.rationale}</p>
+                <PlatformFieldList
+                  items={[
+                    { label: "Signal", value: signal.kind },
+                    { label: "Role", value: job?.title ?? "Concept role" },
+                  ]}
+                />
+              </PlatformCard>
+            );
+          })}
+        </div>
+      </PlatformSection>
+
+      <PlatformSection tight>
+        <PlatformCTA
+          eyebrow="Candidate concept"
+          title="Candidate dashboard shell is ready for interaction design"
+          description="Phase 3 can add filters, shortlist state, richer candidate cards and visual QA while keeping real candidate data out of the prototype."
+          actions={[
+            { label: "Open employer dashboard", href: "/dashboard/employers", icon: "arrowRight" },
+            { label: "Browse v1 vacancies", href: "/vacancies", icon: "arrowUpRight" },
+          ]}
+        />
+      </PlatformSection>
+    </PlatformShell>
   );
 }

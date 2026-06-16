@@ -15,8 +15,17 @@ const COLS: { title: string; links: { label: string; to: string }[] }[] = [
     title: "Employers",
     links: [
       { label: "Hire staff", to: "/employers" },
+      { label: "Request staff", to: "/request-staff" },
       { label: "Our process", to: "/employers" },
       { label: "Our clients", to: "/about" },
+    ],
+  },
+  {
+    title: "Platform concept",
+    links: [
+      { label: "Dashboard", to: "/dashboard" },
+      { label: "Candidate dashboard", to: "/dashboard/candidates" },
+      { label: "Employer dashboard", to: "/dashboard/employers" },
     ],
   },
   {
@@ -35,7 +44,7 @@ export function Footer() {
   return (
     <footer className="ink-deep" style={{ position: "relative", overflow: "hidden", paddingTop: 72 }}>
       <div className="wrap" style={{ position: "relative", zIndex: 2 }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1.6fr 1fr 1fr 1fr", gap: 40 }} className="footer-grid">
+        <div style={{ display: "grid", gridTemplateColumns: "1.5fr repeat(4, 1fr)", gap: 34 }} className="footer-grid">
           <div>
             <Logo variant="dark" size={24} withTagline />
             <p className="t-mut" style={{ maxWidth: 320, marginTop: 20, fontSize: 14.5, lineHeight: 1.6 }}>
