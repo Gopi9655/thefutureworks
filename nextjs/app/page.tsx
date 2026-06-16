@@ -1,88 +1,141 @@
-import { Button } from "@/components/Button";
 import { Icon } from "@/components/Icon";
-import {
-  PlatformCard,
-  PlatformCTA,
-  PlatformFieldList,
-  PlatformMetric,
-  PlatformPill,
-  PlatformSection,
-  PlatformShell,
-} from "@/components/platform";
-import { RecruitmentMatchingScene } from "@/components/three/RecruitmentMatchingScene";
-import { candidateProfiles, dashboardMetrics, employerRequests, matchSignals, platformJobs } from "@/data/platform";
+import { Orb, Reveal, CountUp } from "@/components/primitives";
+import { Button } from "@/components/Button";
+import { HeroScene, MobileHeroScene } from "@/components/HeroScene";
+import { NetworkMapBg } from "@/components/NetworkMap";
+import { JobCard, TestimonialCard, CTABand, TrustStrip, SectionHead } from "@/components/sections";
+import { SplitJourney } from "@/components/home/SplitJourney";
+import { RegionSection } from "@/components/home/RegionSection";
+import { JOBS } from "@/data/jobs";
+import { STATS, TESTIMONIALS, DIFFERENTIATORS } from "@/data/content";
 
-const candidatePathway = [
-  {
-    title: "Discover aligned roles",
-    body: "Candidates see opportunities shaped by sector, location, availability and role direction.",
-  },
-  {
-    title: "Build a readiness view",
-    body: "Synthetic profile signals show how skills, work mode and consultant review could support a shortlist.",
-  },
-  {
-    title: "Move with confidence",
-    body: "A future workflow can make every step clearer without replacing human recruitment judgement.",
-  },
-];
-
-const employerPathway = [
-  {
-    title: "Frame the brief",
-    body: "Employers can express role needs, timing and working pattern through a structured request model.",
-  },
-  {
-    title: "Review matched talent",
-    body: "Consultant-led shortlists can surface candidate fit, availability and match rationale.",
-  },
-  {
-    title: "Track demand clearly",
-    body: "Request status, opportunity records and review flags can sit in one trust-led employer view.",
-  },
-];
-
-const workflow = [
-  { title: "Request", icon: "building", tone: "blue" as const, body: "Employer demand enters the concept intake model." },
-  { title: "Profile", icon: "users", tone: "green" as const, body: "Synthetic candidate records provide readiness context." },
-  { title: "Signal", icon: "target", tone: "green" as const, body: "Match signals explain skill, sector and location alignment." },
-  { title: "Review", icon: "shield", tone: "blue" as const, body: "Consultant review remains central to the proposed workflow." },
+const STAT_META = [
+  { icon: "briefcase", color: "var(--g-green)", bg: "rgba(95,168,42,0.14)" },
+  { icon: "users", color: "var(--g-green)", bg: "rgba(95,168,42,0.14)" },
+  { icon: "building", color: "var(--g-blue)", bg: "rgba(30,111,184,0.14)" },
+  { icon: "heart", color: "var(--g-orange)", bg: "rgba(240,138,36,0.14)" },
+  { icon: "sparkles", color: "var(--g-teal)", bg: "rgba(26,163,154,0.14)" },
 ];
 
 function HomeHero() {
   return (
-    <section className="home-platform-hero" aria-labelledby="home-hero-title">
-      <div className="home-hero-scene-layer">
-        <RecruitmentMatchingScene />
-      </div>
+    <section className="hero-light" style={{ position: "relative", overflow: "hidden" }}>
       <div className="wrap" style={{ position: "relative", zIndex: 2 }}>
-        <div className="home-hero-content">
-          <div className="platform-eyebrow"><Icon name="sparkles" size={14} /> Advanced Platform v2 concept</div>
-          <h1 id="home-hero-title" className="home-hero-title">
-            Recruitment built around <span className="platform-gradient-text">Coventry talent</span>, employers and opportunity.
-          </h1>
-          <p className="home-hero-lead">
-            A high-fidelity prototype for a more connected recruitment experience across candidates, employers and consultant-led matching.
-          </p>
-          <div className="platform-actions">
-            <Button to="/vacancies" variant="primary" size="lg" icon="arrowRight">Find work</Button>
-            <Button to="/request-staff" variant="blue" size="lg" iconLeft="building">Request staff</Button>
-            <Button to="/dashboard" variant="outline" size="lg" iconLeft="chart">View dashboard</Button>
+        <div style={{ display: "grid", gridTemplateColumns: "minmax(0,1fr) minmax(0,1.05fr)", gap: 40, alignItems: "center", minHeight: "min(56vh, 540px)", paddingBlock: "18px 26px" }} className="home-hero-grid">
+          <div style={{ minWidth: 0 }}>
+            <Reveal as="span" className="chip" style={{ marginBottom: 14 }}>
+              <Orb size={16} /> Coventry University-owned · Established 2005
+            </Reveal>
+            <Reveal as="h1" d={1} style={{ color: "var(--ink-800)", margin: "12px 0 0", fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "clamp(40px, 10.5vw, 70px)", lineHeight: 1.02, letterSpacing: "-0.025em" }}>
+              Find work. Hire talent.<br />
+              <span style={{ color: "var(--g-green)" }}>Build Coventry&apos;s future.</span>
+            </Reveal>
+            <Reveal as="p" d={2} className="lead" style={{ margin: "16px 0 0", maxWidth: 480 }}>
+              Coventry University-owned recruitment support for candidates, graduates and employers across Coventry, Warwickshire and the West Midlands.
+            </Reveal>
+            <Reveal d={3} className="hero-cta-row">
+              <Button to="/vacancies" variant="primary" size="lg" icon="arrowRight">Find jobs</Button>
+              <Button to="/employers" variant="ghost-blue" size="lg" iconLeft="building">Hire staff</Button>
+              <Button to="/apply" variant="outline" size="lg" iconLeft="send">Submit CV</Button>
+            </Reveal>
+            <Reveal d={4} style={{ display: "flex", alignItems: "center", gap: 20, marginTop: 20, flexWrap: "wrap" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <span style={{ display: "grid", placeItems: "center", width: 28, height: 28, borderRadius: 50, background: "rgba(95,168,42,.16)" }}>
+                  <Icon name="check" size={14} stroke={2.4} style={{ color: "var(--g-green)" }} />
+                </span>
+                <span style={{ fontSize: 13, color: "var(--t-ink-mut)" }}>8,196 candidates registered</span>
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <span style={{ display: "grid", placeItems: "center", width: 28, height: 28, borderRadius: 50, background: "rgba(30,111,184,.16)" }}>
+                  <Icon name="shield" size={14} style={{ color: "var(--g-blue)" }} />
+                </span>
+                <span style={{ fontSize: 13, color: "var(--t-ink-mut)" }}>Employer advice is always free</span>
+              </div>
+            </Reveal>
           </div>
-          <div className="home-trust-strip" aria-label="Platform concept trust signals">
-            <PlatformPill tone="blue" icon="shield">Concept prototype</PlatformPill>
-            <PlatformPill tone="blue" icon="building">Coventry University Group</PlatformPill>
-            <PlatformPill tone="green" icon="mapPin">Coventry and West Midlands</PlatformPill>
+          <div className="home-hero-scene hero-scene-desktop" style={{ position: "relative", height: "min(54vh, 480px)", minHeight: 400, borderRadius: "var(--radius-lg)", background: "linear-gradient(160deg, rgba(8,14,38,0.04) 0%, rgba(8,14,38,0.09) 100%)", border: "1px solid rgba(30,111,184,0.10)", overflow: "hidden" }}>
+            <HeroScene />
           </div>
         </div>
+        <div className="hero-scene-mobile">
+          <MobileHeroScene />
+        </div>
+      </div>
+      <TrustStrip />
+    </section>
+  );
+}
 
-        <div className="home-hero-proof" aria-label="Synthetic platform metrics">
-          {dashboardMetrics.map((metric) => (
-            <div key={metric.id} className="home-proof-item">
-              <div className="home-proof-value">{metric.value}</div>
-              <div className="home-proof-label">{metric.label}</div>
-              <div className="platform-muted" style={{ marginTop: 7, fontSize: 12 }}>{metric.change}</div>
-            </div>
+function GlassStatsSection() {
+  return (
+    <section style={{ position: "relative", overflow: "hidden", background: "linear-gradient(175deg,#ebf2ff 0%,#edf8ee 100%)", paddingBlock: "clamp(48px,7vw,96px)" }}>
+      <div style={{ position: "absolute", inset: 0, opacity: 0.04, pointerEvents: "none" }}>
+        <NetworkMapBg />
+      </div>
+      <div className="wrap" style={{ position: "relative", zIndex: 2 }}>
+        <Reveal style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: 16, marginBottom: 36 }}>
+          <div>
+            <span className="eyebrow"><Icon name="chart" size={14} /> By the numbers</span>
+            <h2 className="h3" style={{ color: "var(--t-ink)", margin: "10px 0 0" }}>A track record the region trusts</h2>
+          </div>
+          <Button to="/about" variant="outline" size="sm" icon="arrowRight">Our story</Button>
+        </Reveal>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 14 }} className="statband">
+          {STATS.map((s, i) => {
+            const m = STAT_META[i];
+            return (
+              <Reveal key={s.label} d={(i % 5) + 1} className="stat-card-light" style={{ padding: "clamp(16px,2.2vw,28px)" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 14 }}>
+                  <span style={{ display: "grid", placeItems: "center", width: 38, height: 38, borderRadius: 11, background: m.bg, flexShrink: 0 }}>
+                    <Icon name={m.icon} size={18} style={{ color: m.color }} />
+                  </span>
+                  <span className="stat-dot" style={{ color: m.color, marginTop: 6, background: m.color }} />
+                </div>
+                <div className="glass-stat-num" style={{ fontSize: "clamp(26px,3.2vw,44px)" }}>
+                  <CountUp end={s.num} />
+                </div>
+                <div style={{ fontWeight: 700, fontSize: 14, marginTop: 8, color: "var(--t-ink)" }}>{s.label}</div>
+                <div style={{ fontSize: 12.5, color: "var(--t-ink-mut)", marginTop: 3 }}>{s.sub}</div>
+              </Reveal>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function LatestJobs() {
+  const jobs = JOBS.slice(0, 6);
+  return (
+    <section className="bg-paper section">
+      <div className="wrap">
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: 16, marginBottom: 36 }}>
+          <SectionHead eyebrow={<><Icon name="briefcase" size={14} /> Live opportunities</>} title="Latest vacancies" sub="Fresh roles across the West Midlands, updated daily by our consultants." max={520} />
+          <Button to="/vacancies" variant="outline" icon="arrowRight">View all vacancies</Button>
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }} className="cards-3">
+          {jobs.map((j, i) => <Reveal key={j.id} d={(i % 3) + 1}><JobCard job={j} /></Reveal>)}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function WhyDifferent() {
+  return (
+    <section className="bg-paper-3 section" style={{ position: "relative", overflow: "hidden" }}>
+      <div className="wrap" style={{ position: "relative", zIndex: 2 }}>
+        <SectionHead align="center" eyebrow={<><Icon name="sparkles" size={14} /> Why thefutureworks</>} title="Recruitment with a difference" sub="Not just another agency — a values-led part of Coventry University Group, built to give back to the region since 2005." max={640} />
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 18, marginTop: 48 }} className="cards-3">
+          {DIFFERENTIATORS.map((d, i) => (
+            <Reveal key={d.title} d={(i % 3) + 1} className="card card-hover" style={{ padding: 28 }}>
+              <span style={{ display: "grid", placeItems: "center", width: 50, height: 50, borderRadius: 14, background: "rgba(95,168,42,0.10)", border: "1px solid rgba(95,168,42,0.20)" }}>
+                <Icon name={d.icon} size={24} style={{ color: "var(--g-green)" }} />
+              </span>
+              <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: 18.5, color: "var(--t-ink)", margin: "18px 0 0", letterSpacing: "-.01em" }}>{d.title}</h3>
+              <p style={{ color: "var(--t-ink-mut)", margin: "9px 0 0", fontSize: 14.5, lineHeight: 1.55 }}>{d.body}</p>
+            </Reveal>
           ))}
         </div>
       </div>
@@ -90,235 +143,34 @@ function HomeHero() {
   );
 }
 
-function PathwaySection() {
+function TestimonialsPreview() {
+  const items = TESTIMONIALS.slice(0, 3);
   return (
-    <PlatformSection
-      id="pathways"
-      eyebrow={<><Icon name="layers" size={14} /> Candidate and employer pathways</>}
-      title="Two sides of one recruitment platform concept"
-      description="The homepage now introduces both journeys without turning the prototype into a live service claim."
-    >
-      <div className="platform-grid-2">
-        <PlatformCard
-          title="Candidate pathway"
-          icon="users"
-          tone="green"
-          eyebrow={<PlatformPill tone="green">Jobs and opportunity</PlatformPill>}
-          footer={<Button to="/candidates" variant="outline" icon="arrowRight">For candidates</Button>}
-        >
-          <div className="home-pathway-list">
-            {candidatePathway.map((item, index) => (
-              <div key={item.title} className="home-pathway-row">
-                <span className="home-pathway-index">{index + 1}</span>
-                <div>
-                  <h3 className="platform-card-title" style={{ fontSize: 16 }}>{item.title}</h3>
-                  <p className="platform-muted" style={{ margin: "6px 0 0", lineHeight: 1.5 }}>{item.body}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </PlatformCard>
-
-        <PlatformCard
-          title="Employer staffing pathway"
-          icon="building"
-          tone="blue"
-          eyebrow={<PlatformPill tone="blue">Trust and clarity</PlatformPill>}
-          footer={<Button to="/request-staff" variant="blue" icon="arrowRight">Request staff</Button>}
-        >
-          <div className="home-pathway-list">
-            {employerPathway.map((item, index) => (
-              <div key={item.title} className="home-pathway-row">
-                <span className="home-pathway-index" style={{ background: "var(--platform-blue-soft)", color: "var(--platform-blue)" }}>{index + 1}</span>
-                <div>
-                  <h3 className="platform-card-title" style={{ fontSize: 16 }}>{item.title}</h3>
-                  <p className="platform-muted" style={{ margin: "6px 0 0", lineHeight: 1.5 }}>{item.body}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </PlatformCard>
-      </div>
-    </PlatformSection>
-  );
-}
-
-function OpportunitiesSection() {
-  return (
-    <PlatformSection
-      id="opportunities"
-      tone="navy"
-      eyebrow={<><Icon name="briefcase" size={14} /> Opportunity records</>}
-      title="Featured opportunity cards from the platform model"
-      description="These are synthetic concept records for testing the premium homepage layout and route pathways."
-    >
-      <div className="platform-grid-4">
-        {platformJobs.map((job) => (
-          <PlatformCard
-            key={job.id}
-            title={job.title}
-            icon="briefcase"
-            tone="green"
-            eyebrow={<PlatformPill tone="green">{job.status}</PlatformPill>}
-            footer={<PlatformPill tone="navy">{job.signalIds.length} match signals</PlatformPill>}
-          >
-            <PlatformFieldList
-              items={[
-                { label: "Sector", value: job.sector },
-                { label: "Location", value: job.location },
-                { label: "Mode", value: job.workMode },
-                { label: "Band", value: job.salaryBand },
-              ]}
-            />
-          </PlatformCard>
-        ))}
-      </div>
-    </PlatformSection>
-  );
-}
-
-function WorkflowSection() {
-  return (
-    <PlatformSection
-      id="matching-intelligence"
-      eyebrow={<><Icon name="target" size={14} /> Matching intelligence</>}
-      title="A consultant-led matching workflow"
-      description="The concept uses lightweight signals to support recruitment judgement, not replace it."
-    >
-      <div className="home-workflow">
-        {workflow.map((item) => (
-          <PlatformCard
-            key={item.title}
-            className="home-workflow-step"
-            title={item.title}
-            icon={item.icon}
-            tone={item.tone}
-            eyebrow={<PlatformPill tone={item.tone}>{item.title}</PlatformPill>}
-          >
-            <p className="platform-muted" style={{ margin: 0, lineHeight: 1.55 }}>{item.body}</p>
-          </PlatformCard>
-        ))}
-      </div>
-
-      <div className="platform-grid-3" style={{ marginTop: 22 }}>
-        {matchSignals.slice(0, 3).map((signal) => (
-          <PlatformCard
-            key={signal.id}
-            title={signal.label}
-            icon="target"
-            tone={signal.kind === "availability" || signal.kind === "skill" ? "green" : "blue"}
-            eyebrow={<PlatformPill tone="navy">{signal.kind} - {signal.strength}%</PlatformPill>}
-          >
-            <p className="platform-muted" style={{ margin: 0, lineHeight: 1.55 }}>{signal.rationale}</p>
-          </PlatformCard>
-        ))}
-      </div>
-    </PlatformSection>
-  );
-}
-
-function MetricsSection() {
-  return (
-    <PlatformSection
-      id="platform-metrics"
-      eyebrow={<><Icon name="chart" size={14} /> Synthetic metrics</>}
-      title="Live-style platform metrics, clearly marked as concept data"
-      description="The numbers support the prototype story and come from the static Phase 1 data scaffold."
-    >
-      <div className="platform-grid-4">
-        {dashboardMetrics.map((metric) => <PlatformMetric key={metric.id} metric={metric} />)}
-      </div>
-    </PlatformSection>
-  );
-}
-
-function RegionTrustSection() {
-  return (
-    <PlatformSection
-      id="coventry-region"
-      eyebrow={<><Icon name="mapPin" size={14} /> Coventry region trust</>}
-      title="Rooted in Coventry, designed for regional recruitment clarity"
-      description="The concept keeps the service grounded in candidate opportunity, employer trust and local consultant knowledge."
-    >
-      <div className="home-region-panel">
-        <div className="home-region-map" aria-hidden="true" />
-        <div className="platform-grid-2">
-          <PlatformCard title="Candidate profile summary" icon="users" tone="green" eyebrow={<PlatformPill tone="green">Synthetic profiles</PlatformPill>}>
-            <PlatformFieldList
-              items={[
-                { label: "Profiles", value: candidateProfiles.length },
-                { label: "High-fit records", value: candidateProfiles.filter((candidate) => candidate.matchScore >= 85).length },
-                { label: "Hybrid ready", value: candidateProfiles.filter((candidate) => candidate.workMode === "Hybrid").length },
-              ]}
-            />
-          </PlatformCard>
-          <PlatformCard title="Employer request summary" icon="building" tone="blue" eyebrow={<PlatformPill tone="blue">Synthetic briefs</PlatformPill>}>
-            <PlatformFieldList
-              items={[
-                { label: "Requests", value: employerRequests.length },
-                { label: "In shortlisting", value: employerRequests.filter((request) => request.status === "shortlisting").length },
-                { label: "Urgent priority", value: employerRequests.filter((request) => request.priority === "urgent").length },
-              ]}
-            />
-          </PlatformCard>
+    <section className="bg-paper section">
+      <div className="wrap">
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: 16, marginBottom: 38 }}>
+          <SectionHead eyebrow={<><Icon name="quote" size={14} /> Testimonials</>} title="People at the heart of it" max={460} />
+          <Button to="/about" variant="outline" icon="arrowRight">Read more stories</Button>
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }} className="cards-3">
+          {items.map((t, i) => <Reveal key={i} d={(i % 3) + 1}><TestimonialCard t={t} light /></Reveal>)}
         </div>
       </div>
-    </PlatformSection>
-  );
-}
-
-function FinalSplitCTA() {
-  return (
-    <PlatformSection tight>
-      <div className="home-cta-split">
-        <PlatformCard
-          title="Find work"
-          icon="users"
-          tone="green"
-          eyebrow={<PlatformPill tone="green">Candidate journey</PlatformPill>}
-          footer={<Button to="/vacancies" variant="primary" icon="arrowRight">Browse vacancies</Button>}
-        >
-          <p className="platform-muted" style={{ margin: 0, lineHeight: 1.6 }}>
-            Explore the existing vacancy route while the v2 platform concept develops around matching and candidate readiness.
-          </p>
-        </PlatformCard>
-        <PlatformCard
-          title="Request staff"
-          icon="building"
-          tone="blue"
-          eyebrow={<PlatformPill tone="blue">Employer journey</PlatformPill>}
-          footer={<Button to="/request-staff" variant="blue" icon="arrowRight">Open request concept</Button>}
-        >
-          <p className="platform-muted" style={{ margin: 0, lineHeight: 1.6 }}>
-            View the static employer intake concept. It does not submit live details or create production requests.
-          </p>
-        </PlatformCard>
-      </div>
-      <div style={{ marginTop: 18 }}>
-        <PlatformCTA
-          eyebrow="Advanced Platform v2"
-          title="A recruitment homepage concept built for Phase 4 refinement"
-          description="Next work can deepen interaction states, QA screenshots and page-level storytelling while keeping production integrations out of scope."
-          actions={[
-            { label: "View dashboard", href: "/dashboard", icon: "arrowRight" },
-            { label: "Contact route", href: "/contact", icon: "arrowUpRight" },
-          ]}
-        />
-      </div>
-    </PlatformSection>
+    </section>
   );
 }
 
 export default function HomePage() {
   return (
-    <PlatformShell>
+    <>
       <HomeHero />
-      <PathwaySection />
-      <OpportunitiesSection />
-      <WorkflowSection />
-      <MetricsSection />
-      <RegionTrustSection />
-      <FinalSplitCTA />
-    </PlatformShell>
+      <GlassStatsSection />
+      <LatestJobs />
+      <SplitJourney />
+      <RegionSection />
+      <WhyDifferent />
+      <TestimonialsPreview />
+      <CTABand />
+    </>
   );
 }
