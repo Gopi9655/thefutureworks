@@ -1061,3 +1061,99 @@ body.no-anim .hero-beam { stroke-dasharray: none; opacity: .55; }
   }
   .platform-field-row dd { text-align: left; }
 }
+
+/* ============================================================
+   Phase 4A — jobs marketplace
+   Scoped .jobs-* classes layered on the v1 vacancies styling.
+   ============================================================ */
+.jobs-marketplace { width: 100%; }
+.jobs-filters { padding: clamp(16px, 2.4vw, 24px); border-radius: var(--radius-lg); }
+.jobs-filters-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
+  gap: 14px 16px;
+  align-items: end;
+}
+.jobs-field { min-width: 0; }
+.jobs-field .field { width: 100%; }
+.jobs-field select.field {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%238A93A8' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 40px;
+  cursor: pointer;
+}
+.jobs-search-wrap { position: relative; display: flex; align-items: center; }
+.jobs-search-wrap svg {
+  position: absolute;
+  left: 14px;
+  color: var(--t-ink-dim);
+  pointer-events: none;
+}
+.jobs-search-input { padding-left: 42px; }
+.jobs-filters-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--platform-line);
+}
+.jobs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+  gap: 20px;
+}
+.jobs-match-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex: 0 0 auto;
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(95, 168, 42, 0.24);
+  background: var(--platform-green-soft);
+  color: #3D7A19;
+  font-size: 12.5px;
+  font-weight: 800;
+  line-height: 1;
+  white-space: nowrap;
+}
+.jobs-chip-green {
+  border-color: rgba(95, 168, 42, 0.22);
+  background: var(--platform-green-soft);
+  color: #3D7A19;
+}
+.jobs-chip-blue {
+  border-color: rgba(30, 111, 184, 0.22);
+  background: var(--platform-blue-soft);
+  color: #155891;
+}
+.jobs-empty {
+  text-align: center;
+  padding: clamp(40px, 7vw, 72px) 24px;
+  border-radius: var(--radius-lg);
+}
+.jobs-empty-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--platform-blue-soft);
+  color: var(--platform-blue);
+}
+
+@media (max-width: 860px) {
+  .jobs-filters-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .jobs-field-keyword { grid-column: 1 / -1; }
+}
+@media (max-width: 520px) {
+  .jobs-filters-grid { grid-template-columns: 1fr; }
+  .jobs-filters-foot { flex-direction: column; align-items: stretch; }
+  .jobs-filters-foot .btn { width: 100%; justify-content: center; }
+}
