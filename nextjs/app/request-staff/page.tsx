@@ -9,12 +9,19 @@ import {
   PlatformSection,
   PlatformShell,
 } from "@/components/platform";
+import { EmployerRequestForm } from "@/components/forms/EmployerRequestForm";
 import { candidateProfiles, employerRequests, platformJobs } from "@/data/platform";
 
 export const metadata: Metadata = {
   title: "Request staff concept",
-  description: "Phase 2 premium request-staff concept route for Advanced Platform v2.",
+  description: "A premium employer staffing-request concept for Advanced Platform v2. Static and stubbed — no live submission.",
 };
+
+const followUp: { icon: string; title: string; body: string }[] = [
+  { icon: "doc", title: "Brief captured", body: "Your role, sector, timeline and contract preferences shape a structured concept brief." },
+  { icon: "users", title: "Consultant follows up", body: "A consultant would call within one working day to confirm the brief — no automated decisions." },
+  { icon: "target", title: "Shortlist direction", body: "We map synthetic candidate readiness to your role and agree next steps together." },
+];
 
 const intakeSteps = [
   {
@@ -68,16 +75,34 @@ export default function RequestStaffPage() {
       />
 
       <PlatformSection
-        id="request-boundary"
-        eyebrow={<><Icon name="shield" size={14} /> Prototype boundary</>}
-        title="A concept intake shell, not a live hiring form"
-        description="The route is intentionally static and marked as prototype-only while the visual system and information architecture mature."
+        id="request-form"
+        eyebrow={<><Icon name="building" size={14} /> Staffing brief</>}
+        title="Tell us who you need"
+        description="Share your brief and a consultant would shape a shortlist. This concept is static and stubbed — nothing is submitted, stored or emailed."
       >
-        <PlatformCard icon="shield" tone="blue">
-          <p className="platform-muted" style={{ margin: 0, lineHeight: 1.6 }}>
-            These v2 pages are a high-fidelity platform concept. They are not the official thefutureworks website and do not submit, store or process live employer requests.
-          </p>
-        </PlatformCard>
+        <div className="emp-layout">
+          <div className="card" style={{ padding: "clamp(22px,3.5vw,38px)" }}>
+            <EmployerRequestForm />
+          </div>
+          <aside className="emp-rail">
+            <h3 className="h3" style={{ marginTop: 0, fontSize: 19 }}>What happens next</h3>
+            <ol className="emp-steps">
+              {followUp.map((s, i) => (
+                <li key={s.title} className="emp-step">
+                  <span className="emp-step-ic" aria-hidden="true"><Icon name={s.icon} size={17} stroke={2} /></span>
+                  <div>
+                    <div className="emp-step-title"><span className="emp-step-num">{i + 1}</span> {s.title}</div>
+                    <p className="platform-muted" style={{ margin: "4px 0 0", fontSize: 13.5, lineHeight: 1.5 }}>{s.body}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+            <div className="emp-trust">
+              <Icon name="shield" size={16} stroke={2} style={{ color: "var(--g-blue)", flex: "0 0 auto", marginTop: 1 }} />
+              <span>A high-fidelity platform concept — not the official thefutureworks website. No live submission, storage or auth.</span>
+            </div>
+          </aside>
+        </div>
       </PlatformSection>
 
       <PlatformSection
@@ -94,7 +119,7 @@ export default function RequestStaffPage() {
               title={step.title}
               icon={step.icon}
               tone={step.tone}
-              eyebrow={<PlatformPill tone={step.tone}>Phase 2 shell</PlatformPill>}
+              eyebrow={<PlatformPill tone={step.tone}>Concept</PlatformPill>}
             >
               <p className="platform-muted" style={{ margin: 0, lineHeight: 1.55 }}>{step.body}</p>
             </PlatformCard>
@@ -164,8 +189,8 @@ export default function RequestStaffPage() {
       <PlatformSection tight>
         <PlatformCTA
           eyebrow="Employer concept"
-          title="Ready for Phase 3 interaction design"
-          description="The request-staff shell is now prepared for future prototype interactions, validation states and responsive visual QA."
+          title="A staffing brief, shaped by people"
+          description="This concept pairs a premium employer intake with consultant follow-up and synthetic shortlist direction — static and stubbed, ready for future interaction design."
           actions={[
             { label: "Open employer dashboard", href: "/dashboard/employers", icon: "arrowRight" },
             { label: "Existing contact route", href: "/contact", icon: "arrowUpRight" },
