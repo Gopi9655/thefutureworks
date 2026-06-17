@@ -1,17 +1,22 @@
 import Link from "next/link";
 import { Icon } from "@/components/Icon";
 import { salaryStr } from "@/data/jobs";
-import { getJobMatchSignals } from "@/lib/platform/jobs";
+import { getJobCategoryVisual, getJobMatchSignals } from "@/lib/platform/jobs";
 import type { Job } from "@/lib/types";
 
 // ============================================================
 // Phase 4A — marketplace job card
 // Reuses the existing .jobcard / .chip visual language and adds a
 // synthetic concept match signal. Pure, server-renderable.
+//
+// Visual identity: an approved local logo asset is used when present,
+// otherwise a premium category badge (never random company initials —
+// those read as fake logos). No external/remote logos.
 // ============================================================
 export function JobCard({ job }: { job: Job }) {
   const signals = getJobMatchSignals(job);
   const match = signals.find((s) => typeof s.score === "number");
+  const visual = getJobCategoryVisual(job);
 
   return (
     <Link
@@ -21,22 +26,20 @@ export function JobCard({ job }: { job: Job }) {
     >
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12 }}>
         <div style={{ display: "flex", gap: 13, alignItems: "center", minWidth: 0 }}>
-          <div
-            style={{
-              width: 46,
-              height: 46,
-              borderRadius: 12,
-              flex: "0 0 auto",
-              background: "linear-gradient(135deg, var(--ink-700), var(--ink-800))",
-              display: "grid",
-              placeItems: "center",
-            }}
-            aria-hidden="true"
-          >
-            <span style={{ fontFamily: "var(--font-display)", fontWeight: 600, color: "#fff", fontSize: 17 }}>
-              {job.company.split(" ").map((w) => w[0]).slice(0, 2).join("")}
+          {job.logoAsset ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={job.logoAsset}
+              alt={`${job.company} logo`}
+              className="jobs-logo-tile jobs-logo-img"
+              width={46}
+              height={46}
+            />
+          ) : (
+            <span className={`jobs-logo-tile jobs-logo-tile-${visual.tone}`} aria-hidden="true">
+              <Icon name={visual.icon} size={22} />
             </span>
-          </div>
+          )}
           <div style={{ minWidth: 0 }}>
             <h3 style={{ margin: 0, fontSize: 17.5, fontFamily: "var(--font-display)", fontWeight: 600, letterSpacing: "-.01em", lineHeight: 1.15 }}>
               {job.title}
@@ -54,16 +57,12 @@ export function JobCard({ job }: { job: Job }) {
       <p style={{ margin: 0, fontSize: 14, lineHeight: 1.5, color: "var(--t-ink-mut)" }}>{job.summary}</p>
 
       <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+        <span className={"chip " + (visual.tone === "green" ? "jobs-chip-green" : "jobs-chip-blue")}>
+          <Icon name={visual.icon} size={13} /> {visual.label}
+        </span>
         <span className="chip"><Icon name="mapPin" size={13} /> {job.location}</span>
         <span className="chip"><Icon name="briefcase" size={13} /> {job.type}</span>
         <span className="chip"><Icon name="layers" size={13} /> {job.remote}</span>
-        {signals
-          .filter((s) => typeof s.score !== "number")
-          .map((s) => (
-            <span key={s.label} className={"chip " + (s.tone === "green" ? "jobs-chip-green" : "jobs-chip-blue")}>
-              <Icon name="sparkles" size={12} /> {s.label}
-            </span>
-          ))}
       </div>
 
       <hr className="hr" />

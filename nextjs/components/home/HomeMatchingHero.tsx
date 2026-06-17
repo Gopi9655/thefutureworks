@@ -85,17 +85,21 @@ export function HomeMatchingHero() {
 
         <div className="hc-card hc-cand hc-float">
           <div className="hc-card-head">
-            <span className="hc-avatar is-green">AO</span>
+            <span className="hc-badge is-green" aria-hidden="true">
+              <Icon name="users" size={16} stroke={2} />
+            </span>
             <span className="hc-card-label">Candidate</span>
             <span className="hc-card-badge is-green">96%</span>
           </div>
-          <div className="hc-card-name">Amara O.</div>
-          <div className="hc-card-meta">Warehouse Team Lead · Ready now</div>
+          <div className="hc-card-name">Warehouse Team Lead</div>
+          <div className="hc-card-meta">Ready now · CV-checked</div>
         </div>
 
         <div className="hc-card hc-empl hc-float-2">
           <div className="hc-card-head">
-            <span className="hc-avatar is-blue">CL</span>
+            <span className="hc-badge is-blue" aria-hidden="true">
+              <Icon name="building" size={16} stroke={2} />
+            </span>
             <span className="hc-card-label">Employer</span>
             <span className="hc-card-badge is-blue">5 roles</span>
           </div>
@@ -105,8 +109,10 @@ export function HomeMatchingHero() {
 
         <div className="hc-card hc-opp hc-float-3">
           <div className="hc-card-head">
-            <span className="hc-dot hc-dot-orange" />
-            <span className="hc-card-label">Opportunity</span>
+            <span className="hc-badge is-orange" aria-hidden="true">
+              <Icon name="sparkles" size={16} stroke={2} />
+            </span>
+            <span className="hc-card-label">Role</span>
             <span className="hc-card-badge is-green">New</span>
           </div>
           <div className="hc-card-name">Production Operative</div>

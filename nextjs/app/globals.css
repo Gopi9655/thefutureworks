@@ -1133,6 +1133,45 @@ body.no-anim .hero-beam { stroke-dasharray: none; opacity: .55; }
   background: var(--platform-blue-soft);
   color: #155891;
 }
+/* Category badge tile — replaces random company initials. */
+.jobs-logo-tile {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  flex: 0 0 auto;
+  border: 1px solid var(--platform-line);
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--platform-blue);
+}
+.jobs-logo-tile-green { background: var(--platform-green-soft); border-color: rgba(95, 168, 42, 0.26); color: #3D7A19; }
+.jobs-logo-tile-blue { background: var(--platform-blue-soft); border-color: rgba(30, 111, 184, 0.26); color: #155891; }
+.jobs-logo-tile-navy { background: rgba(10, 22, 48, 0.08); border-color: rgba(10, 22, 48, 0.16); color: var(--platform-navy); }
+/* Optional approved local logo asset (no remote/scraped logos). */
+.jobs-logo-img { object-fit: contain; background: #fff; padding: 6px; }
+/* Job detail hero badges — legible on the dark ink hero. */
+.jobs-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 11px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 800;
+  line-height: 1;
+  white-space: nowrap;
+}
+.jobs-hero-badge-cat {
+  background: rgba(30, 111, 184, 0.18);
+  border: 1px solid rgba(120, 178, 232, 0.45);
+  color: #BBD9F4;
+}
+.jobs-hero-badge-featured {
+  background: rgba(95, 168, 42, 0.18);
+  border: 1px solid rgba(150, 205, 110, 0.45);
+  color: #CBE7BA;
+}
 .jobs-empty {
   text-align: center;
   padding: clamp(40px, 7vw, 72px) 24px;

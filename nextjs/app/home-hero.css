@@ -116,6 +116,7 @@
 /* ---------- floating glass cards ---------- */
 .hc-card {
   position: absolute;
+  box-sizing: border-box;
   border-radius: 14px;
   border: 1px solid var(--platform-line);
   background: var(--platform-glass-strong);
@@ -128,32 +129,37 @@
   display: flex;
   align-items: center;
   gap: 9px;
+  min-width: 0;
 }
-.hc-dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  flex: 0 0 auto;
-}
-.hc-dot-orange { background: var(--g-orange); box-shadow: 0 0 0 4px rgba(240, 138, 36, 0.16); }
 .hc-card-label {
-  font-size: 10.5px;
+  /* allow the label to shrink/truncate so it never pushes the badge out */
+  min-width: 0;
+  flex: 1 1 auto;
+  font-size: 10px;
   font-weight: 800;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--platform-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .hc-card-name {
   margin-top: 9px;
   font-family: var(--font-display);
   font-size: 14px;
   font-weight: 700;
+  line-height: 1.2;
   color: var(--platform-text-strong);
+  /* long role/company names wrap inside the card instead of overflowing */
+  overflow-wrap: anywhere;
 }
 .hc-card-meta {
   margin-top: 3px;
   font-size: 11.5px;
+  line-height: 1.35;
   color: var(--platform-text-muted);
+  overflow-wrap: anywhere;
 }
 .hc-card-badge {
   margin-left: auto;
@@ -166,20 +172,21 @@
 .hc-card-badge.is-green { color: var(--g-green); }
 .hc-card-badge.is-blue { color: var(--g-blue); }
 
-.hc-avatar {
+/* role / category icon tile — replaces fake initial avatars */
+.hc-badge {
   display: grid;
   place-items: center;
   width: 30px;
   height: 30px;
   border-radius: 9px;
-  font-family: var(--font-display);
-  font-size: 12px;
-  font-weight: 800;
   color: #fff;
   flex: 0 0 auto;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28);
 }
-.hc-avatar.is-green { background: linear-gradient(150deg, var(--g-green), #4d8f1f); }
-.hc-avatar.is-blue { background: linear-gradient(150deg, var(--g-blue), #15568f); }
+.hc-badge svg { color: #fff; }
+.hc-badge.is-green { background: linear-gradient(150deg, var(--g-green), #4d8f1f); }
+.hc-badge.is-blue { background: linear-gradient(150deg, var(--g-blue), #15568f); }
+.hc-badge.is-orange { background: linear-gradient(150deg, var(--g-orange), #d4760f); }
 
 /* ---------- central match orb ---------- */
 .hc-core {

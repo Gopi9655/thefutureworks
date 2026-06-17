@@ -5,6 +5,7 @@ import { JobCard, Crumb } from "@/components/sections";
 import { JobAside } from "@/components/JobAside";
 import { ApplyForm } from "@/components/forms/ApplyForm";
 import { JOBS, getJob } from "@/data/jobs";
+import { getJobCategoryVisual } from "@/lib/platform/jobs";
 
 const RESPONSIBILITIES = [
   "Deliver consistently high standards aligned to the team's KPIs and quality benchmarks.",
@@ -26,6 +27,7 @@ export function JobDetailPage({ jobId }: { jobId: string }) {
   const job = getJob(jobId);
   if (!job) notFound();
   const similar = JOBS.filter((j) => j.sector === job.sector && j.id !== job.id).slice(0, 3);
+  const visual = getJobCategoryVisual(job);
 
   return (
     <>
@@ -33,11 +35,36 @@ export function JobDetailPage({ jobId }: { jobId: string }) {
         <div className="wrap" style={{ position: "relative", zIndex: 2 }}>
           <Crumb items={[{ label: "Home", to: "/" }, { label: "Vacancies", to: "/vacancies" }, { label: job.title }]} />
           <div style={{ display: "flex", gap: 18, alignItems: "flex-start", marginTop: 18, flexWrap: "wrap" }}>
-            <div style={{ width: 64, height: 64, borderRadius: 16, flex: "0 0 auto", background: "linear-gradient(135deg, var(--red-500), var(--g-orange))", display: "grid", placeItems: "center" }}>
-              <span style={{ fontFamily: "var(--font-display)", fontWeight: 600, color: "#fff", fontSize: 24 }}>{job.company.split(" ").map((w) => w[0]).slice(0, 2).join("")}</span>
-            </div>
+            {job.logoAsset ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={job.logoAsset}
+                alt={`${job.company} logo`}
+                className="jobs-logo-tile jobs-logo-img"
+                style={{ width: 64, height: 64, borderRadius: 16 }}
+                width={64}
+                height={64}
+              />
+            ) : (
+              <span
+                className={`jobs-logo-tile jobs-logo-tile-${visual.tone}`}
+                style={{ width: 64, height: 64, borderRadius: 16, flex: "0 0 auto" }}
+                aria-hidden="true"
+              >
+                <Icon name={visual.icon} size={30} />
+              </span>
+            )}
             <div className="on-dark" style={{ flex: 1, minWidth: 260 }}>
-              {job.featured && <span className="chip chip-red" style={{ marginBottom: 10 }}><Icon name="star" size={12} /> Featured role</span>}
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 10 }}>
+                <span className="jobs-hero-badge jobs-hero-badge-cat">
+                  <Icon name={visual.icon} size={13} /> {visual.category}
+                </span>
+                {job.featured && (
+                  <span className="jobs-hero-badge jobs-hero-badge-featured">
+                    <Icon name="star" size={12} /> Featured role
+                  </span>
+                )}
+              </div>
               <h1 className="h1" style={{ color: "#fff", margin: "8px 0 0", fontSize: "clamp(30px,4vw,46px)" }}>{job.title}</h1>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 16, marginTop: 14, color: "var(--t-on-dark-mut)", fontSize: 15 }}>
                 <span style={{ display: "inline-flex", gap: 7, alignItems: "center" }}><Icon name="building" size={16} /> {job.company}</span>

@@ -59,6 +59,36 @@ and `lib/types.ts` (`Job`). No new data files. New helpers in
 The server component (`app/vacancies/page.tsx`) computes `jobs` and `options`
 once and passes them to the client `JobsMarketplace`, which owns filter state.
 
+## Visual identity / company badges
+
+Earlier the cards and the job-detail hero showed company **initials** in a tile
+(e.g. "t", "A", "SI", "TB", "E"). These read as fake/random logos and cheapened
+the premium feel, so they were removed. The badge strategy is now:
+
+1. **Approved local logo asset** — if `Job.logoAsset` is set (an optional path
+   to a local file under `/public`, e.g. `/logos/acme.svg`), the tile renders
+   that image. This is future-ready type support only and is **unpopulated**.
+2. **Premium category badge (default)** — otherwise a stable category tile is
+   shown, driven by `getJobCategoryVisual(job)`: a category icon in a tonal
+   green/blue/navy tile, plus a readable category chip on the card and a
+   category pill on the detail hero.
+3. **Never** show random company initials as the visible fallback.
+
+Categories (title keywords take precedence over sector): Recruitment & hiring,
+HR & people, Customer service, Finance & accounts, Sales & growth, Logistics &
+transport, Technical & IT, Health & safety, Admin & office, and a General
+opportunity fallback.
+
+**No external logo fetching, no scraping, no remote image/logo APIs.** Only
+approved local assets may ever be used, and the default remains the category
+badge. On the job-detail hero the old red "Featured role" chip was also
+re-styled to the green/blue platform language (green featured badge, blue
+category pill) so nothing clashes with the theme.
+
+Files involved in the badge refinement: `lib/types.ts` (optional `logoAsset`),
+`lib/platform/jobs.ts` (`getJobCategoryVisual`, `JobCategoryVisual`),
+`components/jobs/JobCard.tsx`, `components/JobDetailPage.tsx`, `app/globals.css`.
+
 ## Limitations / stubs
 
 - Match signals are **illustrative only** — a deterministic value derived from
