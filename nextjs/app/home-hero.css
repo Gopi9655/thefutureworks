@@ -13,7 +13,8 @@
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.04fr);
   gap: clamp(24px, 4vw, 52px);
   align-items: center;
-  padding-block: clamp(18px, 3vw, 30px);
+  /* a touch more breathing room under the navbar on the first viewport */
+  padding-block: clamp(20px, 3vw, 34px);
 }
 .hc-copy { min-width: 0; }
 
@@ -159,6 +160,8 @@
   font-family: var(--font-display);
   font-size: 12px;
   font-weight: 800;
+  /* keep short status badges (e.g. "5 roles") on one line */
+  white-space: nowrap;
 }
 .hc-card-badge.is-green { color: var(--g-green); }
 .hc-card-badge.is-blue { color: var(--g-blue); }
@@ -277,11 +280,12 @@
   .hc-stage { order: 2; }
 }
 @media (max-width: 600px) {
-  .hc-stage { min-height: 380px; }
+  /* a little extra height de-crowds the orb and cards when stacked */
+  .hc-stage { min-height: 408px; }
   /* keep floating cards readable: pin to a calmer layout */
-  .hc-cand { left: 3%; width: 44%; }
-  .hc-empl { right: 3%; width: 44%; }
-  .hc-opp { left: 28%; width: 48%; }
+  .hc-cand { top: 5%; left: 3%; width: 44%; }
+  .hc-empl { top: 6%; right: 3%; width: 44%; }
+  .hc-opp { bottom: 5%; left: 28%; width: 48%; }
   .hc-actions .btn { flex: 1 1 auto; justify-content: center; }
 }
 @media (max-width: 440px) {
