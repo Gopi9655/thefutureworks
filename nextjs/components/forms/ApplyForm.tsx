@@ -74,9 +74,13 @@ export function ApplyForm({ job }: { job: Job }) {
                 value={form.note} onChange={set("note", "apply-note")} error={errors["apply-note"]}
                 placeholder="Tell us why you're a great fit…" />
             </div>
+            <div className="form-alert" style={{ margin: "20px 0 0", background: "rgba(30,111,184,.07)", borderColor: "rgba(30,111,184,.22)", color: "var(--g-blue)" }}>
+              <Icon name="shield" size={16} stroke={2} style={{ marginTop: 1 }} />
+              <span>Concept demo: submission is simulated and only the CV filename is sent — no file is uploaded or stored. A real application pipeline would be connected before production.</span>
+            </div>
             <SubmitButton status={status} idle="Submit application" submitting="Submitting…" icon="arrowRight" style={{ marginTop: 22, width: "100%" }} />
             <p style={{ fontSize: 12.5, color: "var(--t-ink-dim)", marginTop: 14, textAlign: "center" }}>
-              By applying you agree to our privacy policy. Your details are only shared with this employer.
+              A consultant reviews every application — typically within one working day in this concept.
             </p>
           </form>
         </>

@@ -4,8 +4,14 @@ import { Orb, Reveal } from "@/components/primitives";
 import { JobCard, Crumb } from "@/components/sections";
 import { JobAside } from "@/components/JobAside";
 import { ApplyForm } from "@/components/forms/ApplyForm";
-import { JOBS, getJob } from "@/data/jobs";
-import { getJobCategoryVisual } from "@/lib/platform/jobs";
+import { getJob } from "@/data/jobs";
+import {
+  getJobCategoryVisual,
+  getJobMatchSignals,
+  getJobFitReasons,
+  getCandidateReadiness,
+  getRelatedJobs,
+} from "@/lib/platform/jobs";
 
 const RESPONSIBILITIES = [
   "Deliver consistently high standards aligned to the team's KPIs and quality benchmarks.",
@@ -26,8 +32,11 @@ const BENEFITS = ["Competitive salary", "Pension scheme", "Ongoing training", "C
 export function JobDetailPage({ jobId }: { jobId: string }) {
   const job = getJob(jobId);
   if (!job) notFound();
-  const similar = JOBS.filter((j) => j.sector === job.sector && j.id !== job.id).slice(0, 3);
+  const related = getRelatedJobs(job.id, 3);
   const visual = getJobCategoryVisual(job);
+  const matchScore = getJobMatchSignals(job).find((s) => typeof s.score === "number")?.score;
+  const fitReasons = getJobFitReasons(job);
+  const readiness = getCandidateReadiness(job);
 
   return (
     <>
@@ -85,19 +94,57 @@ export function JobDetailPage({ jobId }: { jobId: string }) {
               <p className="lead" style={{ fontSize: 17, marginTop: 12 }}>{job.summary} This is a fantastic opportunity to join {job.company}, a valued partner of thefutureworks, in a role that genuinely matters to the business and the region.</p>
             </Reveal>
 
+            <Reveal className="jd-fit" style={{ marginTop: 34 }}>
+              <div className="jd-fit-head">
+                {typeof matchScore === "number" && (
+                  <div className="jd-fit-score" aria-hidden="true">
+                    <span className="jd-fit-score-num">{matchScore}%</span>
+                    <span className="jd-fit-score-cap">concept fit</span>
+                  </div>
+                )}
+                <div style={{ minWidth: 0 }}>
+                  <h3 className="h3" style={{ margin: 0 }}>Why this role fits</h3>
+                  <p className="t-mut" style={{ margin: "6px 0 0", fontSize: 14.5, lineHeight: 1.5 }}>
+                    A synthetic, explainable concept signal — not a live match, and not based on any candidate data.
+                  </p>
+                </div>
+              </div>
+              <div className="jd-fit-reasons">
+                {fitReasons.map((r) => (
+                  <div key={r.text} className="jd-reason">
+                    <span className="jd-reason-ic" aria-hidden="true"><Icon name={r.icon} size={16} stroke={2} /></span>
+                    <span>{r.text}</span>
+                  </div>
+                ))}
+              </div>
+            </Reveal>
+
             {([["Key responsibilities", RESPONSIBILITIES, "checkCircle"], ["What we're looking for", REQUIREMENTS, "check"]] as [string, string[], string][]).map(([t, list, ic]) => (
               <Reveal key={t} style={{ marginTop: 34 }}>
                 <h3 className="h3">{t}</h3>
                 <div style={{ display: "flex", flexDirection: "column", gap: 12, marginTop: 16 }}>
                   {list.map((r, i) => (
                     <div key={i} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
-                      <Icon name={ic} size={20} stroke={2} style={{ color: "var(--red-500)", flex: "0 0 auto", marginTop: 1 }} />
+                      <Icon name={ic} size={20} stroke={2} style={{ color: "var(--g-green)", flex: "0 0 auto", marginTop: 1 }} />
                       <span style={{ fontSize: 15.5, lineHeight: 1.5, color: "var(--t-ink-mut)" }}>{r}</span>
                     </div>
                   ))}
                 </div>
               </Reveal>
             ))}
+
+            <Reveal className="jd-panel" style={{ marginTop: 34 }}>
+              <h3 className="h3" style={{ marginTop: 0 }}>Candidate readiness checklist</h3>
+              <p className="t-mut" style={{ margin: "8px 0 0", fontSize: 14.5 }}>Have these ready before you apply so a consultant can move quickly on your behalf.</p>
+              <ul className="jd-check">
+                {readiness.map((r) => (
+                  <li key={r.text} className="jd-check-item">
+                    <span className="jd-check-mark" aria-hidden="true"><Icon name="check" size={14} stroke={2.6} /></span>
+                    <span>{r.text}</span>
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
 
             <Reveal style={{ marginTop: 34 }}>
               <h3 className="h3">Benefits</h3>
@@ -106,11 +153,16 @@ export function JobDetailPage({ jobId }: { jobId: string }) {
               </div>
             </Reveal>
 
-            <Reveal className="card" style={{ marginTop: 34, padding: 24, display: "flex", gap: 16, alignItems: "center", background: "var(--paper-2)" }}>
+            <Reveal className="jd-consult" style={{ marginTop: 34 }}>
               <Orb size={48} />
-              <div>
-                <div style={{ fontWeight: 700 }}>Placed and supported by thefutureworks</div>
-                <div className="t-mut" style={{ fontSize: 14, marginTop: 3 }}>A Coventry University Group company. REC &amp; BIOR accredited.</div>
+              <div style={{ minWidth: 0 }}>
+                <h3 className="h3" style={{ margin: 0, fontSize: 19 }}>Human-checked before any introduction</h3>
+                <p className="t-mut" style={{ margin: "8px 0 0", fontSize: 14.5, lineHeight: 1.55 }}>
+                  In this concept, a thefutureworks consultant reviews every application, sense-checks the match and only introduces candidates an employer is likely to progress — no automated decisions.
+                </p>
+                <div className="jd-consult-meta">
+                  <Icon name="shield" size={14} /> A Coventry University Group company concept · REC &amp; BIOR accredited model
+                </div>
               </div>
             </Reveal>
 
@@ -121,12 +173,12 @@ export function JobDetailPage({ jobId }: { jobId: string }) {
         </div>
       </section>
 
-      {similar.length > 0 && (
+      {related.length > 0 && (
         <section className="bg-paper-2 section">
           <div className="wrap">
-            <h2 className="h2" style={{ marginBottom: 28 }}>Similar roles</h2>
+            <h2 className="h2" style={{ marginBottom: 28 }}>Related roles</h2>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }} className="cards-3">
-              {similar.map((j, i) => <Reveal key={j.id} d={(i % 3) + 1}><JobCard job={j} /></Reveal>)}
+              {related.map((j, i) => <Reveal key={j.id} d={(i % 3) + 1}><JobCard job={j} /></Reveal>)}
             </div>
           </div>
         </section>

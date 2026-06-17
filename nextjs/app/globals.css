@@ -1196,3 +1196,207 @@ body.no-anim .hero-beam { stroke-dasharray: none; opacity: .55; }
   .jobs-filters-foot { flex-direction: column; align-items: stretch; }
   .jobs-filters-foot .btn { width: 100%; justify-content: center; }
 }
+
+/* ============================================================
+   Phase 4B — job detail concept panels
+   Premium, on-brand (green = opportunity, blue = trust).
+   ============================================================ */
+.jd-panel {
+  border: 1px solid var(--paper-line);
+  border-radius: 16px;
+  background: var(--paper-2);
+  padding: clamp(20px, 3vw, 28px);
+}
+
+/* Why this role fits — green opportunity accent */
+.jd-fit {
+  border: 1px solid rgba(95, 168, 42, 0.26);
+  border-radius: 16px;
+  background:
+    radial-gradient(120% 130% at 0% 0%, rgba(95, 168, 42, 0.10), transparent 58%),
+    var(--paper-2);
+  padding: clamp(20px, 3vw, 28px);
+}
+.jd-fit-head {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+.jd-fit-score {
+  display: grid;
+  place-content: center;
+  text-align: center;
+  width: 84px;
+  height: 84px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  border: 1px solid rgba(95, 168, 42, 0.3);
+  background:
+    radial-gradient(circle at 38% 30%, rgba(255, 255, 255, 0.9), rgba(233, 245, 225, 0.7) 60%),
+    conic-gradient(from 210deg, rgba(95, 168, 42, 0.22), rgba(30, 111, 184, 0.18), rgba(95, 168, 42, 0.22));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+.jd-fit-score-num {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1;
+  color: transparent;
+  background: linear-gradient(120deg, var(--g-green), var(--g-blue));
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.jd-fit-score-cap {
+  display: block;
+  margin-top: 3px;
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--platform-text-muted);
+}
+.jd-fit-reasons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 18px;
+  margin-top: 20px;
+}
+.jd-reason {
+  display: flex;
+  gap: 11px;
+  align-items: flex-start;
+  font-size: 14.5px;
+  line-height: 1.45;
+  color: var(--t-ink-mut);
+}
+.jd-reason-ic {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  flex: 0 0 auto;
+  border-radius: 9px;
+  background: var(--platform-green-soft);
+  color: #3D7A19;
+}
+
+/* Candidate readiness checklist */
+.jd-check {
+  list-style: none;
+  margin: 18px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+.jd-check-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--t-ink-mut);
+}
+.jd-check-mark {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 auto;
+  margin-top: 1px;
+  border-radius: 50%;
+  background: var(--platform-green-soft);
+  color: #3D7A19;
+}
+
+/* Consultant / human-review note — blue trust accent */
+.jd-consult {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  border: 1px solid rgba(30, 111, 184, 0.24);
+  border-radius: 16px;
+  background:
+    radial-gradient(120% 130% at 100% 0%, rgba(30, 111, 184, 0.10), transparent 58%),
+    var(--paper-2);
+  padding: clamp(20px, 3vw, 28px);
+}
+.jd-consult-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 14px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--g-blue);
+}
+
+@media (max-width: 560px) {
+  .jd-fit-reasons { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   Phase 4B — /apply two-column layout
+   ============================================================ */
+.apply-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 340px) minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 44px);
+  align-items: start;
+}
+.apply-rail { position: sticky; top: 92px; }
+.apply-steps { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 18px; }
+.apply-step { display: flex; gap: 13px; align-items: flex-start; }
+.apply-step-ic {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 auto;
+  border-radius: 11px;
+  background: var(--platform-green-soft);
+  color: #3D7A19;
+  border: 1px solid rgba(95, 168, 42, 0.26);
+}
+.apply-step-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 15.5px;
+  color: var(--t-ink);
+}
+.apply-step-num {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--g-green);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+}
+.apply-reassure {
+  margin-top: 24px;
+  padding: 18px;
+  border-radius: 14px;
+  border: 1px solid rgba(30, 111, 184, 0.2);
+  background: rgba(30, 111, 184, 0.05);
+  display: grid;
+  gap: 11px;
+}
+.apply-reassure-row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: var(--t-ink-mut);
+}
+@media (max-width: 880px) {
+  .apply-grid { grid-template-columns: 1fr; }
+  .apply-rail { position: static; }
+}

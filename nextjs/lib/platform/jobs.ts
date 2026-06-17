@@ -209,3 +209,48 @@ export function getJobMatchSignals(job: Job): JobMatchSignal[] {
 
   return signals;
 }
+
+export interface JobFitReason {
+  icon: string;
+  text: string;
+}
+
+/**
+ * Synthetic "why this role fits" reasons, derived deterministically from the
+ * job's own fields. Illustrative concept copy only — NOT a live match and NOT
+ * based on any candidate data.
+ */
+export function getJobFitReasons(job: Job): JobFitReason[] {
+  const visual = getJobCategoryVisual(job);
+  const pattern =
+    job.remote === "Hybrid"
+      ? "a hybrid pattern that balances on-site and home working"
+      : job.remote === "Remote"
+        ? "a remote-friendly setup"
+        : "an on-site team rooted in the local area";
+  return [
+    { icon: visual.icon, text: `Sits on the ${visual.category.toLowerCase()} career track.` },
+    { icon: "mapPin", text: `Based in ${job.location}, within thefutureworks' regional candidate network.` },
+    { icon: "layers", text: `Offers ${pattern}.` },
+    { icon: "briefcase", text: `${job.type} contract with structured, supported onboarding.` },
+  ];
+}
+
+export interface ReadinessItem {
+  icon: string;
+  text: string;
+}
+
+/**
+ * A concept "candidate readiness" checklist for a role. Generic, supportive
+ * guidance derived from the job's contract type — no candidate data is read,
+ * stored or required.
+ */
+export function getCandidateReadiness(job: Job): ReadinessItem[] {
+  return [
+    { icon: "doc", text: "An up-to-date CV (PDF or Word) ready to upload." },
+    { icon: "shield", text: "Right to work in the UK and recent references to hand." },
+    { icon: "calendar", text: `Availability that suits a ${job.type.toLowerCase()} contract.` },
+    { icon: "quote", text: "A short note on why this role is a fit for you." },
+  ];
+}
