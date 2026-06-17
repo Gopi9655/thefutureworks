@@ -50,3 +50,31 @@ following phase commit (the final entry is appended after the last commit).
   "What happens next" rail and concept disclaimer present; `/employers` still 200.
 - **Unresolved issues:** none.
 - **Routes to inspect:** `/request-staff`, `/employers`.
+
+---
+
+## Phase 6A — Dashboard / admin concept polish
+
+- **Timestamp:** 2026-06-17 12:25 +0100
+- **Commit:** `7ecd93b` — "Add Phase 6A dashboard concept polish"
+- **Files changed:**
+  - `app/dashboard/page.tsx` — added "Review flags" section and "Consultant
+    action list"; refreshed CTA / aside copy.
+  - `app/dashboard/candidates/page.tsx`, `app/dashboard/employers/page.tsx` —
+    refreshed stale Phase 2/3 metadata and CTA copy.
+  - `lib/platform/types.ts` — `ReviewFlag`, `ConsultantAction` (+ status types).
+  - `data/platform/index.ts` — synthetic `reviewFlags`, `consultantActions`.
+  - `app/globals.css` — `.dash-action*` list styles.
+  - `docs/phase-6a-dashboard-concept.md` — new phase doc.
+  - `docs/batched-local-build-log.md` — Phase 5A entry.
+- **Verification:** `npm run typecheck` ✅ · `npm run build` ✅ · `git diff --check` ✅ clean
+- **Route smoke:** ✅ PASSED (all 200s; `/jobs/unknown-job-slug` → 404)
+- **HTML inspection:** review-flags section, consultant action list (4 rows),
+  severity/status pills present; stale "Phase 2 stops" copy removed; all three
+  dashboard routes 200.
+- **Unresolved issues:** none.
+- **Routes to inspect:** `/dashboard`, `/dashboard/candidates`, `/dashboard/employers`.
+
+---
+
+_End of batched local build (Phases 4B → 5A → 6A). No push, no deploy._
