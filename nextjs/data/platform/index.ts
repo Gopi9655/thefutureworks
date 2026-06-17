@@ -1,9 +1,11 @@
 import type {
   CandidateProfile,
+  ConsultantAction,
   DashboardMetric,
   EmployerRequest,
   JobRecord,
   MatchSignal,
+  ReviewFlag,
 } from "@/lib/platform/types";
 
 export const candidateProfiles: CandidateProfile[] = [
@@ -240,5 +242,75 @@ export const dashboardMetrics: DashboardMetric[] = [
     change: "manual review",
     tone: "neutral",
     description: "Non-production placeholder for future quality checks and consultant review.",
+  },
+];
+
+// Synthetic consultant "quality review" flags — illustrative only. No real
+// candidate data, no automated decisions, nothing is enforced.
+export const reviewFlags: ReviewFlag[] = [
+  {
+    id: "flag-compliance",
+    title: "Right-to-work check outstanding",
+    severity: "action",
+    entity: "Candidate Gamma",
+    detail: "Concept compliance step a consultant would clear before any introduction.",
+  },
+  {
+    id: "flag-salary",
+    title: "Salary band below sector guide",
+    severity: "watch",
+    entity: "IT support analyst brief",
+    detail: "Synthetic check flags a day rate that trails the concept market range.",
+  },
+  {
+    id: "flag-duplicate",
+    title: "Possible duplicate employer brief",
+    severity: "watch",
+    entity: "Employer Concept West",
+    detail: "Two finance briefs share a target window in the sample data.",
+  },
+  {
+    id: "flag-ready",
+    title: "Profile ready to shortlist",
+    severity: "info",
+    entity: "Candidate Alpha",
+    detail: "High concept fit with availability inside a two-week window.",
+  },
+];
+
+// Synthetic consultant action list — a concept "to-do" for the human review
+// layer. Owners are initials only; nothing here is scheduled or executed.
+export const consultantActions: ConsultantAction[] = [
+  {
+    id: "action-callback",
+    task: "Call employer to confirm staffing brief",
+    owner: "R. Singh",
+    due: "Today",
+    status: "todo",
+    relatedTo: "Employer Concept North",
+  },
+  {
+    id: "action-shortlist",
+    task: "Build a shortlist of three candidates",
+    owner: "M. Doyle",
+    due: "Tomorrow",
+    status: "in-progress",
+    relatedTo: "Office administrator brief",
+  },
+  {
+    id: "action-rtw",
+    task: "Complete right-to-work review",
+    owner: "R. Singh",
+    due: "This week",
+    status: "todo",
+    relatedTo: "Candidate Gamma",
+  },
+  {
+    id: "action-interview",
+    task: "Coordinate interview slots",
+    owner: "A. Patel",
+    due: "Thursday",
+    status: "scheduled",
+    relatedTo: "Employer Concept West",
   },
 ];

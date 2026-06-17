@@ -13,7 +13,7 @@ import { candidateProfiles, matchSignals, platformJobs } from "@/data/platform";
 
 export const metadata: Metadata = {
   title: "Candidate dashboard concept",
-  description: "Phase 2 premium candidate dashboard shell using synthetic candidate profile records.",
+  description: "A premium candidate dashboard concept using synthetic candidate profile records only.",
 };
 
 const availabilitySummary = [
@@ -141,8 +141,8 @@ export default function CandidateDashboardPage() {
       <PlatformSection tight>
         <PlatformCTA
           eyebrow="Candidate concept"
-          title="Candidate dashboard shell is ready for interaction design"
-          description="Phase 3 can add filters, shortlist state, richer candidate cards and visual QA while keeping real candidate data out of the prototype."
+          title="A candidate view built around readiness"
+          description="A concept dashboard for filters, shortlist state and richer candidate cards — kept entirely synthetic, with no real candidate data in the prototype."
           actions={[
             { label: "Open employer dashboard", href: "/dashboard/employers", icon: "arrowRight" },
             { label: "Browse v1 vacancies", href: "/vacancies", icon: "arrowUpRight" },

@@ -10,12 +10,13 @@ import {
   PlatformSection,
   PlatformShell,
 } from "@/components/platform";
-import { candidateProfiles, dashboardMetrics, employerRequests, matchSignals, platformJobs } from "@/data/platform";
+import { candidateProfiles, consultantActions, dashboardMetrics, employerRequests, matchSignals, platformJobs, reviewFlags } from "@/data/platform";
 import { platformRoutes } from "@/lib/platform";
+import type { ConsultantActionStatus, ReviewFlagSeverity } from "@/lib/platform/types";
 
 export const metadata: Metadata = {
   title: "Platform dashboard concept",
-  description: "Phase 2 premium platform shell for the Advanced Platform v2 dashboard concept.",
+  description: "A premium concept dashboard for the Advanced Platform v2 recruitment-intelligence shell. Synthetic data only.",
 };
 
 const pipelineSummary = [
@@ -23,6 +24,18 @@ const pipelineSummary = [
   { label: "High-fit profiles", value: candidateProfiles.filter((candidate) => candidate.matchScore >= 85).length, tone: "blue" as const },
   { label: "Modelled signals", value: matchSignals.length, tone: "warm" as const },
 ];
+
+const flagMeta: Record<ReviewFlagSeverity, { tone: "warm" | "blue" | "green"; icon: string; label: string }> = {
+  action: { tone: "warm", icon: "shield", label: "Needs action" },
+  watch: { tone: "blue", icon: "target", label: "Watch" },
+  info: { tone: "green", icon: "checkCircle", label: "Ready" },
+};
+
+const actionMeta: Record<ConsultantActionStatus, { tone: "navy" | "blue" | "green"; label: string }> = {
+  "todo": { tone: "navy", label: "To do" },
+  "in-progress": { tone: "blue", label: "In progress" },
+  "scheduled": { tone: "green", label: "Scheduled" },
+};
 
 export default function DashboardPage() {
   return (
@@ -42,7 +55,7 @@ export default function DashboardPage() {
             <PlatformPill tone="blue" icon="shield">Prototype boundary</PlatformPill>
             <h2 className="platform-card-title" style={{ fontSize: 24, marginTop: 18 }}>No live systems connected</h2>
             <p className="platform-muted" style={{ lineHeight: 1.6, margin: "12px 0 18px" }}>
-              This shell demonstrates the information architecture for Phase 2. It does not read from a database, CMS, upload service or authentication layer.
+              This shell demonstrates the platform information architecture. It does not read from a database, CMS, upload service or authentication layer.
             </p>
             <PlatformFieldList
               items={[
@@ -151,12 +164,65 @@ export default function DashboardPage() {
         </div>
       </PlatformSection>
 
+      <PlatformSection
+        id="review-flags"
+        eyebrow={<><Icon name="shield" size={14} /> Quality review</>}
+        title="Review flags for the human layer"
+        description="Synthetic checks a consultant would clear before any introduction. Concept only — no automated decisions are made and nothing is enforced."
+      >
+        <div className="platform-grid-2">
+          {reviewFlags.map((flag) => {
+            const meta = flagMeta[flag.severity];
+            return (
+              <PlatformCard
+                key={flag.id}
+                title={flag.title}
+                icon={meta.icon}
+                tone={meta.tone}
+                eyebrow={<PlatformPill tone={meta.tone}>{meta.label}</PlatformPill>}
+                footer={<PlatformPill tone="navy" icon="briefcase">{flag.entity}</PlatformPill>}
+              >
+                <p className="platform-muted" style={{ margin: 0, lineHeight: 1.55 }}>{flag.detail}</p>
+              </PlatformCard>
+            );
+          })}
+        </div>
+      </PlatformSection>
+
+      <PlatformSection
+        id="consultant-actions"
+        eyebrow={<><Icon name="checkCircle" size={14} /> Consultant actions</>}
+        title="Consultant action list"
+        description="A concept to-do for the human review layer. Owners are synthetic initials; nothing here is scheduled, sent or executed."
+      >
+        <div className="card dash-actions" style={{ padding: "clamp(14px,2.4vw,22px)" }}>
+          <ul className="dash-action-list">
+            {consultantActions.map((action) => {
+              const meta = actionMeta[action.status];
+              return (
+                <li key={action.id} className="dash-action">
+                  <span className={`dash-action-dot dash-action-dot-${action.status}`} aria-hidden="true" />
+                  <div className="dash-action-main">
+                    <span className="dash-action-task">{action.task}</span>
+                    <span className="dash-action-meta">{action.relatedTo} · {action.owner}</span>
+                  </div>
+                  <div className="dash-action-side">
+                    <span className="dash-action-due"><Icon name="clock" size={13} /> {action.due}</span>
+                    <PlatformPill tone={meta.tone}>{meta.label}</PlatformPill>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </PlatformSection>
+
       <PlatformSection tight>
         <PlatformCTA
-          title="Phase 2 stops at the shell"
-          description="The next phase can explore the final homepage concept, richer interaction states and visual QA without adding production backend claims."
+          title="A platform shaped around human review"
+          description="This concept dashboard pairs synthetic match signals with review flags and a consultant action list — illustrative only, with no production backend, admin or auth."
           actions={[
-            { label: "View request scaffold", href: "/request-staff", icon: "arrowRight" },
+            { label: "Open request-staff concept", href: "/request-staff", icon: "arrowRight" },
             { label: "Read v2 roadmap", href: "/about", icon: "arrowUpRight" },
           ]}
         />

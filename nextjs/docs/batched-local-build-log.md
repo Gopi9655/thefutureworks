@@ -27,3 +27,26 @@ following phase commit (the final entry is appended after the last commit).
 - **Unresolved issues:** none.
 - **Routes to inspect:** `/jobs/senior-recruitment-consultant`,
   `/vacancies/senior-recruitment-consultant`, `/apply`.
+
+---
+
+## Phase 5A — Employer request-staff flow
+
+- **Timestamp:** 2026-06-17 12:21 +0100
+- **Commit:** `16f25b1` — "Add Phase 5A employer request staff flow"
+- **Files changed:**
+  - `components/forms/EmployerRequestForm.tsx` — new premium, stubbed employer
+    staffing-brief form (organisation, role requirements, timeline/urgency,
+    contract) with a concept confirmation state (reference + recap + consultant
+    follow-up). Simulated submit only — no fetch/API/storage/email.
+  - `app/request-staff/page.tsx` — form as centrepiece + "What happens next"
+    rail; refreshed stale phase labels/CTA copy.
+  - `app/globals.css` — `.emp-*` layout, rail, steps, confirmation, recap.
+  - `docs/phase-5a-employer-request-staff.md` — new phase doc.
+  - `docs/batched-local-build-log.md` — Phase 4B entry.
+- **Verification:** `npm run typecheck` ✅ · `npm run build` ✅ · `git diff --check` ✅ clean
+- **Route smoke:** ✅ PASSED (all 200s; `/jobs/unknown-job-slug` → 404)
+- **HTML inspection:** form fields (`req-company`), three `<fieldset>` legends,
+  "What happens next" rail and concept disclaimer present; `/employers` still 200.
+- **Unresolved issues:** none.
+- **Routes to inspect:** `/request-staff`, `/employers`.

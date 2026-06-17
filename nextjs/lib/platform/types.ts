@@ -65,3 +65,26 @@ export interface DashboardMetric {
   tone: DashboardMetricTone;
   description: string;
 }
+
+export type ReviewFlagSeverity = "info" | "watch" | "action";
+
+export interface ReviewFlag {
+  id: string;
+  title: string;
+  severity: ReviewFlagSeverity;
+  /** The synthetic record this concept flag relates to. */
+  entity: string;
+  detail: string;
+}
+
+export type ConsultantActionStatus = "todo" | "in-progress" | "scheduled";
+
+export interface ConsultantAction {
+  id: string;
+  task: string;
+  /** Synthetic consultant owner (initials only). */
+  owner: string;
+  due: string;
+  status: ConsultantActionStatus;
+  relatedTo: string;
+}

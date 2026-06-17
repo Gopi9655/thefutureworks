@@ -13,7 +13,7 @@ import { employerRequests, matchSignals, platformJobs } from "@/data/platform";
 
 export const metadata: Metadata = {
   title: "Employer dashboard concept",
-  description: "Phase 2 premium employer dashboard shell using synthetic employer request and job records.",
+  description: "A premium employer dashboard concept using synthetic employer request and job records only.",
 };
 
 const requestStatusSummary = ["intake", "shortlisting", "interviewing"].map((status) => ({
@@ -136,8 +136,8 @@ export default function EmployerDashboardPage() {
       <PlatformSection tight>
         <PlatformCTA
           eyebrow="Employer concept"
-          title="Employer shell is prepared for Phase 3 workflow design"
-          description="Next work can prototype request states, shortlist review and consultant handoff without adding production backend behavior."
+          title="Employer demand, ready for the human layer"
+          description="A concept view for request states, shortlist review and consultant handoff — illustrative only, with no production backend, CRM or admin behaviour."
           actions={[
             { label: "Open candidate dashboard", href: "/dashboard/candidates", icon: "arrowRight" },
             { label: "Request staff concept", href: "/request-staff", icon: "arrowUpRight" },

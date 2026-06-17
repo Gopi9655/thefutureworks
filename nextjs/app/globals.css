@@ -1510,3 +1510,43 @@ body.no-anim .hero-beam { stroke-dasharray: none; opacity: .55; }
   .emp-layout { grid-template-columns: 1fr; }
   .emp-rail { position: static; }
 }
+
+/* ============================================================
+   Phase 6A — dashboard consultant action list
+   ============================================================ */
+.dash-action-list { list-style: none; margin: 0; padding: 0; display: grid; }
+.dash-action {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 8px;
+  border-bottom: 1px solid var(--paper-line);
+}
+.dash-action:last-child { border-bottom: 0; }
+.dash-action-dot {
+  width: 10px;
+  height: 10px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--t-ink-dim);
+}
+.dash-action-dot-todo { background: var(--platform-navy); }
+.dash-action-dot-in-progress { background: var(--g-blue); box-shadow: 0 0 0 4px rgba(30, 111, 184, 0.14); }
+.dash-action-dot-scheduled { background: var(--g-green); box-shadow: 0 0 0 4px rgba(95, 168, 42, 0.14); }
+.dash-action-main { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.dash-action-task { font-weight: 650; color: var(--ink-900); font-size: 15px; }
+.dash-action-meta { font-size: 13px; color: var(--t-ink-mut); }
+.dash-action-side { display: flex; align-items: center; gap: 12px; flex: 0 0 auto; }
+.dash-action-due {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--t-ink-mut);
+  white-space: nowrap;
+}
+@media (max-width: 560px) {
+  .dash-action { flex-wrap: wrap; }
+  .dash-action-side { width: 100%; padding-left: 24px; justify-content: flex-start; }
+}
