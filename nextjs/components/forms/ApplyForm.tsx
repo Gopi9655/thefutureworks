@@ -46,7 +46,7 @@ export function ApplyForm({ job }: { job: Job }) {
       ) : (
         <>
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <span style={{ display: "grid", placeItems: "center", width: 44, height: 44, borderRadius: 12, flex: "0 0 auto", background: "rgba(95,168,42,.10)" }}>
+            <span className="premium-tile premium-tile-green" style={{ width: 46, height: 46 }}>
               <Icon name="send" size={20} style={{ color: "var(--g-green)" }} />
             </span>
             <div>

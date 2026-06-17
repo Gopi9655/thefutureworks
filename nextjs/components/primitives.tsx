@@ -1,6 +1,7 @@
 "use client";
 
 import { useLayoutEffect, useEffect, useRef, useState, type CSSProperties, type ReactNode, type ElementType } from "react";
+import { BrandOrb } from "./platform/BrandOrb";
 
 const useIso = typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
@@ -9,32 +10,18 @@ function prefersReduced(): boolean {
 }
 
 // ============================================================
-// ORB — recurring globe brand motif
+// ORB — recurring brand motif.
+// Phase 6B: delegates to the premium dimensional BrandOrb so every
+// legacy usage (logo, trust strip, decorative marks) upgrades from
+// the old flat conic sticker with no layout change.
 // ============================================================
 export function Orb({ size = 44, spin = false, glow = false, style = {}, className = "" }: {
   size?: number | string; spin?: boolean; glow?: boolean; style?: CSSProperties; className?: string;
 }) {
-  const s = typeof size === "number" ? size + "px" : size;
+  const px = typeof size === "number" ? size : undefined;
+  const sizeStyle: CSSProperties = px === undefined && typeof size === "string" ? { width: size, height: size } : {};
   return (
-    <span
-      className={"orb " + (spin ? "spin-slow " : "") + className}
-      style={{
-        width: s, height: s, display: "inline-block", position: "relative", borderRadius: "50%",
-        background:
-          "conic-gradient(from 200deg, var(--g-green), var(--g-lime) 14%, var(--g-orange) 32%, var(--g-red) 52%, var(--g-teal) 72%, var(--g-blue) 86%, var(--g-green))",
-        boxShadow:
-          "inset -6px -7px 16px rgba(0,0,0,.45), inset 5px 5px 12px rgba(255,255,255,.25)" +
-          (glow ? ", 0 0 36px -2px var(--cand-glow)" : ""),
-        ...style,
-      }}
-      aria-hidden="true"
-    >
-      <svg viewBox="0 0 100 100" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity: 0.4 }}>
-        <ellipse cx="50" cy="50" rx="48" ry="22" fill="none" stroke="rgba(0,0,0,.5)" strokeWidth="1" />
-        <ellipse cx="50" cy="50" rx="22" ry="48" fill="none" stroke="rgba(0,0,0,.5)" strokeWidth="1" />
-        <circle cx="50" cy="50" r="48" fill="none" stroke="rgba(0,0,0,.35)" strokeWidth="1" />
-      </svg>
-    </span>
+    <BrandOrb px={px} spin={spin} glow={glow} className={className} style={{ ...sizeStyle, ...style }} />
   );
 }
 

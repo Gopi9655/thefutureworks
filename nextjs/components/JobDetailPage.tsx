@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { Icon } from "@/components/Icon";
-import { Orb, Reveal } from "@/components/primitives";
+import { Reveal } from "@/components/primitives";
+import { ShowcaseOrb } from "@/components/platform/ShowcaseOrb";
 import { JobCard, Crumb } from "@/components/sections";
 import { JobAside } from "@/components/JobAside";
 import { ApplyForm } from "@/components/forms/ApplyForm";
@@ -154,7 +155,7 @@ export function JobDetailPage({ jobId }: { jobId: string }) {
             </Reveal>
 
             <Reveal className="jd-consult" style={{ marginTop: 34 }}>
-              <Orb size={48} />
+              <ShowcaseOrb px={88} tone="trust" />
               <div style={{ minWidth: 0 }}>
                 <h3 className="h3" style={{ margin: 0, fontSize: 19 }}>Human-checked before any introduction</h3>
                 <p className="t-mut" style={{ margin: "8px 0 0", fontSize: 14.5, lineHeight: 1.55 }}>

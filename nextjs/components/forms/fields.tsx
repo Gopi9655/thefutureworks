@@ -94,7 +94,7 @@ export function FileField({ id, label, value, onChange, hint, accept }: {
         style={{ position: "absolute", width: 1, height: 1, opacity: 0, overflow: "hidden", clip: "rect(0 0 0 0)" }} />
       <button type="button" onClick={() => ref.current?.click()} className="field"
         style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer", textAlign: "left", background: "#fff" }}>
-        <span style={{ display: "grid", placeItems: "center", width: 32, height: 32, borderRadius: 8, flex: "0 0 auto", background: "rgba(30,111,184,.10)" }}>
+        <span className="premium-tile premium-tile-blue" style={{ width: 32, height: 32, borderRadius: 9 }}>
           <Icon name="send" size={16} style={{ color: "var(--g-blue)" }} />
         </span>
         <span style={{ minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", color: value ? "var(--t-ink)" : "var(--t-ink-dim)", fontWeight: value ? 600 : 400 }}>

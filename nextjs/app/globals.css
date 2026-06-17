@@ -321,6 +321,66 @@ button { font-family: inherit; }
   mix-blend-mode: screen; pointer-events:none;
 }
 
+/* ---------- BrandOrb — premium dimensional concept mark (Phase 6B) ----------
+   em-based shadows/insets so a single rule scales at any --orb-size. */
+.brand-orb {
+  position: relative;
+  display: inline-block;
+  flex: 0 0 auto;
+  font-size: var(--orb-size, 34px);
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  isolation: isolate;
+  box-shadow:
+    0 0.14em 0.4em -0.08em rgba(10, 22, 48, 0.5),
+    0 0.04em 0.1em rgba(10, 22, 48, 0.22);
+}
+.brand-orb-color,
+.brand-orb-shade {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+}
+.brand-orb-color {
+  background: conic-gradient(
+    from 215deg,
+    var(--orb-a), var(--orb-b) 38%, var(--orb-c) 64%, var(--orb-a)
+  );
+}
+.brand-orb-shade {
+  background:
+    radial-gradient(58% 54% at 32% 26%, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0) 44%),
+    radial-gradient(72% 70% at 72% 82%, rgba(6, 14, 38, 0.46), rgba(6, 14, 38, 0) 54%);
+  box-shadow:
+    inset -0.07em -0.12em 0.22em rgba(6, 14, 38, 0.5),
+    inset 0.06em 0.09em 0.16em rgba(255, 255, 255, 0.55),
+    inset 0 0 0 0.02em rgba(255, 255, 255, 0.3);
+}
+.brand-orb-shade::after { /* specular highlight */
+  content: "";
+  position: absolute;
+  top: 11%;
+  left: 17%;
+  width: 30%;
+  height: 24%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 42% 42%, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0) 68%);
+}
+.brand-orb-default { --orb-a: #5FA82A; --orb-b: #1E6FB8; --orb-c: #F08A24; }
+.brand-orb-opportunity { --orb-a: #7FBF3E; --orb-b: #4D8F1F; --orb-c: #1AA39A; }
+.brand-orb-trust { --orb-a: #2E8BD6; --orb-b: #1E6FB8; --orb-c: #15568F; }
+.brand-orb-muted { --orb-a: #CAD3E0; --orb-b: #9AA7BC; --orb-c: #E2E8F2; }
+.brand-orb-glow {
+  box-shadow:
+    0 0.14em 0.4em -0.08em rgba(10, 22, 48, 0.5),
+    0 0 0.9em -0.08em var(--cand-glow);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .brand-orb-spin .brand-orb-color { animation: brandOrbSpin 16s linear infinite; }
+}
+@keyframes brandOrbSpin { to { transform: rotate(360deg); } }
+
 /* ---------- reveal on scroll ---------- */
 .reveal { opacity: 1; transform: none; transition: opacity .7s cubic-bezier(.2,.7,.3,1), transform .7s cubic-bezier(.2,.7,.3,1); }
 .reveal.reveal-waiting { opacity: 0; transform: translateY(24px); }
@@ -1399,6 +1459,27 @@ body.no-anim .hero-beam { stroke-dasharray: none; opacity: .55; }
 @media (max-width: 880px) {
   .apply-grid { grid-template-columns: 1fr; }
   .apply-rail { position: static; }
+}
+
+/* Premium dimensional icon tile (Phase 6B) — replaces flat icon squares. */
+.premium-tile {
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  flex: 0 0 auto;
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.92), rgba(244, 246, 251, 0.72));
+  border: 1px solid var(--paper-line);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    0 8px 18px -11px rgba(10, 22, 48, 0.45);
+}
+.premium-tile-green {
+  background: linear-gradient(150deg, #F1F9EB, #E3F3D9);
+  border-color: rgba(95, 168, 42, 0.28);
+}
+.premium-tile-blue {
+  background: linear-gradient(150deg, #EAF3FC, #DCECFA);
+  border-color: rgba(30, 111, 184, 0.28);
 }
 
 /* ============================================================
