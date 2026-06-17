@@ -39,29 +39,58 @@ The legacy `Orb` primitive now **delegates to `BrandOrb`**, so every existing
 usage upgrades with no layout change and no per-file churn (same inline-block
 footprint, same `size`/`spin`/`glow` API).
 
+## Phase 6B.1 — WebGL runtime crash fix
+
+The Three.js path shipped in 6B crashed `/jobs/[slug]` in the browser with
+`TypeError: Cannot read properties of undefined (reading 'ReactCurrentBatchConfig')`,
+thrown at mount from the R3F chunk. It passed `npm run build`, route smoke and
+the screenshot QA because all of those exercise either the server or a
+`prefers-reduced-motion` context — and `ShowcaseOrb` only attempts WebGL when
+motion is allowed, so the broken path was never hit in CI-style checks.
+
+Root cause: the installed `@react-three/fiber` v8 is incompatible with the
+current React/`three@0.184` combination (it reaches for a React internal,
+`ReactCurrentBatchConfig`, that isn't present), so the reconciler throws as soon
+as the canvas mounts in a real browser.
+
+Fix (no dependency changes): the WebGL upgrade is **disabled by default**
+(`ENABLE_WEBGL_ORB = false` in `ShowcaseOrb`) and the stable CSS `BrandOrb` is
+rendered instead. As defence-in-depth, the (now dormant) scene is wrapped in an
+`OrbErrorBoundary` that falls back to `BrandOrb`, so a decorative orb can never
+take down a route even if the flag is re-enabled. `BrandOrbScene.tsx` is kept,
+dormant, ready to re-enable once the R3F / three / React versions are aligned.
+
+Verified in a real (non-reduced-motion) Chromium via Playwright: `/`,
+`/vacancies`, `/jobs/senior-recruitment-consultant` and `/apply` all load with
+**zero page errors** and the dimensional CSS orb present.
+
 ## Three.js — was BrandOrbScene used?
 
-**Yes.** `@react-three/fiber` (v8) + `drei` + `three` were already installed and
-React is 18.3, so a lightweight scene was added and is **stable in the
-production build**.
+Built and wired, but **currently disabled** after the 6B.1 crash (see above) —
+the prototype renders the CSS `BrandOrb` everywhere. `@react-three/fiber` (v8) +
+`drei` + `three` are installed and React is 18.3, and the scene compiles in the
+production build, but the v8↔three@0.184 runtime mismatch means it is held
+behind the `ENABLE_WEBGL_ORB` flag until the versions are aligned.
 
 - `components/three/BrandOrbScene.tsx` (`"use client"`) — one glossy sphere lit
   by green/blue/orange directional lights (no textures, no heavy assets), with a
   gentle `Float`.
 - `components/platform/ShowcaseOrb.tsx` (`"use client"`) wraps it:
   - server / first paint renders the **CSS `BrandOrb`** (no hydration mismatch),
-  - on mount it upgrades to the canvas **only** when WebGL is available **and**
-    `prefers-reduced-motion` is not set,
+  - it *would* upgrade to the canvas only when WebGL is available and
+    `prefers-reduced-motion` is not set — but that upgrade is currently held
+    behind `ENABLE_WEBGL_ORB = false` after the 6B.1 crash, so the CSS orb is
+    what actually renders,
   - the canvas is `dynamic(..., { ssr: false })`, so it is a lazy client-only
-    chunk and never runs on the server.
+    chunk and never runs on the server (and, while disabled, never loads).
 
-It is used in exactly **one** showcase: the job-detail human-check panel. Every
-other location uses the CSS `BrandOrb` (small UI marks never mount a canvas).
+`ShowcaseOrb` is used in exactly **one** showcase: the job-detail human-check
+panel. Every other location uses the CSS `BrandOrb` directly.
 
 ## Where flat marks were replaced
 
 - **Job detail** `components/JobDetailPage.tsx` — the human-check panel orb is now
-  a `ShowcaseOrb` (trust tone, 88px), so it reads as a dimensional 3D element
+  a `ShowcaseOrb` (trust tone, 88px), rendering the dimensional CSS orb
   (with CSS fallback). The sticky apply card is unchanged and still aligned.
 - **Nav / footer logo** `components/primitives.tsx` (`Logo` → `Orb` → `BrandOrb`).
 - **Trust strip + decorative orbs** `components/sections.tsx`, the SplitJourney

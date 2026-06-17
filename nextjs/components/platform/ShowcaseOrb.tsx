@@ -1,22 +1,46 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Component, useEffect, useState, type ReactNode } from "react";
 import dynamic from "next/dynamic";
 import { BrandOrb, type BrandOrbTone } from "./BrandOrb";
 
 // ============================================================
-// Phase 6B — ShowcaseOrb
-// A premium 3D brand moment for a single showcase area. It renders
-// the CSS BrandOrb on the server / first paint (no hydration
-// mismatch), then upgrades to the Three.js BrandOrbScene on the
-// client only when WebGL is available and motion is allowed.
-// If either is missing, the dimensional CSS BrandOrb stays.
+// Phase 6B / 6B.1 — ShowcaseOrb
+// Renders the premium dimensional CSS BrandOrb everywhere, and can
+// progressively upgrade to a Three.js scene in a single showcase.
+//
+// 6B.1 fix: the installed @react-three/fiber v8 is incompatible with
+// the current React/three versions and throws at mount
+// ("Cannot read properties of undefined (reading 'ReactCurrentBatchConfig')"),
+// which crashed /jobs/[slug] in the browser. A decorative orb must
+// NEVER break a route, so the WebGL path is disabled by default and the
+// stable CSS BrandOrb is used instead. Even when re-enabled, the scene
+// is wrapped in an error boundary that falls back to BrandOrb.
+//
+// Re-enable only after aligning the @react-three/fiber / three / React
+// versions, by flipping ENABLE_WEBGL_ORB to true.
 // ============================================================
+const ENABLE_WEBGL_ORB = false;
 
 const BrandOrbScene = dynamic(() => import("@/components/three/BrandOrbScene"), {
   ssr: false,
   loading: () => null,
 });
+
+/** Catches any render-time failure from the decorative 3D scene and
+ *  shows the CSS fallback instead of letting it bubble to the route. */
+class OrbErrorBoundary extends Component<{ fallback: ReactNode; children: ReactNode }, { failed: boolean }> {
+  state = { failed: false };
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+  componentDidCatch() {
+    // Decorative only — intentionally swallow.
+  }
+  render() {
+    return this.state.failed ? this.props.fallback : this.props.children;
+  }
+}
 
 function webglSupported(): boolean {
   try {
@@ -43,11 +67,14 @@ export function ShowcaseOrb({ px = 92, tone = "default", className, label }: Sho
   const [use3d, setUse3d] = useState(false);
 
   useEffect(() => {
+    if (!ENABLE_WEBGL_ORB) return;
     const reduced =
       typeof window !== "undefined" &&
       window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
     if (!reduced && webglSupported()) setUse3d(true);
   }, []);
+
+  const fallback = <BrandOrb px={px} tone={tone} glow />;
 
   return (
     <span
@@ -60,7 +87,6 @@ export function ShowcaseOrb({ px = 92, tone = "default", className, label }: Sho
         flex: "0 0 auto",
         borderRadius: "50%",
         overflow: "hidden",
-        // soft platform-blue halo so the 3D orb reads as a premium element
         filter: "drop-shadow(0 10px 22px rgba(10, 22, 48, 0.28))",
       }}
       role={label ? "img" : undefined}
@@ -68,9 +94,11 @@ export function ShowcaseOrb({ px = 92, tone = "default", className, label }: Sho
       aria-hidden={label ? undefined : true}
     >
       {use3d ? (
-        <BrandOrbScene />
+        <OrbErrorBoundary fallback={fallback}>
+          <BrandOrbScene />
+        </OrbErrorBoundary>
       ) : (
-        <BrandOrb px={px} tone={tone} glow />
+        fallback
       )}
     </span>
   );
