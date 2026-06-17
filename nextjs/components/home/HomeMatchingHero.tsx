@@ -64,14 +64,14 @@ export function HomeMatchingHero() {
             </linearGradient>
           </defs>
           {/* candidate path (green) */}
-          <path d="M220 215 C 158 188 120 140 96 104" stroke="rgba(95,168,42,0.28)" strokeWidth="6" fill="none" />
-          <path className="hc-beam" d="M220 215 C 158 188 120 140 96 104" stroke="url(#hcGradGreen)" strokeWidth="2.4" />
+          <path d="M220 215 C 158 188 120 140 96 104" stroke="rgba(95,168,42,0.34)" strokeWidth="7" fill="none" />
+          <path className="hc-beam" d="M220 215 C 158 188 120 140 96 104" stroke="url(#hcGradGreen)" strokeWidth="2.8" />
           {/* employer path (blue) */}
-          <path d="M220 215 C 296 190 332 142 352 108" stroke="rgba(30,111,184,0.28)" strokeWidth="6" fill="none" />
-          <path className="hc-beam" d="M220 215 C 296 190 332 142 352 108" stroke="url(#hcGradBlue)" strokeWidth="2.4" style={{ animationDelay: "-1.2s" }} />
-          {/* opportunity path */}
-          <path d="M220 215 C 212 285 206 330 204 366" stroke="rgba(240,138,36,0.26)" strokeWidth="6" fill="none" />
-          <path className="hc-beam" d="M220 215 C 212 285 206 330 204 366" stroke="#F08A24" strokeWidth="2.2" style={{ animationDelay: "-0.6s" }} />
+          <path d="M220 215 C 296 190 332 142 352 108" stroke="rgba(30,111,184,0.34)" strokeWidth="7" fill="none" />
+          <path className="hc-beam" d="M220 215 C 296 190 332 142 352 108" stroke="url(#hcGradBlue)" strokeWidth="2.8" style={{ animationDelay: "-1.2s" }} />
+          {/* opportunity path (gold) */}
+          <path d="M220 215 C 212 285 206 330 204 366" stroke="rgba(225,128,26,0.32)" strokeWidth="7" fill="none" />
+          <path className="hc-beam" d="M220 215 C 212 285 206 330 204 366" stroke="#E1801A" strokeWidth="2.6" style={{ animationDelay: "-0.6s" }} />
         </svg>
 
         <div className="hc-core">

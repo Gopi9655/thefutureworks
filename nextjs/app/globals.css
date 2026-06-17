@@ -332,9 +332,11 @@ button { font-family: inherit; }
   height: 1em;
   border-radius: 50%;
   isolation: isolate;
+  /* outer depth shadow + fine navy contact ring for a grounded, 3D feel */
   box-shadow:
-    0 0.14em 0.4em -0.08em rgba(10, 22, 48, 0.5),
-    0 0.04em 0.1em rgba(10, 22, 48, 0.22);
+    0 0.2em 0.52em -0.08em rgba(10, 22, 48, 0.55),
+    0 0.05em 0.12em rgba(10, 22, 48, 0.24),
+    0 0 0 0.012em rgba(12, 24, 50, 0.28);
 }
 .brand-orb-color,
 .brand-orb-shade {
@@ -343,34 +345,59 @@ button { font-family: inherit; }
   border-radius: 50%;
 }
 .brand-orb-color {
-  background: conic-gradient(
-    from 215deg,
-    var(--orb-a), var(--orb-b) 38%, var(--orb-c) 64%, var(--orb-a)
-  );
+  /* Dimensional concept mark sampled from the provided website-logo
+     screenshot (see docs/phase-6c-lite-homepage-polish.md). Colour zones
+     follow the logo structure: green lower-left, blue right/trust side,
+     orange-gold highlight, navy separator that reads as depth at the rim. */
+  background:
+    radial-gradient(58% 56% at 27% 75%, var(--orb-green-lt) 0%, var(--orb-green) 36%, rgba(12, 24, 50, 0) 67%),
+    radial-gradient(60% 58% at 82% 50%, var(--orb-blue-lt) 0%, var(--orb-blue) 42%, rgba(12, 24, 50, 0) 73%),
+    radial-gradient(42% 40% at 61% 20%, var(--orb-gold) 0%, rgba(12, 24, 50, 0) 54%),
+    radial-gradient(125% 125% at 50% 44%, var(--orb-navy-lt) 0%, var(--orb-navy) 100%);
 }
 .brand-orb-shade {
+  /* sphere form: glossy top-left highlight, deep navy bottom-right,
+     soft inner glow ring and a fine bright rim. */
   background:
-    radial-gradient(58% 54% at 32% 26%, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0) 44%),
-    radial-gradient(72% 70% at 72% 82%, rgba(6, 14, 38, 0.46), rgba(6, 14, 38, 0) 54%);
+    radial-gradient(56% 52% at 31% 25%, rgba(227, 236, 241, 0.95), rgba(227, 236, 241, 0) 46%),
+    radial-gradient(74% 72% at 74% 84%, rgba(12, 24, 50, 0.52), rgba(12, 24, 50, 0) 56%);
   box-shadow:
-    inset -0.07em -0.12em 0.22em rgba(6, 14, 38, 0.5),
-    inset 0.06em 0.09em 0.16em rgba(255, 255, 255, 0.55),
-    inset 0 0 0 0.02em rgba(255, 255, 255, 0.3);
+    inset -0.08em -0.13em 0.24em rgba(12, 24, 50, 0.55),
+    inset 0.07em 0.1em 0.18em rgba(255, 255, 255, 0.6),
+    inset 0 0 0.16em 0.01em rgba(255, 255, 255, 0.32);
 }
-.brand-orb-shade::after { /* specular highlight */
+.brand-orb-shade::after { /* glossy specular highlight */
   content: "";
   position: absolute;
-  top: 11%;
-  left: 17%;
-  width: 30%;
-  height: 24%;
+  top: 10%;
+  left: 16%;
+  width: 32%;
+  height: 26%;
   border-radius: 50%;
-  background: radial-gradient(circle at 42% 42%, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0) 68%);
+  background: radial-gradient(circle at 42% 40%, rgba(255, 255, 255, 0.97), rgba(255, 255, 255, 0) 70%);
 }
-.brand-orb-default { --orb-a: #5FA82A; --orb-b: #1E6FB8; --orb-c: #F08A24; }
-.brand-orb-opportunity { --orb-a: #7FBF3E; --orb-b: #4D8F1F; --orb-c: #1AA39A; }
-.brand-orb-trust { --orb-a: #2E8BD6; --orb-b: #1E6FB8; --orb-c: #15568F; }
-.brand-orb-muted { --orb-a: #CAD3E0; --orb-b: #9AA7BC; --orb-c: #E2E8F2; }
+/* sampled-logo colour zones: --orb-green (lower-left), --orb-blue (right),
+   --orb-gold (highlight), --orb-navy (separator / depth) */
+.brand-orb-default {
+  --orb-green: #579C27; --orb-green-lt: #6FB23A;
+  --orb-blue: #1962A3; --orb-blue-lt: #3381A7;
+  --orb-gold: #E1801A; --orb-navy: #0C1832; --orb-navy-lt: #1C2C4C;
+}
+.brand-orb-opportunity {
+  --orb-green: #4E9A2A; --orb-green-lt: #7FBF3E;
+  --orb-blue: #469167; --orb-blue-lt: #5FB985;
+  --orb-gold: #E1801A; --orb-navy: #103024; --orb-navy-lt: #1E4A36;
+}
+.brand-orb-trust {
+  --orb-green: #2E7DB0; --orb-green-lt: #3381A7;
+  --orb-blue: #1962A3; --orb-blue-lt: #2E8BD6;
+  --orb-gold: #3381A7; --orb-navy: #0C1832; --orb-navy-lt: #173258;
+}
+.brand-orb-muted {
+  --orb-green: #9AA7BC; --orb-green-lt: #CAD3E0;
+  --orb-blue: #8A98AE; --orb-blue-lt: #B6C1D2;
+  --orb-gold: #E3ECF1; --orb-navy: #4A5568; --orb-navy-lt: #6B7686;
+}
 .brand-orb-glow {
   box-shadow:
     0 0.14em 0.4em -0.08em rgba(10, 22, 48, 0.5),
