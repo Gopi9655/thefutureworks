@@ -188,16 +188,18 @@ export function CTABand({
 export function TrustStrip() {
   const items = OFFICIAL_BUSINESS_FACTS.trustRail;
   return (
-    <div style={{ borderTop: "1px solid var(--paper-line)", background: "rgba(0,0,0,.03)", padding: "14px 0" }}>
-      <div className="wrap trust-strip-row">
-        {items.map((item) => (
-          <span key={item.label} className="trust-item">
-            <span className={`trust-icon trust-icon-${item.tone}`} aria-hidden="true">
-              <Icon name={item.icon} size={12.5} stroke={2.1} />
+    <div className="trust-strip-rail" style={{ borderTop: "1px solid var(--paper-line)", background: "rgba(0,0,0,.03)", padding: "14px 0" }}>
+      <div className="wrap">
+        <div className="trust-strip-row">
+          {items.map((item) => (
+            <span key={item.label} className="trust-item">
+              <span className={`trust-icon trust-icon-${item.tone}`} aria-hidden="true">
+                <Icon name={item.icon} size={12.5} stroke={2.1} />
+              </span>
+              {item.label}
             </span>
-            {item.label}
-          </span>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );

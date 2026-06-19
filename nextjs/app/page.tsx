@@ -1,15 +1,17 @@
 import "./home-hero.css";
+import Link from "next/link";
 import { Icon } from "@/components/Icon";
 import { Reveal, CountUp } from "@/components/primitives";
 import { Button } from "@/components/Button";
 import { NetworkMapBg } from "@/components/NetworkMap";
-import { JobCard, TestimonialCard, CTABand, TrustStrip, SectionHead } from "@/components/sections";
+import { TestimonialCard, CTABand, TrustStrip, SectionHead } from "@/components/sections";
 import { HomeMatchingHero } from "@/components/home/HomeMatchingHero";
 import { SplitJourney } from "@/components/home/SplitJourney";
 import { RegionSection } from "@/components/home/RegionSection";
 import { OFFICIAL_BUSINESS_FACTS } from "@/data/official-business-facts";
-import { JOBS } from "@/data/jobs";
+import { JOBS, salaryStr } from "@/data/jobs";
 import { STATS, TESTIMONIALS, DIFFERENTIATORS } from "@/data/content";
+import type { Job } from "@/lib/types";
 
 const STAT_META = [
   { icon: "briefcase", color: "var(--g-green)", bg: "rgba(95,168,42,0.14)" },
@@ -18,6 +20,30 @@ const STAT_META = [
   { icon: "heart", color: "var(--g-orange)", bg: "rgba(240,138,36,0.14)" },
   { icon: "sparkles", color: "var(--g-teal)", bg: "rgba(26,163,154,0.14)" },
 ];
+
+function HomeVacancySnapshotCard({ job }: { job: Job }) {
+  const employerKnown = job.company && job.company !== OFFICIAL_BUSINESS_FACTS.vacancySnapshot.employerDisplay;
+
+  return (
+    <Link href={"/jobs/" + job.id} className="home-vacancy-card">
+      <div className="home-vacancy-card-main">
+        <div>
+          <h3>{job.title}</h3>
+          {employerKnown && <p className="home-vacancy-employer">{job.company}</p>}
+        </div>
+        <div className="home-vacancy-pills" aria-label="Role details">
+          <span><Icon name="mapPin" size={13} /> {job.location}</span>
+          <span><Icon name="briefcase" size={13} /> {job.type}</span>
+          <span><Icon name="layers" size={13} /> {job.remote}</span>
+        </div>
+      </div>
+      <div className="home-vacancy-foot">
+        <strong>{salaryStr(job)}</strong>
+        <span className="home-vacancy-cta">View role <Icon name="arrowRight" size={15} /></span>
+      </div>
+    </Link>
+  );
+}
 
 function HomeHero() {
   return (
@@ -76,16 +102,17 @@ function LatestJobs() {
       <div className="wrap">
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: 16, marginBottom: 36 }}>
           <SectionHead
-            eyebrow={<><Icon name="briefcase" size={14} /> Official website snapshot</>}
+            eyebrow={<><Icon name="briefcase" size={14} /> Current opportunities</>}
             title="Current vacancies snapshot"
-            sub={OFFICIAL_BUSINESS_FACTS.vacancySnapshot.note}
+            sub="A curated snapshot of current opportunities based on publicly available official listings."
             max={560}
           />
           <Button to="/vacancies" variant="outline" icon="arrowRight">View all vacancies</Button>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }} className="cards-3">
-          {jobs.map((j, i) => <Reveal key={j.id} d={(i % 3) + 1}><JobCard job={j} /></Reveal>)}
+        <div className="home-vacancy-grid">
+          {jobs.map((j, i) => <Reveal key={j.id} d={(i % 3) + 1}><HomeVacancySnapshotCard job={j} /></Reveal>)}
         </div>
+        <p className="home-vacancy-note">Static snapshot only; listings can change on the official website.</p>
       </div>
     </section>
   );
