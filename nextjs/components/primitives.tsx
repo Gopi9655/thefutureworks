@@ -2,6 +2,7 @@
 
 import { useLayoutEffect, useEffect, useRef, useState, type CSSProperties, type ReactNode, type ElementType } from "react";
 import { BrandOrb } from "./platform/BrandOrb";
+import { TheFutureWorksLogo } from "./platform/TheFutureWorksLogo";
 
 const useIso = typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
@@ -28,27 +29,15 @@ export function Orb({ size = 44, spin = false, glow = false, style = {}, classNa
 // ============================================================
 // LOGO — wordmark + orb
 // ============================================================
-export function Logo({ variant = "dark", size = 22, withTagline = false }: {
+export function Logo({ variant = "dark", withTagline = false }: {
   variant?: "dark" | "light"; size?: number; withTagline?: boolean;
 }) {
-  const main = variant === "dark" ? "#fff" : "var(--ink-900)";
-  const mut = variant === "dark" ? "rgba(233,238,248,.55)" : "#8A93A8";
   return (
-    <span style={{ display: "inline-flex", alignItems: "center", gap: 10 }}>
-      <span style={{ display: "flex", flexDirection: "column", lineHeight: 1 }}>
-        <span style={{ fontFamily: "var(--font-display)", fontWeight: 500, fontSize: size, letterSpacing: "-0.03em", color: mut }}>
-          the<span style={{ fontWeight: 700, color: main }}>future</span>works
-        </span>
-        {withTagline && (
-          <span style={{ fontFamily: "var(--font-body)", fontWeight: 700, fontSize: size * 0.42, letterSpacing: "0.02em", color: "var(--g-green)", marginTop: 4 }}>
-            Jobs for your future
-          </span>
-        )}
-      </span>
-      <span className="logo-float">
-        <Orb size={size * 1.18} spin />
-      </span>
-    </span>
+    <TheFutureWorksLogo
+      variant={withTagline ? "footer" : "navbar"}
+      className={variant === "dark" ? "tfw-logo--on-dark" : undefined}
+      label={withTagline ? "thefutureworks - Jobs for your future" : "thefutureworks"}
+    />
   );
 }
 

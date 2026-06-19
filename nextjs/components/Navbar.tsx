@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Logo } from "./primitives";
+import { TheFutureWorksLogo } from "./platform/TheFutureWorksLogo";
 import { Icon } from "./Icon";
 import { Button } from "./Button";
 import { NAV, CONTACT, type NavItem } from "@/data/site";
@@ -29,7 +29,9 @@ export function Navbar() {
   return (
     <header className={"nav " + (solid || open ? "solid" : "")}>
       <div className="wrap" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 72 }}>
-        <Link href="/" aria-label="thefutureworks home"><Logo variant="light" size={21} /></Link>
+        <Link href="/" aria-label="thefutureworks home">
+          <TheFutureWorksLogo variant="navbar" label="thefutureworks" />
+        </Link>
 
         <nav style={{ display: "flex", alignItems: "center", gap: 30 }} className="nav-desktop" aria-label="Primary">
           {NAV.map((item) => (

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Logo } from "./primitives";
+import { TheFutureWorksLogo } from "./platform/TheFutureWorksLogo";
 import { Icon } from "./Icon";
 
 const COLS: { title: string; links: { label: string; to: string }[] }[] = [
@@ -46,7 +46,12 @@ export function Footer() {
       <div className="wrap" style={{ position: "relative", zIndex: 2 }}>
         <div style={{ display: "grid", gridTemplateColumns: "1.5fr repeat(4, 1fr)", gap: 34 }} className="footer-grid">
           <div>
-            <Logo variant="dark" size={24} withTagline />
+            <TheFutureWorksLogo
+              variant="footer"
+              href="/"
+              className="tfw-logo--on-dark"
+              label="thefutureworks - Jobs for your future"
+            />
             <p className="t-mut" style={{ maxWidth: 320, marginTop: 20, fontSize: 14.5, lineHeight: 1.6 }}>
               A commercial recruitment agency owned by Coventry University. Helping candidates and employers across Coventry, Warwickshire and the West Midlands since 2005.
             </p>
