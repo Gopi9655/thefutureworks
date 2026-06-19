@@ -485,10 +485,11 @@ button { font-family: inherit; }
 
 /* mega flyout */
 .flyout {
-  position: absolute; top: calc(100% + 10px); left: 50%; transform: translateX(-50%) translateY(8px);
+  position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(8px);
   opacity: 0; pointer-events: none; transition: opacity .22s, transform .22s; z-index: 70;
+  padding-top: 10px; /* hover bridge — fills gap so cursor stays inside flyout el */
 }
-.has-flyout:hover .flyout { opacity: 1; pointer-events: auto; transform: translateX(-50%) translateY(0); }
+.flyout-open { opacity: 1; pointer-events: auto; transform: translateX(-50%) translateY(0); }
 
 /* ---------- footer ---------- */
 .footer-link { color: var(--t-on-dark-mut); font-size: 14.5px; transition: color .2s; }
