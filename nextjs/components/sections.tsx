@@ -4,7 +4,9 @@ import { Icon } from "./Icon";
 import { Orb, Reveal, CountUp } from "./primitives";
 import { Button } from "./Button";
 import { STATS } from "@/data/content";
+import { OFFICIAL_BUSINESS_FACTS } from "@/data/official-business-facts";
 import { salaryStr } from "@/data/jobs";
+import { getJobCategoryVisual } from "@/lib/platform/jobs";
 import type { Job, Testimonial } from "@/lib/types";
 
 // ============================================================
@@ -26,28 +28,48 @@ export function SectionHead({ eyebrow, title, sub, align = "left", dark = false,
 // ============================================================
 // JOB CARD
 // ============================================================
+// Shares the marketplace card's premium visual language: a category badge tile
+// (never company initials — those read as fake logos), calm green/blue chips,
+// and a "View role" CTA. An approved local logoAsset is used when present; no
+// external/remote logos. Used by the homepage featured grid and the job-detail
+// "Similar roles" section, so they stay consistent with /vacancies.
 export function JobCard({ job, featured }: { job: Job; featured?: boolean }) {
+  const visual = getJobCategoryVisual(job);
+  const isFeatured = featured ?? job.featured;
   return (
     <Link href={"/jobs/" + job.id} className="jobcard card-hover" style={{ textDecoration: "none", color: "inherit" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12 }}>
         <div style={{ display: "flex", gap: 13, alignItems: "center", minWidth: 0 }}>
-          <div style={{ width: 46, height: 46, borderRadius: 12, flex: "0 0 auto", background: "linear-gradient(135deg, var(--ink-700), var(--ink-800))", display: "grid", placeItems: "center" }}>
-            <span style={{ fontFamily: "var(--font-display)", fontWeight: 600, color: "#fff", fontSize: 17 }}>{job.company.split(" ").map((w) => w[0]).slice(0, 2).join("")}</span>
-          </div>
+          {job.logoAsset ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={job.logoAsset} alt={`${job.company} logo`} className="jobs-logo-tile jobs-logo-img" width={46} height={46} />
+          ) : (
+            <span className={`jobs-logo-tile jobs-logo-tile-${visual.tone}`} aria-hidden="true">
+              <Icon name={visual.icon} size={22} />
+            </span>
+          )}
           <div style={{ minWidth: 0 }}>
             <h3 style={{ margin: 0, fontSize: 17.5, fontFamily: "var(--font-display)", fontWeight: 600, letterSpacing: "-.01em", lineHeight: 1.15 }}>{job.title}</h3>
             <div style={{ fontSize: 13.5, color: "var(--t-ink-mut)", marginTop: 3 }}>{job.company}</div>
           </div>
         </div>
-        {(featured || job.featured) && <span className="chip chip-red" style={{ flex: "0 0 auto" }}><Icon name="star" size={12} /> Featured</span>}
+        {isFeatured && (
+          <span className="jobs-match-badge" title="Featured concept brief">
+            <Icon name="star" size={12} /> Featured
+          </span>
+        )}
       </div>
 
       <p style={{ margin: 0, fontSize: 14, lineHeight: 1.5, color: "var(--t-ink-mut)" }}>{job.summary}</p>
 
       <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+        <span className={"chip " + (visual.tone === "green" ? "jobs-chip-green" : "jobs-chip-blue")}>
+          <Icon name={visual.icon} size={13} /> {visual.label}
+        </span>
         <span className="chip"><Icon name="mapPin" size={13} /> {job.location}</span>
         <span className="chip"><Icon name="briefcase" size={13} /> {job.type}</span>
         <span className="chip"><Icon name="layers" size={13} /> {job.remote}</span>
+        {job.sourceLabel && <span className="chip"><Icon name="shield" size={13} /> {job.sourceLabel}</span>}
       </div>
 
       <hr className="hr" />
@@ -57,7 +79,7 @@ export function JobCard({ job, featured }: { job: Job; featured?: boolean }) {
           <div style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: 18, color: "var(--ink-900)", letterSpacing: "-.01em" }}>{salaryStr(job)}</div>
           <div style={{ fontSize: 12, color: "var(--t-ink-dim)", marginTop: 2, display: "flex", alignItems: "center", gap: 5 }}><Icon name="clock" size={12} /> {job.posted}</div>
         </div>
-        <span className="btn btn-outline btn-sm" style={{ pointerEvents: "none" }}>Quick apply <Icon name="arrowRight" size={16} /></span>
+        <span className="btn btn-outline btn-sm" style={{ pointerEvents: "none" }}>View role <Icon name="arrowRight" size={16} /></span>
       </div>
     </Link>
   );
@@ -164,13 +186,20 @@ export function CTABand({
 // TRUST STRIP
 // ============================================================
 export function TrustStrip() {
-  const items = ["Coventry University Group", "REC Member", "BIOR Affiliated", "Disability Confident", "Living Wage"];
+  const items = OFFICIAL_BUSINESS_FACTS.trustRail;
   return (
-    <div style={{ borderTop: "1px solid var(--paper-line)", background: "rgba(0,0,0,.03)", padding: "14px 0" }}>
-      <div className="wrap trust-strip-row">
-        {items.map((item) => (
-          <span key={item} className="trust-item"><Orb size={11} /> {item}</span>
-        ))}
+    <div className="trust-strip-rail" style={{ borderTop: "1px solid var(--paper-line)", background: "rgba(0,0,0,.03)", padding: "14px 0" }}>
+      <div className="wrap">
+        <div className="trust-strip-row">
+          {items.map((item) => (
+            <span key={item.label} className="trust-item">
+              <span className={`trust-icon trust-icon-${item.tone}`} aria-hidden="true">
+                <Icon name={item.icon} size={12.5} stroke={2.1} />
+              </span>
+              {item.label}
+            </span>
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -1,16 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Logo } from "./primitives";
+import { TheFutureWorksLogo } from "./platform/TheFutureWorksLogo";
 import { Icon } from "./Icon";
 import { Button } from "./Button";
-import { NAV, CONTACT } from "@/data/site";
+import { NAV, CONTACT, type NavItem } from "@/data/site";
 
 export function Navbar() {
   const [solid, setSolid] = useState(false);
   const [open, setOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -23,25 +25,77 @@ export function Navbar() {
   // close the mobile menu on navigation
   useEffect(() => { setOpen(false); }, [pathname]);
 
+  // Escape key closes dropdown
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setActiveDropdown(null); };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, []);
+
   const active = (to: string) => pathname === to || (to !== "/" && pathname.startsWith(to));
+  const itemActive = (item: NavItem) => active(item.to) || !!item.sub?.some((subItem) => active(subItem.to));
+
+  const openDD = (label: string) => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    setActiveDropdown(label);
+  };
+
+  const scheduleClose = () => {
+    closeTimer.current = setTimeout(() => setActiveDropdown(null), 200);
+  };
+
+  const cancelClose = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+  };
 
   return (
     <header className={"nav " + (solid || open ? "solid" : "")}>
       <div className="wrap" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 72 }}>
-        <Link href="/" aria-label="thefutureworks home"><Logo variant="light" size={21} /></Link>
+        <div style={{ display: "flex", alignItems: "center", gap: 14, minWidth: 0 }}>
+          <Link href="/" aria-label="thefutureworks home">
+            <TheFutureWorksLogo variant="navbar" label="thefutureworks" />
+          </Link>
+          <span className="nav-trust" title="Coventry University-owned recruitment">
+            <Icon name="shield" size={13} stroke={2} />
+            Coventry University&#8209;owned
+          </span>
+        </div>
 
         <nav style={{ display: "flex", alignItems: "center", gap: 30 }} className="nav-desktop" aria-label="Primary">
           {NAV.map((item) => (
-            <div key={item.label} className="has-flyout" style={{ position: "relative" }}>
-              <Link href={item.to} className={"nav-link " + (active(item.to) ? "active" : "")} style={{ display: "inline-flex", alignItems: "center", gap: 5 }}>
+            <div
+              key={item.label}
+              className="has-flyout"
+              style={{ position: "relative" }}
+              onMouseEnter={() => item.sub && openDD(item.label)}
+              onMouseLeave={() => item.sub && scheduleClose()}
+            >
+              <Link
+                href={item.to}
+                className={"nav-link " + (itemActive(item) ? "active" : "")}
+                style={{ display: "inline-flex", alignItems: "center", gap: 5 }}
+                onFocus={() => item.sub && openDD(item.label)}
+                onBlur={() => item.sub && scheduleClose()}
+              >
                 {item.label}
                 {item.sub && <Icon name="chevronDown" size={14} stroke={2} style={{ opacity: 0.6 }} />}
               </Link>
               {item.sub && (
-                <div className="flyout">
+                <div
+                  className={"flyout" + (activeDropdown === item.label ? " flyout-open" : "")}
+                  aria-hidden={activeDropdown !== item.label}
+                  onMouseEnter={cancelClose}
+                  onMouseLeave={scheduleClose}
+                >
                   <div style={{ background: "#fff", border: "1px solid var(--paper-line)", borderRadius: "var(--radius)", padding: 8, width: 290, boxShadow: "0 24px 56px -18px rgba(8,12,24,.18), 0 4px 14px -6px rgba(8,12,24,.07)" }}>
                     {item.sub.map((s, i) => (
-                      <Link key={i} href={s.to} style={{ display: "flex", gap: 12, padding: "11px 12px", borderRadius: 12, alignItems: "center", textDecoration: "none" }}>
+                      <Link
+                        key={i}
+                        href={s.to}
+                        style={{ display: "flex", gap: 12, padding: "11px 12px", borderRadius: 12, alignItems: "center", textDecoration: "none" }}
+                        onFocus={cancelClose}
+                        onBlur={scheduleClose}
+                      >
                         <span style={{ display: "grid", placeItems: "center", width: 38, height: 38, borderRadius: 10, background: "rgba(30,111,184,.09)", flex: "0 0 auto" }}>
                           <Icon name={s.icon} size={18} style={{ color: "var(--g-blue)" }} />
                         </span>

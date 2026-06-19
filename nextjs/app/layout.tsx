@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Space_Grotesk, Manrope } from "next/font/google";
 import "./globals.css";
+import "./tfw-brand.css";
 import { SkipLink } from "@/components/SkipLink";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";

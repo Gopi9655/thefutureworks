@@ -26,6 +26,14 @@ export interface Job {
   featured: boolean;
   summary: string;
   remote: RemoteMode;
+  /** Optional static-source label, e.g. "Official website snapshot". */
+  sourceLabel?: string;
+  /**
+   * Optional path to an *approved local* logo asset (e.g. "/logos/acme.svg").
+   * Future-ready only — never populate with scraped or remote logos. When
+   * absent (the default), cards fall back to a premium category badge.
+   */
+  logoAsset?: string;
 }
 
 export interface Stat {

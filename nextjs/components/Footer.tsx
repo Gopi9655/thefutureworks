@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { Logo } from "./primitives";
+import { TheFutureWorksLogo } from "./platform/TheFutureWorksLogo";
 import { Icon } from "./Icon";
+import { OFFICIAL_BUSINESS_FACTS } from "@/data/official-business-facts";
 
 const COLS: { title: string; links: { label: string; to: string }[] }[] = [
   {
@@ -15,8 +16,17 @@ const COLS: { title: string; links: { label: string; to: string }[] }[] = [
     title: "Employers",
     links: [
       { label: "Hire staff", to: "/employers" },
+      { label: "Request staff", to: "/request-staff" },
       { label: "Our process", to: "/employers" },
       { label: "Our clients", to: "/about" },
+    ],
+  },
+  {
+    title: "Platform concept",
+    links: [
+      { label: "Dashboard", to: "/dashboard" },
+      { label: "Candidate dashboard", to: "/dashboard/candidates" },
+      { label: "Employer dashboard", to: "/dashboard/employers" },
     ],
   },
   {
@@ -31,15 +41,26 @@ const COLS: { title: string; links: { label: string; to: string }[] }[] = [
 
 import { CONTACT } from "@/data/site";
 
+const TRUST_BADGES = [
+  { label: "REC corporate member", icon: "award" },
+  { label: "BIOR member", icon: "layers" },
+  { label: "Coventry University-owned", icon: "cap" },
+];
+
 export function Footer() {
   return (
     <footer className="ink-deep" style={{ position: "relative", overflow: "hidden", paddingTop: 72 }}>
       <div className="wrap" style={{ position: "relative", zIndex: 2 }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1.6fr 1fr 1fr 1fr", gap: 40 }} className="footer-grid">
+        <div style={{ display: "grid", gridTemplateColumns: "1.5fr repeat(4, 1fr)", gap: 34 }} className="footer-grid">
           <div>
-            <Logo variant="dark" size={24} withTagline />
+            <TheFutureWorksLogo
+              variant="footer"
+              href="/"
+              className="tfw-logo--on-dark"
+              label="thefutureworks - Jobs for your future"
+            />
             <p className="t-mut" style={{ maxWidth: 320, marginTop: 20, fontSize: 14.5, lineHeight: 1.6 }}>
-              A commercial recruitment agency owned by Coventry University. Helping candidates and employers across Coventry, Warwickshire and the West Midlands since 2005.
+              A commercial recruitment agency owned by Coventry University, established in 2005 and supporting {OFFICIAL_BUSINESS_FACTS.identity.serviceArea}.
             </p>
             <div style={{ marginTop: 18, display: "flex", flexDirection: "column", gap: 7, fontSize: 14 }}>
               <a href={CONTACT.phoneHref} className="footer-link" style={{ display: "inline-flex", gap: 9, alignItems: "center" }}>
@@ -72,13 +93,15 @@ export function Footer() {
 
         <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 14, marginTop: 56, paddingTop: 26, borderTop: "1px solid var(--line)" }}>
           <span style={{ fontSize: 12.5, fontWeight: 700, color: "var(--t-on-dark-dim)", letterSpacing: ".08em", textTransform: "uppercase" }}>Accredited &amp; trusted</span>
-          {["REC Member", "BIOR Member", "Coventry University-owned"].map((b) => (
-            <span key={b} className="chip on-dark" style={{ fontSize: 12 }}>{b}</span>
+          {TRUST_BADGES.map((badge) => (
+            <span key={badge.label} className="chip on-dark" style={{ fontSize: 12 }}>
+              <Icon name={badge.icon} size={12} stroke={2} /> {badge.label}
+            </span>
           ))}
         </div>
 
         <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", gap: 14, padding: "26px 0 34px", color: "var(--t-on-dark-dim)", fontSize: 13 }}>
-          <span>© {new Date().getFullYear()} thefutureworks. Part of the Coventry University Group.</span>
+          <span>© {new Date().getFullYear()} thefutureworks concept prototype. Public facts sourced from official pages.</span>
           <span style={{ display: "flex", gap: 22 }}>
             <Link href="/about" className="footer-link">Privacy</Link>
             <Link href="/about" className="footer-link">Terms</Link>

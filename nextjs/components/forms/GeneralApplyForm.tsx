@@ -48,12 +48,12 @@ export function GeneralApplyForm({ jobs }: { jobs: Job[] }) {
   return (
     <>
       <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-        <span style={{ display: "grid", placeItems: "center", width: 44, height: 44, borderRadius: 12, flex: "0 0 auto", background: "rgba(95,168,42,.10)" }}>
+        <span className="premium-tile premium-tile-green" style={{ width: 46, height: 46 }}>
           <Icon name="send" size={20} style={{ color: "var(--g-green)" }} />
         </span>
         <div>
           <h2 className="h3" style={{ margin: 0 }}>Candidate details</h2>
-          <p className="t-mut" style={{ margin: "3px 0 0", fontSize: 14 }}>Choose a live role and tell us how to reach you.</p>
+          <p className="t-mut" style={{ margin: "3px 0 0", fontSize: 14 }}>Choose a snapshot role and tell us how to reach you.</p>
         </div>
       </div>
 
@@ -68,7 +68,7 @@ export function GeneralApplyForm({ jobs }: { jobs: Job[] }) {
           onChange={set("jobId", "apply-role")}
           error={errors["apply-role"]}
           options={[
-            { value: "", label: "Choose a live role", disabled: true },
+            { value: "", label: "Choose a snapshot role", disabled: true },
             ...jobs.map((job) => ({ value: job.id, label: `${job.title} · ${job.location}` })),
           ]}
         />

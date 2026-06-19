@@ -3,10 +3,11 @@ import { Icon } from "@/components/Icon";
 import { Reveal } from "@/components/primitives";
 import { PageHero, CTABand, SectionHead, TestimonialCard, StatBand } from "@/components/sections";
 import { DIFFERENTIATORS, ACCREDITATIONS, TESTIMONIALS } from "@/data/content";
+import { OFFICIAL_BUSINESS_FACTS } from "@/data/official-business-facts";
 
 export const metadata: Metadata = {
   title: "About us",
-  description: "A commercial recruitment agency owned by Coventry University, established 2005.",
+  description: "Public business facts for a concept prototype of thefutureworks.",
 };
 
 export default function AboutPage() {
@@ -15,7 +16,7 @@ export default function AboutPage() {
       <PageHero
         eyebrow={<><Icon name="cap" size={14} /> About us</>}
         title="Recruitment with a social purpose"
-        sub="A commercial recruitment agency owned by Coventry University. Our profits are reinvested through the University Group — recruitment that gives back to the region."
+        sub="thefutureworks is a commercial recruitment agency owned by Coventry University, a division of PeoplesFuture Ltd, established in 2005 and based in Coventry."
       />
 
       <section className="bg-ink-2" style={{ paddingBlock: "clamp(40px,6vw,72px)" }}>
@@ -26,7 +27,13 @@ export default function AboutPage() {
 
       <section className="bg-paper section">
         <div className="wrap">
-          <SectionHead align="center" eyebrow={<><Icon name="sparkles" size={14} /> Why we&apos;re different</>} title="What sets thefutureworks apart" max={640} />
+          <SectionHead
+            align="center"
+            eyebrow={<><Icon name="sparkles" size={14} /> Public facts</>}
+            title="What sets thefutureworks apart"
+            sub={`This prototype uses public facts manually captured from official pages. thefutureworks supports ${OFFICIAL_BUSINESS_FACTS.identity.serviceArea}.`}
+            max={700}
+          />
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 18, marginTop: 48 }} className="cards-3">
             {DIFFERENTIATORS.map((d, i) => (
               <Reveal key={d.title} d={(i % 3) + 1} className="card card-hover" style={{ padding: 28 }}>

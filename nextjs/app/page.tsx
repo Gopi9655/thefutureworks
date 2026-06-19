@@ -1,13 +1,18 @@
+import "./home-hero.css";
+import "./home-hero-v2.css";
+import Link from "next/link";
 import { Icon } from "@/components/Icon";
-import { Orb, Reveal, CountUp } from "@/components/primitives";
+import { Reveal, CountUp } from "@/components/primitives";
 import { Button } from "@/components/Button";
-import { HeroScene, MobileHeroScene } from "@/components/HeroScene";
 import { NetworkMapBg } from "@/components/NetworkMap";
-import { JobCard, TestimonialCard, CTABand, TrustStrip, SectionHead } from "@/components/sections";
+import { TestimonialCard, CTABand, SectionHead } from "@/components/sections";
+import { HomeHeroV2 } from "@/components/home/HomeHeroV2";
 import { SplitJourney } from "@/components/home/SplitJourney";
 import { RegionSection } from "@/components/home/RegionSection";
-import { JOBS } from "@/data/jobs";
+import { OFFICIAL_BUSINESS_FACTS } from "@/data/official-business-facts";
+import { JOBS, salaryStr } from "@/data/jobs";
 import { STATS, TESTIMONIALS, DIFFERENTIATORS } from "@/data/content";
+import type { Job } from "@/lib/types";
 
 const STAT_META = [
   { icon: "briefcase", color: "var(--g-green)", bg: "rgba(95,168,42,0.14)" },
@@ -17,51 +22,63 @@ const STAT_META = [
   { icon: "sparkles", color: "var(--g-teal)", bg: "rgba(26,163,154,0.14)" },
 ];
 
-function HomeHero() {
+function HomeVacancySnapshotCard({ job }: { job: Job }) {
+  const employerKnown = job.company && job.company !== OFFICIAL_BUSINESS_FACTS.vacancySnapshot.employerDisplay;
+
   return (
-    <section className="hero-light" style={{ position: "relative", overflow: "hidden" }}>
-      <div className="wrap" style={{ position: "relative", zIndex: 2 }}>
-        <div style={{ display: "grid", gridTemplateColumns: "minmax(0,1fr) minmax(0,1.05fr)", gap: 40, alignItems: "center", minHeight: "min(56vh, 540px)", paddingBlock: "18px 26px" }} className="home-hero-grid">
-          <div style={{ minWidth: 0 }}>
-            <Reveal as="span" className="chip" style={{ marginBottom: 14 }}>
-              <Orb size={16} /> Coventry University-owned · Established 2005
-            </Reveal>
-            <Reveal as="h1" d={1} style={{ color: "var(--ink-800)", margin: "12px 0 0", fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "clamp(40px, 10.5vw, 70px)", lineHeight: 1.02, letterSpacing: "-0.025em" }}>
-              Find work. Hire talent.<br />
-              <span style={{ color: "var(--g-green)" }}>Build Coventry&apos;s future.</span>
-            </Reveal>
-            <Reveal as="p" d={2} className="lead" style={{ margin: "16px 0 0", maxWidth: 480 }}>
-              Coventry University-owned recruitment support for candidates, graduates and employers across Coventry, Warwickshire and the West Midlands.
-            </Reveal>
-            <Reveal d={3} className="hero-cta-row">
-              <Button to="/vacancies" variant="primary" size="lg" icon="arrowRight">Find jobs</Button>
-              <Button to="/employers" variant="ghost-blue" size="lg" iconLeft="building">Hire staff</Button>
-              <Button to="/apply" variant="outline" size="lg" iconLeft="send">Submit CV</Button>
-            </Reveal>
-            <Reveal d={4} style={{ display: "flex", alignItems: "center", gap: 20, marginTop: 20, flexWrap: "wrap" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <span style={{ display: "grid", placeItems: "center", width: 28, height: 28, borderRadius: 50, background: "rgba(95,168,42,.16)" }}>
-                  <Icon name="check" size={14} stroke={2.4} style={{ color: "var(--g-green)" }} />
-                </span>
-                <span style={{ fontSize: 13, color: "var(--t-ink-mut)" }}>8,196 candidates registered</span>
-              </div>
-              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <span style={{ display: "grid", placeItems: "center", width: 28, height: 28, borderRadius: 50, background: "rgba(30,111,184,.16)" }}>
-                  <Icon name="shield" size={14} style={{ color: "var(--g-blue)" }} />
-                </span>
-                <span style={{ fontSize: 13, color: "var(--t-ink-mut)" }}>Employer advice is always free</span>
-              </div>
-            </Reveal>
-          </div>
-          <div className="home-hero-scene hero-scene-desktop" style={{ position: "relative", height: "min(54vh, 480px)", minHeight: 400, borderRadius: "var(--radius-lg)", background: "linear-gradient(160deg, rgba(8,14,38,0.04) 0%, rgba(8,14,38,0.09) 100%)", border: "1px solid rgba(30,111,184,0.10)", overflow: "hidden" }}>
-            <HeroScene />
-          </div>
+    <Link href={"/jobs/" + job.id} className="home-vacancy-card">
+      <div className="home-vacancy-card-main">
+        <div>
+          <h3>{job.title}</h3>
+          {employerKnown && <p className="home-vacancy-employer">{job.company}</p>}
         </div>
-        <div className="hero-scene-mobile">
-          <MobileHeroScene />
+        <div className="home-vacancy-pills" aria-label="Role details">
+          <span><Icon name="mapPin" size={13} /> {job.location}</span>
+          <span><Icon name="briefcase" size={13} /> {job.type}</span>
+          <span><Icon name="layers" size={13} /> {job.remote}</span>
         </div>
       </div>
-      <TrustStrip />
+      <div className="home-vacancy-foot">
+        <strong>{salaryStr(job)}</strong>
+        <span className="home-vacancy-cta">View role <Icon name="arrowRight" size={15} /></span>
+      </div>
+    </Link>
+  );
+}
+
+function HomeHero() {
+  return (
+    <section className="hero-light hero-atmos" style={{ position: "relative", overflow: "hidden" }}>
+      {/* hero-only 3D-like atmosphere — soft depth glows, faint grid, blurred light layers */}
+      <div className="hero-atmos-bg" aria-hidden="true">
+        <span className="hero-atmos-mesh" />
+        <span className="hero-atmos-grid" />
+        <span className="hero-atmos-blob hero-atmos-blob-g" />
+        <span className="hero-atmos-blob hero-atmos-blob-b" />
+        <span className="hero-atmos-blob hero-atmos-blob-t" />
+        {/* subtle curved flow lines drifting toward the match atlas (right) */}
+        <svg className="hero-atmos-flow" viewBox="0 0 900 600" preserveAspectRatio="xMidYMid slice" fill="none">
+          <defs>
+            <linearGradient id="heroFlowG" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stopColor="#5FA82A" stopOpacity="0" />
+              <stop offset=".5" stopColor="#5FA82A" stopOpacity=".5" />
+              <stop offset="1" stopColor="#1AA39A" stopOpacity="0" />
+            </linearGradient>
+            <linearGradient id="heroFlowB" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stopColor="#1AA39A" stopOpacity="0" />
+              <stop offset=".5" stopColor="#1E6FB8" stopOpacity=".5" />
+              <stop offset="1" stopColor="#1E6FB8" stopOpacity="0" />
+            </linearGradient>
+          </defs>
+          <path className="hero-flow-ln" d="M120 470 C 320 470, 360 250, 600 250 S 880 150, 980 150" stroke="url(#heroFlowG)" strokeWidth="1.5" />
+          <path className="hero-flow-ln hero-flow-ln-2" d="M80 360 C 300 360, 380 300, 620 300 S 860 320, 980 300" stroke="url(#heroFlowB)" strokeWidth="1.5" />
+          <path className="hero-flow-ln hero-flow-ln-3" d="M140 540 C 360 540, 420 360, 640 360 S 880 400, 980 380" stroke="url(#heroFlowG)" strokeWidth="1.25" />
+        </svg>
+        <span className="hero-atmos-veil" />
+      </div>
+      <div className="wrap" style={{ position: "relative", zIndex: 2 }}>
+        <HomeHeroV2 />
+      </div>
     </section>
   );
 }
@@ -78,7 +95,7 @@ function GlassStatsSection() {
             <span className="eyebrow"><Icon name="chart" size={14} /> By the numbers</span>
             <h2 className="h3" style={{ color: "var(--t-ink)", margin: "10px 0 0" }}>A track record the region trusts</h2>
           </div>
-          <Button to="/about" variant="outline" size="sm" icon="arrowRight">Our story</Button>
+          <Button to="/about" variant="outline" size="sm" icon="arrowRight">Official facts</Button>
         </Reveal>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 14 }} className="statband">
           {STATS.map((s, i) => {
@@ -111,12 +128,18 @@ function LatestJobs() {
     <section className="bg-paper section">
       <div className="wrap">
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: 16, marginBottom: 36 }}>
-          <SectionHead eyebrow={<><Icon name="briefcase" size={14} /> Live opportunities</>} title="Latest vacancies" sub="Fresh roles across the West Midlands, updated daily by our consultants." max={520} />
+          <SectionHead
+            eyebrow={<><Icon name="briefcase" size={14} /> Current opportunities</>}
+            title="Current vacancies snapshot"
+            sub="A curated snapshot of current opportunities based on publicly available official listings."
+            max={560}
+          />
           <Button to="/vacancies" variant="outline" icon="arrowRight">View all vacancies</Button>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }} className="cards-3">
-          {jobs.map((j, i) => <Reveal key={j.id} d={(i % 3) + 1}><JobCard job={j} /></Reveal>)}
+        <div className="home-vacancy-grid">
+          {jobs.map((j, i) => <Reveal key={j.id} d={(i % 3) + 1}><HomeVacancySnapshotCard job={j} /></Reveal>)}
         </div>
+        <p className="home-vacancy-note">Static snapshot only; listings can change on the official website.</p>
       </div>
     </section>
   );
@@ -126,7 +149,7 @@ function WhyDifferent() {
   return (
     <section className="bg-paper-3 section" style={{ position: "relative", overflow: "hidden" }}>
       <div className="wrap" style={{ position: "relative", zIndex: 2 }}>
-        <SectionHead align="center" eyebrow={<><Icon name="sparkles" size={14} /> Why thefutureworks</>} title="Recruitment with a difference" sub="Not just another agency — a values-led part of Coventry University Group, built to give back to the region since 2005." max={640} />
+        <SectionHead align="center" eyebrow={<><Icon name="sparkles" size={14} /> Why thefutureworks</>} title="Recruitment with a difference" sub="A commercial recruitment agency owned by Coventry University, based in Coventry and established in 2005." max={640} />
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 18, marginTop: 48 }} className="cards-3">
           {DIFFERENTIATORS.map((d, i) => (
             <Reveal key={d.title} d={(i % 3) + 1} className="card card-hover" style={{ padding: 28 }}>
