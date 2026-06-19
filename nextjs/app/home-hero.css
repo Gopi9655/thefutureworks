@@ -85,6 +85,48 @@
 .hc-chip svg { color: var(--g-green); flex: 0 0 auto; }
 .hc-chip.is-blue svg { color: var(--g-blue); }
 
+/* ---------- bottom trust strip ---------- */
+.hero-light > div:last-child {
+  padding: clamp(22px, 2.6vw, 30px) 0 !important;
+  border-top: 1px solid rgba(30, 111, 184, 0.1) !important;
+  border-bottom: 1px solid rgba(95, 168, 42, 0.09);
+  background:
+    linear-gradient(90deg, rgba(95, 168, 42, 0.07), rgba(255, 255, 255, 0.72) 42%, rgba(30, 111, 184, 0.07)),
+    rgba(247, 250, 247, 0.82) !important;
+}
+.hero-light .trust-strip-row {
+  display: grid;
+  grid-template-columns: repeat(5, max-content);
+  justify-content: space-between;
+  align-items: center;
+  column-gap: clamp(24px, 4vw, 64px);
+  row-gap: 16px;
+}
+.hero-light .trust-item {
+  justify-content: center;
+  gap: 11px;
+  min-width: max-content;
+  padding: 0;
+  border-right: none;
+  font-size: clamp(15px, 1.12vw, 17px);
+  font-weight: 750;
+  letter-spacing: 0;
+  color: rgba(13, 29, 58, 0.74);
+}
+.hero-light .trust-icon {
+  width: 30px;
+  height: 30px;
+  border-width: 1.5px;
+  background: rgba(255, 255, 255, 0.64);
+  box-shadow:
+    0 10px 24px -18px rgba(10, 22, 48, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.78);
+}
+.hero-light .trust-icon svg {
+  width: 17px;
+  height: 17px;
+}
+
 /* ---------- stage (right visual) ---------- */
 .hc-stage {
   position: relative;
@@ -303,6 +345,19 @@
   }
   .hc-copy { order: 1; }
   .hc-stage { order: 2; }
+  .hero-light .trust-strip-row {
+    display: flex;
+    justify-content: flex-start;
+    gap: 12px 14px;
+  }
+  .hero-light .trust-item {
+    flex: 0 1 auto;
+    justify-content: flex-start;
+    min-width: 0;
+    white-space: normal;
+    line-height: 1.15;
+  }
+  .hero-light .trust-item:last-child { justify-content: flex-start; }
 }
 @media (max-width: 600px) {
   /* a little extra height de-crowds the orb and cards when stacked */
@@ -312,6 +367,21 @@
   .hc-empl { top: 6%; right: 3%; width: 47%; }
   .hc-opp { bottom: 5%; left: 26%; width: 52%; }
   .hc-actions .btn { flex: 1 1 auto; justify-content: center; }
+  .hero-light > div:last-child {
+    padding: 18px 0 !important;
+  }
+  .hero-light .trust-item {
+    gap: 8px;
+    font-size: 12.5px;
+  }
+  .hero-light .trust-icon {
+    width: 23px;
+    height: 23px;
+  }
+  .hero-light .trust-icon svg {
+    width: 13.5px;
+    height: 13.5px;
+  }
 }
 @media (max-width: 440px) {
   .hc-core { width: 122px; height: 122px; margin: -61px 0 0 -61px; }

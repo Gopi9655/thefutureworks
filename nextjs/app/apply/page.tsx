@@ -6,11 +6,11 @@ import { JOBS } from "@/data/jobs";
 
 export const metadata: Metadata = {
   title: "Apply for a role",
-  description: "Apply for a live thefutureworks vacancy across Coventry and the West Midlands.",
+  description: "Apply for a static vacancy snapshot role in the concept prototype.",
 };
 
 const STEPS: { icon: string; title: string; body: string }[] = [
-  { icon: "send", title: "Share your details", body: "Pick a live concept role and tell us how to reach you — it takes a couple of minutes." },
+  { icon: "send", title: "Share your details", body: "Pick a snapshot role and tell us how to reach you - it takes a couple of minutes." },
   { icon: "users", title: "A consultant reviews", body: "A human checks every application and sense-checks the match before anything moves." },
   { icon: "checkCircle", title: "We introduce you", body: "If it's a strong fit, we put you forward and keep you updated at each step." },
 ];
@@ -27,7 +27,7 @@ export default function ApplyPage() {
       <PageHero
         eyebrow={<><Icon name="send" size={14} /> Applications</>}
         title="Apply for a role"
-        sub="Choose a live vacancy, share your details and our consultants will take it from there."
+        sub="Choose a static snapshot vacancy and share your details. This prototype simulates submission and does not store real CVs."
       />
       <section className="bg-paper section">
         <div className="wrap apply-grid">

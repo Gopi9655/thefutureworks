@@ -7,7 +7,7 @@ import { Icon } from "@/components/Icon";
  * Left: concise headline, subtext, two CTAs, trust chips.
  * Right: a regional map/grid with Coventry as the hub plus surrounding
  * towns, an employer-demand card (blue), a candidate-readiness card (green)
- * and a Coventry University Group trust strip. Decorative visual is
+ * and a Coventry University-owned trust strip. Decorative visual is
  * aria-hidden; the hub pulse respects prefers-reduced-motion.
  *
  * Synthetic concept data only.
@@ -102,7 +102,7 @@ export function HomeHeroConceptB() {
             <span className="lab-dot lab-dot-green" />
             <span className="lab-mini-label">Candidate readiness</span>
           </div>
-          <div className="lab-mini-name">8,196 active</div>
+          <div className="lab-mini-name">8,196 registered</div>
           <div className="lab-bar"><span style={{ width: "84%" }} /></div>
         </div>
 
@@ -111,8 +111,8 @@ export function HomeHeroConceptB() {
             <Icon name="cap" size={17} />
           </span>
           <span className="concept-b-strip-text">
-            <strong>Coventry University Group</strong>
-            <span>Not-for-private-profit · Reinvested in the region</span>
+            <strong>Coventry University-owned</strong>
+            <span>REC and BIOR member facts</span>
           </span>
         </div>
       </div>

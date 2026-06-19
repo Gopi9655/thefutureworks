@@ -38,13 +38,13 @@ export function HomeHeroConceptA() {
         </div>
         <div className="lab-hero-chips">
           <span className="lab-trust-chip">
-            <Icon name="check" size={14} stroke={2.4} /> Coventry University Group
+            <Icon name="check" size={14} stroke={2.4} /> Coventry University-owned
           </span>
           <span className="lab-trust-chip is-blue">
             <Icon name="shield" size={14} /> Human-checked matches
           </span>
           <span className="lab-trust-chip">
-            <Icon name="users" size={14} /> 8,196 candidates ready
+            <Icon name="users" size={14} /> 8,196 candidates registered
           </span>
         </div>
       </div>

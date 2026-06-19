@@ -3,10 +3,11 @@ import { Icon } from "@/components/Icon";
 import { Reveal } from "@/components/primitives";
 import { Button } from "@/components/Button";
 import { PageHero, CTABand, SectionHead } from "@/components/sections";
+import { OFFICIAL_BUSINESS_FACTS } from "@/data/official-business-facts";
 
 export const metadata: Metadata = {
   title: "For candidates",
-  description: "How thefutureworks helps candidates and graduates find work across the West Midlands.",
+  description: "How thefutureworks supports commercial candidates, Coventry University students and graduates.",
 };
 
 const STEPS = [
@@ -22,7 +23,7 @@ export default function CandidatesPage() {
       <PageHero
         eyebrow={<><Icon name="users" size={14} /> For candidates</>}
         title="Find a role that actually fits"
-        sub="Whether you're a graduate taking the first step or an experienced professional, we treat you as a person — not a CV."
+        sub={`thefutureworks works with ${OFFICIAL_BUSINESS_FACTS.identity.audiences.join(", ")} across ${OFFICIAL_BUSINESS_FACTS.identity.serviceArea}.`}
       >
         <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 4 }}>
           <Button to="/vacancies" variant="light" size="lg" icon="arrowRight">Browse jobs</Button>

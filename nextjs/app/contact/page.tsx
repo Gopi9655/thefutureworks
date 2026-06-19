@@ -24,7 +24,7 @@ export default function ContactPage() {
       <PageHero
         eyebrow={<><Icon name="mail" size={14} /> Contact</>}
         title="Talk to a team that picks up the phone"
-        sub="Hiring, job-hunting or just exploring options across the West Midlands — we'd love to hear from you."
+        sub="Contact the Coventry-based team for hiring, job-hunting or questions across Coventry, Warwickshire and the West Midlands."
       />
 
       <section className="bg-paper section">
@@ -51,7 +51,7 @@ export default function ContactPage() {
               <Reveal d={1} style={{ marginTop: 14, position: "relative" }}>
                 <div className="media-slot" data-label="Map / office photo" style={{ width: "100%", height: 220, borderRadius: 18 }} />
                 <div className="glass" style={{ position: "absolute", left: 16, bottom: 16, padding: "10px 14px", display: "flex", alignItems: "center", gap: 10, color: "#fff" }}>
-                  <Icon name="mapPin" size={18} stroke={2} /> <span style={{ fontSize: 13, fontWeight: 600 }}>Coventry · CV1 5FJ</span>
+                  <Icon name="mapPin" size={18} stroke={2} /> <span style={{ fontSize: 13, fontWeight: 600 }}>Coventry - CV1 5FJ</span>
                 </div>
               </Reveal>
             </div>

@@ -3,9 +3,8 @@ import type { ApplicationPayload, ApiResult } from "@/lib/types";
 
 // POST /api/apply — job-application handler (STUB).
 //
-// Integration point: validate, store the candidate + CV, push to your ATS,
-// and email the consultant who owns the role. A real implementation would
-// accept multipart/form-data so the CV file is uploaded too.
+// Prototype stub only: validates the demo JSON payload and returns a reference.
+// No CV file is uploaded or stored, and nothing is pushed to an ATS.
 export async function POST(request: Request) {
   let body: Partial<ApplicationPayload>;
   try {
@@ -21,7 +20,7 @@ export async function POST(request: Request) {
     );
   }
 
-  // TODO: persist candidate + CV, notify the owning consultant.
+  // Intentionally no persistence in this prototype.
 
   const ref = "APP-" + Date.now().toString(36).toUpperCase();
   return NextResponse.json<ApiResult>({ ok: true, message: "Application received.", ref });

@@ -4,18 +4,20 @@ import { Reveal } from "@/components/primitives";
 import { Button } from "@/components/Button";
 import { PageHero, CTABand, SectionHead, TestimonialCard } from "@/components/sections";
 import { TESTIMONIALS } from "@/data/content";
+import { OFFICIAL_BUSINESS_FACTS } from "@/data/official-business-facts";
 import { SECTORS } from "@/data/jobs";
 
 export const metadata: Metadata = {
   title: "For employers",
-  description: "Permanent, temporary and part-time staffing across the West Midlands. Our advice is always free.",
+  description: "Permanent, temporary, full-time and part-time staffing across the West Midlands. Our advice is always free.",
 };
 
-const STEPS = [
-  { icon: "doc", t: "Brief us once, properly", d: "We map the role, culture and requirements in full — no cut-and-paste job specs." },
-  { icon: "target", t: "We search & assess", d: "Rigorous candidate selection from our deep local talent database." },
-  { icon: "layers", t: "Receive a vetted shortlist", d: "Reference-checked, interview-ready — no speculative CV bundles." },
-  { icon: "shield", t: "Success-fee, guaranteed", d: "Permanent placements on a success-fee basis, with a guarantee period." },
+const SERVICE_POINTS = [
+  { icon: "target", t: "Rigorous selection", d: OFFICIAL_BUSINESS_FACTS.employerServicePoints[0] },
+  { icon: "building", t: "Interview facilities", d: OFFICIAL_BUSINESS_FACTS.employerServicePoints[1] },
+  { icon: "pound", t: "Competitive pricing", d: OFFICIAL_BUSINESS_FACTS.employerServicePoints[2] },
+  { icon: "shield", t: "Accountable advice", d: OFFICIAL_BUSINESS_FACTS.employerServicePoints[3] },
+  { icon: "handshake", t: "Quality matches", d: OFFICIAL_BUSINESS_FACTS.employerServicePoints[4] },
 ];
 
 export default function EmployersPage() {
@@ -25,7 +27,7 @@ export default function EmployersPage() {
       <PageHero
         eyebrow={<><Icon name="building" size={14} /> For employers</>}
         title="Staffing partners who get it right first time"
-        sub="Permanent, temporary and part-time recruitment across Coventry, Warwickshire and the West Midlands. Employer advice is always free."
+        sub="Permanent, temporary, full-time and part-time recruitment across Coventry, Warwickshire and the West Midlands. Employer advice is always free."
       >
         <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 4 }}>
           <Button to="/contact" variant="light" size="lg" icon="arrowRight">Hire staff</Button>
@@ -35,10 +37,16 @@ export default function EmployersPage() {
 
       <section className="bg-paper section">
         <div className="wrap">
-          <SectionHead align="center" eyebrow={<><Icon name="target" size={14} /> Our process</>} title="How we match and place" sub="A rigorous, partnership-led process built over almost twenty years." max={620} />
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 18, marginTop: 44 }} className="cards-3">
-            {STEPS.map((s, i) => (
-              <Reveal key={s.t} d={(i % 4) + 1} className="card" style={{ padding: 26 }}>
+          <SectionHead
+            align="center"
+            eyebrow={<><Icon name="target" size={14} /> Employer service</>}
+            title="Official employer service points"
+            sub="Static public facts from the official website, integrated into this concept prototype."
+            max={660}
+          />
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 18, marginTop: 44 }} className="cards-3">
+            {SERVICE_POINTS.map((s, i) => (
+              <Reveal key={s.t} d={(i % 5) + 1} className="card" style={{ padding: 26 }}>
                 <span style={{ display: "grid", placeItems: "center", width: 48, height: 48, borderRadius: 13, background: "rgba(30,111,184,0.10)", border: "1px solid rgba(30,111,184,0.20)" }}>
                   <Icon name={s.icon} size={22} style={{ color: "var(--g-blue)" }} />
                 </span>
@@ -52,7 +60,7 @@ export default function EmployersPage() {
 
       <section className="bg-paper-2 section">
         <div className="wrap">
-          <SectionHead align="center" eyebrow={<><Icon name="layers" size={14} /> Sectors we cover</>} title="Specialists across the commercial sectors" max={620} />
+          <SectionHead align="center" eyebrow={<><Icon name="layers" size={14} /> Sectors we cover</>} title="Specialists across commercial sectors" max={620} />
           <div style={{ display: "flex", flexWrap: "wrap", gap: 12, justifyContent: "center", marginTop: 36, maxWidth: 900, marginInline: "auto" }}>
             {SECTORS.map((s) => <span key={s} className="chip" style={{ fontSize: 15, padding: "11px 20px" }}>{s}</span>)}
           </div>
@@ -70,9 +78,9 @@ export default function EmployersPage() {
 
       <CTABand
         title="Let's talk about your next hire"
-        sub="Our advice is free and our consultants know the region inside out."
+        sub="Our advice is free and the official website cites REC/BIOR membership and over 70 years of collective recruitment experience."
         primary={{ label: "Hire staff", to: "/contact" }}
-        secondary={{ label: "Browse candidates", to: "/contact" }}
+        secondary={{ label: "Browse vacancies", to: "/vacancies" }}
       />
     </>
   );

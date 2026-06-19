@@ -87,7 +87,7 @@ export function JobFilters({ filters, options, resultCount, totalCount, onChange
 
       <div className="jobs-filters-foot">
         <p className="t-mut jobs-result-count" aria-live="polite" style={{ margin: 0, fontSize: 14 }}>
-          Showing <strong>{resultCount}</strong> of {totalCount} concept roles
+          Showing <strong>{resultCount}</strong> of {totalCount} snapshot roles
         </p>
         <button
           type="button"

@@ -3,10 +3,8 @@ import type { ContactPayload, ApiResult } from "@/lib/types";
 
 // POST /api/contact — contact-form handler (STUB).
 //
-// Integration point: validate server-side, then persist + notify. e.g.
-//   - save to your DB / CRM
-//   - send an email (Resend, SendGrid, Nodemailer)
-//   - forward into your ATS
+// Prototype stub only: validates server-side and returns a reference.
+// No database, CRM, email or ATS integration is connected here.
 // Return { ok, message, ref } so the client can show a confirmation.
 export async function POST(request: Request) {
   let body: Partial<ContactPayload>;
@@ -24,7 +22,7 @@ export async function POST(request: Request) {
     );
   }
 
-  // TODO: persist + notify here.
+  // Intentionally no persistence or notification in this prototype.
 
   const ref = "TFW-" + Date.now().toString(36).toUpperCase();
   return NextResponse.json<ApiResult>({ ok: true, message: "Message received.", ref });

@@ -1,0 +1,152 @@
+import type { EmploymentType, RemoteMode, SalaryUnit } from "@/lib/types";
+
+export const OFFICIAL_BUSINESS_FACTS = {
+  identity: {
+    name: "thefutureworks",
+    ownedBy: "Coventry University",
+    parentDivision: "PeoplesFuture Ltd",
+    establishedYear: 2005,
+    basedIn: "Coventry",
+    serviceArea: "Coventry, Warwickshire and the West Midlands",
+    recruitmentTypes: ["permanent", "temporary", "full-time", "part-time"],
+    audiences: [
+      "commercial and professionally experienced individuals",
+      "Coventry University students",
+      "Coventry University graduates",
+    ],
+  },
+  stats: {
+    jobsPosted: { value: 2456, label: "Jobs posted", sub: "official website statistic" },
+    positionsFilled: { value: 953, label: "Positions filled", sub: "official website statistic" },
+    companiesSupplied: { value: 257, label: "Companies supplied", sub: "official website statistic" },
+    repeatCustomers: { value: 232, label: "Repeat customers", sub: "official website statistic" },
+    candidatesRegistered: { value: 8196, label: "Candidates registered", sub: "official website statistic" },
+    collectiveExperienceYears: { value: 70, label: "70+ years experience", sub: "collective recruitment experience" },
+  },
+  accreditations: [
+    {
+      name: "Recruitment and Employment Confederation",
+      abbr: "REC",
+      label: "REC corporate member",
+      desc: "Corporate member of the Recruitment and Employment Confederation / REC.",
+    },
+    {
+      name: "British Institute of Recruiters",
+      abbr: "BIOR",
+      label: "BIOR member",
+      desc: "Member / corporate member of the British Institute of Recruiters / BIOR.",
+    },
+  ],
+  sectors: [
+    "Administration",
+    "Customer Service / Call Centre",
+    "Human Resources",
+    "Engineering / Technical / IT",
+    "Finance and Accounts",
+    "Health & Safety Management",
+    "Sales and Marketing",
+    "Transport / Logistics",
+    "Secretarial / PA",
+  ],
+  employerServicePoints: [
+    "Rigorous candidate selection procedures",
+    "Free offsite interview facilities within thefutureworks offices",
+    "Competitive pricing structure",
+    "Honesty and accountability",
+    "Quality recruitment matches for employers",
+  ],
+  contact: {
+    email: "jobs@thefutureworks.co.uk",
+    emailHref: "mailto:jobs@thefutureworks.co.uk",
+    phone: "+44 0 24 7615 8815",
+    phoneHref: "tel:+442476158815",
+    phoneShort: "024 7615 8815",
+    addressLines: [
+      "Coventry University Campus",
+      "Charles Ward Building (145)",
+      "Cox Street, Coventry",
+      "CV1 5FJ",
+    ],
+  },
+  trustRail: [
+    { label: "Coventry University-owned", icon: "cap", tone: "blue" },
+    { label: "REC corporate member", icon: "award", tone: "green" },
+    { label: "BIOR member", icon: "layers", tone: "blue" },
+    { label: "70+ years experience", icon: "calendar", tone: "green" },
+    { label: "8,196 candidates registered", icon: "users", tone: "warm" },
+  ],
+  vacancySnapshot: {
+    label: "Official website snapshot",
+    note: "Static sample current vacancies snapshot manually captured from public official pages; not a live feed.",
+    employerDisplay: "Employer not listed",
+    jobs: [
+      {
+        id: "project-office-co-ordinator",
+        title: "Project Office Co-ordinator",
+        location: "Coventry",
+        salaryMin: 32000,
+        salaryMax: 35000,
+        salaryUnit: "year" as SalaryUnit,
+        sector: "Administration",
+        type: "Permanent" as EmploymentType,
+        remote: "Office" as RemoteMode,
+      },
+      {
+        id: "sales-executive",
+        title: "Sales Executive",
+        location: "Coventry",
+        salaryMin: 40000,
+        salaryMax: 45000,
+        salaryUnit: "year" as SalaryUnit,
+        sector: "Sales and Marketing",
+        type: "Permanent" as EmploymentType,
+        remote: "Office" as RemoteMode,
+      },
+      {
+        id: "senior-recruitment-consultant",
+        title: "Senior Recruitment Consultant",
+        location: "Coventry",
+        salaryMin: 37995,
+        salaryMax: 40452,
+        salaryUnit: "year" as SalaryUnit,
+        sector: "Human Resources",
+        type: "Permanent" as EmploymentType,
+        remote: "Office" as RemoteMode,
+      },
+      {
+        id: "internal-sales-customer-services-co-ordinator",
+        title: "Internal Sales & Customer Services Co-ordinator",
+        location: "Coventry",
+        salaryMin: 32000,
+        salaryMax: 35000,
+        salaryUnit: "year" as SalaryUnit,
+        sector: "Customer Service / Call Centre",
+        type: "Permanent" as EmploymentType,
+        remote: "Office" as RemoteMode,
+      },
+      {
+        id: "operations-systems-co-ordinator",
+        title: "Operations Systems Co-Ordinator",
+        location: "Kenilworth",
+        salaryMin: 28000,
+        salaryMax: 32000,
+        salaryUnit: "year" as SalaryUnit,
+        sector: "Engineering / Technical / IT",
+        type: "Permanent" as EmploymentType,
+        remote: "Office" as RemoteMode,
+      },
+    ],
+  },
+  prototypeNotes: {
+    concept:
+      "This is a high-fidelity concept/prototype, not the official thefutureworks website.",
+    factsSource:
+      "Public business facts were manually captured from official thefutureworks pages.",
+    staticJobs:
+      "Job listings are a static snapshot and can change on the official website.",
+    backend:
+      "Backend, apply and contact flows remain prototype/stubbed unless explicitly implemented.",
+  },
+} as const;
+
+export type OfficialBusinessFacts = typeof OFFICIAL_BUSINESS_FACTS;

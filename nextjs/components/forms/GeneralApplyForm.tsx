@@ -53,7 +53,7 @@ export function GeneralApplyForm({ jobs }: { jobs: Job[] }) {
         </span>
         <div>
           <h2 className="h3" style={{ margin: 0 }}>Candidate details</h2>
-          <p className="t-mut" style={{ margin: "3px 0 0", fontSize: 14 }}>Choose a live role and tell us how to reach you.</p>
+          <p className="t-mut" style={{ margin: "3px 0 0", fontSize: 14 }}>Choose a snapshot role and tell us how to reach you.</p>
         </div>
       </div>
 
@@ -68,7 +68,7 @@ export function GeneralApplyForm({ jobs }: { jobs: Job[] }) {
           onChange={set("jobId", "apply-role")}
           error={errors["apply-role"]}
           options={[
-            { value: "", label: "Choose a live role", disabled: true },
+            { value: "", label: "Choose a snapshot role", disabled: true },
             ...jobs.map((job) => ({ value: job.id, label: `${job.title} · ${job.location}` })),
           ]}
         />

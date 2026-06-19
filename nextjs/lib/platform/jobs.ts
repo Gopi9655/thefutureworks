@@ -1,7 +1,7 @@
 // ============================================================
 // Phase 4A — Jobs marketplace helpers
-// Static, synthetic-concept helpers over the existing data/jobs.ts
-// dataset. No backend, no database, no real candidate data.
+// Static vacancy helpers over data/jobs.ts. No backend, no database, no real
+// candidate data. Match signals remain illustrative prototype-only signals.
 // ============================================================
 import { JOBS } from "@/data/jobs";
 import type { Job } from "@/lib/types";
@@ -54,14 +54,14 @@ const GENERAL_VISUAL: JobCategoryVisual = {
 // Sector -> category badge. Covers every sector in data/jobs.ts SECTORS.
 const SECTOR_VISUALS: Record<string, JobCategoryVisual> = {
   "Administration": { category: "Admin & office", label: "Admin", icon: "doc", tone: "navy" },
-  "Secretarial & PA": { category: "Admin & office", label: "Office", icon: "doc", tone: "navy" },
-  "Customer Service & Call Centre": { category: "Customer service", label: "Customer service", icon: "phone", tone: "blue" },
-  "HR": { category: "HR & people", label: "HR & people", icon: "users", tone: "blue" },
-  "Engineering, Technical & IT": { category: "Technical & IT", label: "Technical / IT", icon: "bolt", tone: "blue" },
-  "Finance & Accounts": { category: "Finance & accounts", label: "Finance", icon: "chart", tone: "navy" },
-  "Health & Safety": { category: "Health & safety", label: "Health & safety", icon: "shield", tone: "navy" },
-  "Sales & Marketing": { category: "Sales & growth", label: "Sales / growth", icon: "trendingUp", tone: "green" },
-  "Transport & Logistics": { category: "Logistics & transport", label: "Logistics", icon: "compass", tone: "blue" },
+  "Secretarial / PA": { category: "Admin & office", label: "Office", icon: "doc", tone: "navy" },
+  "Customer Service / Call Centre": { category: "Customer service", label: "Customer service", icon: "phone", tone: "blue" },
+  "Human Resources": { category: "HR & people", label: "HR & people", icon: "users", tone: "blue" },
+  "Engineering / Technical / IT": { category: "Technical & IT", label: "Technical / IT", icon: "bolt", tone: "blue" },
+  "Finance and Accounts": { category: "Finance & accounts", label: "Finance", icon: "chart", tone: "navy" },
+  "Health & Safety Management": { category: "Health & safety", label: "Health & safety", icon: "shield", tone: "navy" },
+  "Sales and Marketing": { category: "Sales & growth", label: "Sales / growth", icon: "trendingUp", tone: "green" },
+  "Transport / Logistics": { category: "Logistics & transport", label: "Logistics", icon: "compass", tone: "blue" },
 };
 
 const RECRUITMENT_VISUAL: JobCategoryVisual = {
@@ -79,11 +79,11 @@ const RECRUITMENT_VISUAL: JobCategoryVisual = {
  */
 const TITLE_VISUALS: { pattern: RegExp; visual: JobCategoryVisual }[] = [
   { pattern: /recruit|talent acquisition|resourcing/, visual: RECRUITMENT_VISUAL },
-  { pattern: /\bhr\b|human resources|people (team|partner|advisor)|employee relations/, visual: SECTOR_VISUALS["HR"] },
-  { pattern: /customer service|call centre|call center|contact centre/, visual: SECTOR_VISUALS["Customer Service & Call Centre"] },
-  { pattern: /accountant|finance|payroll|bookkeep|ledger/, visual: SECTOR_VISUALS["Finance & Accounts"] },
-  { pattern: /\bsales\b|business development/, visual: SECTOR_VISUALS["Sales & Marketing"] },
-  { pattern: /transport|logistic|warehouse|supply chain|\bhgv\b/, visual: SECTOR_VISUALS["Transport & Logistics"] },
+  { pattern: /\bhr\b|human resources|people (team|partner|advisor)|employee relations/, visual: SECTOR_VISUALS["Human Resources"] },
+  { pattern: /customer service|call centre|call center|contact centre/, visual: SECTOR_VISUALS["Customer Service / Call Centre"] },
+  { pattern: /accountant|finance|payroll|bookkeep|ledger/, visual: SECTOR_VISUALS["Finance and Accounts"] },
+  { pattern: /\bsales\b|business development/, visual: SECTOR_VISUALS["Sales and Marketing"] },
+  { pattern: /transport|logistic|warehouse|supply chain|\bhgv\b/, visual: SECTOR_VISUALS["Transport / Logistics"] },
 ];
 
 /**
@@ -113,7 +113,7 @@ export interface JobMatchSignal {
   rationale: string;
 }
 
-/** Return every concept vacancy. */
+/** Return every static vacancy. */
 export function getAllJobs(): Job[] {
   return JOBS;
 }

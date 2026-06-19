@@ -10,7 +10,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const { id } = await params;
   const job = getJob(id);
   if (!job) return { title: "Vacancy not found" };
-  return { title: `${job.title} · ${job.company}`, description: job.summary };
+  return { title: `${job.title} - ${job.sourceLabel ?? job.company}`, description: job.summary };
 }
 
 export default async function VacancyJobPage({ params }: { params: Promise<{ id: string }> }) {

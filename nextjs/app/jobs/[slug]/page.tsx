@@ -10,7 +10,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const job = getJob(slug);
   if (!job) return { title: "Job not found" };
-  return { title: `${job.title} · ${job.company}`, description: job.summary };
+  return { title: `${job.title} - ${job.sourceLabel ?? job.company}`, description: job.summary };
 }
 
 export default async function PublicJobPage({ params }: { params: Promise<{ slug: string }> }) {

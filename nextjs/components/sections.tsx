@@ -4,6 +4,7 @@ import { Icon } from "./Icon";
 import { Orb, Reveal, CountUp } from "./primitives";
 import { Button } from "./Button";
 import { STATS } from "@/data/content";
+import { OFFICIAL_BUSINESS_FACTS } from "@/data/official-business-facts";
 import { salaryStr } from "@/data/jobs";
 import { getJobCategoryVisual } from "@/lib/platform/jobs";
 import type { Job, Testimonial } from "@/lib/types";
@@ -68,6 +69,7 @@ export function JobCard({ job, featured }: { job: Job; featured?: boolean }) {
         <span className="chip"><Icon name="mapPin" size={13} /> {job.location}</span>
         <span className="chip"><Icon name="briefcase" size={13} /> {job.type}</span>
         <span className="chip"><Icon name="layers" size={13} /> {job.remote}</span>
+        {job.sourceLabel && <span className="chip"><Icon name="shield" size={13} /> {job.sourceLabel}</span>}
       </div>
 
       <hr className="hr" />
@@ -184,13 +186,7 @@ export function CTABand({
 // TRUST STRIP
 // ============================================================
 export function TrustStrip() {
-  const items = [
-    { label: "Coventry University Group", icon: "cap", tone: "blue" },
-    { label: "REC Member", icon: "award", tone: "green" },
-    { label: "BIOR Affiliated", icon: "layers", tone: "blue" },
-    { label: "Disability Confident", icon: "accessibility", tone: "green" },
-    { label: "Living Wage", icon: "pound", tone: "warm" },
-  ];
+  const items = OFFICIAL_BUSINESS_FACTS.trustRail;
   return (
     <div style={{ borderTop: "1px solid var(--paper-line)", background: "rgba(0,0,0,.03)", padding: "14px 0" }}>
       <div className="wrap trust-strip-row">

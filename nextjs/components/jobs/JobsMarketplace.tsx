@@ -50,7 +50,7 @@ export function JobsMarketplace({ jobs, options }: JobsMarketplaceProps) {
             No roles match those filters
           </h3>
           <p className="t-mut" style={{ margin: "10px auto 0", maxWidth: 420, fontSize: 15 }}>
-            Try a broader keyword or clear a filter to see more concept vacancies.
+            Try a broader keyword or clear a filter to see more snapshot vacancies.
           </p>
           <button type="button" className="btn btn-primary btn-sm" style={{ marginTop: 20 }} onClick={reset}>
             <Icon name="x" size={15} /> Reset filters

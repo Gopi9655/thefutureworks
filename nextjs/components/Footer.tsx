@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { TheFutureWorksLogo } from "./platform/TheFutureWorksLogo";
 import { Icon } from "./Icon";
+import { OFFICIAL_BUSINESS_FACTS } from "@/data/official-business-facts";
 
 const COLS: { title: string; links: { label: string; to: string }[] }[] = [
   {
@@ -41,8 +42,8 @@ const COLS: { title: string; links: { label: string; to: string }[] }[] = [
 import { CONTACT } from "@/data/site";
 
 const TRUST_BADGES = [
-  { label: "REC Member", icon: "award" },
-  { label: "BIOR Member", icon: "layers" },
+  { label: "REC corporate member", icon: "award" },
+  { label: "BIOR member", icon: "layers" },
   { label: "Coventry University-owned", icon: "cap" },
 ];
 
@@ -59,7 +60,7 @@ export function Footer() {
               label="thefutureworks - Jobs for your future"
             />
             <p className="t-mut" style={{ maxWidth: 320, marginTop: 20, fontSize: 14.5, lineHeight: 1.6 }}>
-              A commercial recruitment agency owned by Coventry University. Helping candidates and employers across Coventry, Warwickshire and the West Midlands since 2005.
+              A commercial recruitment agency owned by Coventry University, established in 2005 and supporting {OFFICIAL_BUSINESS_FACTS.identity.serviceArea}.
             </p>
             <div style={{ marginTop: 18, display: "flex", flexDirection: "column", gap: 7, fontSize: 14 }}>
               <a href={CONTACT.phoneHref} className="footer-link" style={{ display: "inline-flex", gap: 9, alignItems: "center" }}>
@@ -100,7 +101,7 @@ export function Footer() {
         </div>
 
         <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", gap: 14, padding: "26px 0 34px", color: "var(--t-on-dark-dim)", fontSize: 13 }}>
-          <span>© {new Date().getFullYear()} thefutureworks. Part of the Coventry University Group.</span>
+          <span>© {new Date().getFullYear()} thefutureworks concept prototype. Public facts sourced from official pages.</span>
           <span style={{ display: "flex", gap: 22 }}>
             <Link href="/about" className="footer-link">Privacy</Link>
             <Link href="/about" className="footer-link">Terms</Link>

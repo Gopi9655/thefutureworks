@@ -63,6 +63,7 @@ export function JobCard({ job }: { job: Job }) {
         <span className="chip"><Icon name="mapPin" size={13} /> {job.location}</span>
         <span className="chip"><Icon name="briefcase" size={13} /> {job.type}</span>
         <span className="chip"><Icon name="layers" size={13} /> {job.remote}</span>
+        {job.sourceLabel && <span className="chip"><Icon name="shield" size={13} /> {job.sourceLabel}</span>}
       </div>
 
       <hr className="hr" />

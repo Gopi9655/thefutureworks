@@ -23,7 +23,7 @@ const CONCEPTS = [
     id: "concept-b",
     tag: "Concept B",
     name: "Coventry talent network",
-    note: "Regional map with Coventry as the hub, employer-demand and candidate-readiness cards, and a Coventry University Group trust strip.",
+    note: "Regional map with Coventry as the hub, employer-demand and candidate-readiness cards, and a Coventry University-owned trust strip.",
     Hero: HomeHeroConceptB,
   },
   {

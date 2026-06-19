@@ -28,7 +28,7 @@ const REQUIREMENTS = [
   "Flexibility to support the shift pattern described.",
 ];
 
-const BENEFITS = ["Competitive salary", "Pension scheme", "Ongoing training", "Career progression", "Supportive team", "Coventry University-owned employer"];
+const BENEFITS = ["Competitive salary", "Consultant support", "Human review", "Regional recruitment team", "Static snapshot listing"];
 
 export function JobDetailPage({ jobId }: { jobId: string }) {
   const job = getJob(jobId);
@@ -74,6 +74,11 @@ export function JobDetailPage({ jobId }: { jobId: string }) {
                     <Icon name="star" size={12} /> Featured role
                   </span>
                 )}
+                {job.sourceLabel && (
+                  <span className="jobs-hero-badge jobs-hero-badge-featured">
+                    <Icon name="shield" size={12} /> {job.sourceLabel}
+                  </span>
+                )}
               </div>
               <h1 className="h1" style={{ color: "#fff", margin: "8px 0 0", fontSize: "clamp(30px,4vw,46px)" }}>{job.title}</h1>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 16, marginTop: 14, color: "var(--t-on-dark-mut)", fontSize: 15 }}>
@@ -92,7 +97,9 @@ export function JobDetailPage({ jobId }: { jobId: string }) {
           <div className="job-main">
             <Reveal>
               <h2 className="h3" style={{ marginTop: 0 }}>About the role</h2>
-              <p className="lead" style={{ fontSize: 17, marginTop: 12 }}>{job.summary} This is a fantastic opportunity to join {job.company}, a valued partner of thefutureworks, in a role that genuinely matters to the business and the region.</p>
+              <p className="lead" style={{ fontSize: 17, marginTop: 12 }}>
+                {job.summary} This is static prototype content based on an official website vacancy snapshot, not a live feed.
+              </p>
             </Reveal>
 
             <Reveal className="jd-fit" style={{ marginTop: 34 }}>
@@ -162,7 +169,7 @@ export function JobDetailPage({ jobId }: { jobId: string }) {
                   In this concept, a thefutureworks consultant reviews every application, sense-checks the match and only introduces candidates an employer is likely to progress — no automated decisions.
                 </p>
                 <div className="jd-consult-meta">
-                  <Icon name="shield" size={14} /> A Coventry University Group company concept · REC &amp; BIOR accredited model
+                  <Icon name="shield" size={14} /> Coventry University-owned agency concept · REC &amp; BIOR membership facts
                 </div>
               </div>
             </Reveal>

@@ -7,6 +7,7 @@ import { JobCard, TestimonialCard, CTABand, TrustStrip, SectionHead } from "@/co
 import { HomeMatchingHero } from "@/components/home/HomeMatchingHero";
 import { SplitJourney } from "@/components/home/SplitJourney";
 import { RegionSection } from "@/components/home/RegionSection";
+import { OFFICIAL_BUSINESS_FACTS } from "@/data/official-business-facts";
 import { JOBS } from "@/data/jobs";
 import { STATS, TESTIMONIALS, DIFFERENTIATORS } from "@/data/content";
 
@@ -41,7 +42,7 @@ function GlassStatsSection() {
             <span className="eyebrow"><Icon name="chart" size={14} /> By the numbers</span>
             <h2 className="h3" style={{ color: "var(--t-ink)", margin: "10px 0 0" }}>A track record the region trusts</h2>
           </div>
-          <Button to="/about" variant="outline" size="sm" icon="arrowRight">Our story</Button>
+          <Button to="/about" variant="outline" size="sm" icon="arrowRight">Official facts</Button>
         </Reveal>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 14 }} className="statband">
           {STATS.map((s, i) => {
@@ -74,7 +75,12 @@ function LatestJobs() {
     <section className="bg-paper section">
       <div className="wrap">
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: 16, marginBottom: 36 }}>
-          <SectionHead eyebrow={<><Icon name="briefcase" size={14} /> Live opportunities</>} title="Latest vacancies" sub="Fresh roles across the West Midlands, updated daily by our consultants." max={520} />
+          <SectionHead
+            eyebrow={<><Icon name="briefcase" size={14} /> Official website snapshot</>}
+            title="Current vacancies snapshot"
+            sub={OFFICIAL_BUSINESS_FACTS.vacancySnapshot.note}
+            max={560}
+          />
           <Button to="/vacancies" variant="outline" icon="arrowRight">View all vacancies</Button>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }} className="cards-3">
@@ -89,7 +95,7 @@ function WhyDifferent() {
   return (
     <section className="bg-paper-3 section" style={{ position: "relative", overflow: "hidden" }}>
       <div className="wrap" style={{ position: "relative", zIndex: 2 }}>
-        <SectionHead align="center" eyebrow={<><Icon name="sparkles" size={14} /> Why thefutureworks</>} title="Recruitment with a difference" sub="Not just another agency — a values-led part of Coventry University Group, built to give back to the region since 2005." max={640} />
+        <SectionHead align="center" eyebrow={<><Icon name="sparkles" size={14} /> Why thefutureworks</>} title="Recruitment with a difference" sub="A commercial recruitment agency owned by Coventry University, based in Coventry and established in 2005." max={640} />
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 18, marginTop: 48 }} className="cards-3">
           {DIFFERENTIATORS.map((d, i) => (
             <Reveal key={d.title} d={(i % 3) + 1} className="card card-hover" style={{ padding: 28 }}>

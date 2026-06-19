@@ -1,5 +1,6 @@
 import { Button } from "@/components/Button";
 import { Icon } from "@/components/Icon";
+import { OFFICIAL_BUSINESS_FACTS } from "@/data/official-business-facts";
 
 /**
  * Homepage hero — Concept A "Glass matching cockpit".
@@ -15,6 +16,9 @@ import { Icon } from "@/components/Icon";
  * Synthetic concept data only — no real candidate data.
  */
 export function HomeMatchingHero() {
+  const candidatesRegistered = OFFICIAL_BUSINESS_FACTS.stats.candidatesRegistered.value.toLocaleString("en-GB");
+  const jobsPosted = OFFICIAL_BUSINESS_FACTS.stats.jobsPosted.value.toLocaleString("en-GB");
+
   return (
     <div className="hc-hero">
       <div className="hc-copy">
@@ -26,9 +30,9 @@ export function HomeMatchingHero() {
           <span className="hc-accent-grad">engineered</span> for Coventry.
         </h1>
         <p className="hc-sub">
-          thefutureworks pairs ready candidates with employers across Coventry,
-          Warwickshire and the West Midlands — scored, explainable and
-          human-checked before anyone is introduced.
+          thefutureworks is a Coventry University-owned recruitment agency
+          supporting permanent, temporary, full-time and part-time recruitment
+          across Coventry, Warwickshire and the West Midlands.
         </p>
         <div className="hc-actions">
           <Button to="/vacancies" variant="primary" size="lg" icon="arrowRight">
@@ -40,13 +44,16 @@ export function HomeMatchingHero() {
         </div>
         <div className="hc-chips">
           <span className="hc-chip">
-            <Icon name="check" size={14} stroke={2.4} /> Coventry University Group
+            <Icon name="check" size={14} stroke={2.4} /> Coventry University-owned
           </span>
           <span className="hc-chip is-blue">
-            <Icon name="shield" size={14} /> Human-checked matches
+            <Icon name="shield" size={14} /> REC &amp; BIOR members
           </span>
           <span className="hc-chip">
-            <Icon name="users" size={14} /> 8,196 candidates ready
+            <Icon name="users" size={14} /> {candidatesRegistered} candidates registered
+          </span>
+          <span className="hc-chip is-blue">
+            <Icon name="briefcase" size={14} /> {jobsPosted} jobs posted
           </span>
         </div>
       </div>

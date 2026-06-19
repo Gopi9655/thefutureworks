@@ -1,19 +1,15 @@
 // Site-wide constants: contact details + navigation.
+import { OFFICIAL_BUSINESS_FACTS } from "@/data/official-business-facts";
 
 export const CONTACT = {
   org: "thefutureworks",
-  addressLines: [
-    "Coventry University Campus",
-    "Charles Ward Building (145)",
-    "Cox Street, Coventry",
-    "CV1 5FJ",
-  ],
-  phone: "+44 (0) 24 7615 8815",
-  phoneHref: "tel:+442476158815",
-  phoneShort: "02476 158815",
-  email: "jobs@thefutureworks.co.uk",
-  emailHref: "mailto:jobs@thefutureworks.co.uk",
-  hours: ["Mon–Fri · 9:00am – 5:00pm", "Advice for employers is always free"],
+  addressLines: [...OFFICIAL_BUSINESS_FACTS.contact.addressLines],
+  phone: OFFICIAL_BUSINESS_FACTS.contact.phone,
+  phoneHref: OFFICIAL_BUSINESS_FACTS.contact.phoneHref,
+  phoneShort: OFFICIAL_BUSINESS_FACTS.contact.phoneShort,
+  email: OFFICIAL_BUSINESS_FACTS.contact.email,
+  emailHref: OFFICIAL_BUSINESS_FACTS.contact.emailHref,
+  hours: ["Mon-Fri - 9:00am-5:00pm", "Advice for employers is always free"],
   portalUrl: "https://portal.thefutureworks.co.uk",
 } as const;
 
@@ -34,9 +30,9 @@ export const NAV: NavItem[] = [
     to: "/vacancies",
     label: "Find work",
     sub: [
-      { to: "/vacancies", label: "Browse all jobs", desc: "Live vacancies across the region", icon: "search" },
+      { to: "/vacancies", label: "Browse all jobs", desc: "Static vacancy snapshot", icon: "search" },
       { to: "/candidates", label: "For candidates", desc: "How we help you find work", icon: "users" },
-      { to: "/apply", label: "Submit your CV", desc: "Apply for a live role", icon: "send" },
+      { to: "/apply", label: "Submit your CV", desc: "Apply for a listed role", icon: "send" },
     ],
   },
   {
