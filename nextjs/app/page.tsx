@@ -1,11 +1,12 @@
 import "./home-hero.css";
+import "./home-hero-v2.css";
 import Link from "next/link";
 import { Icon } from "@/components/Icon";
 import { Reveal, CountUp } from "@/components/primitives";
 import { Button } from "@/components/Button";
 import { NetworkMapBg } from "@/components/NetworkMap";
-import { TestimonialCard, CTABand, TrustStrip, SectionHead } from "@/components/sections";
-import { HomeMatchingHero } from "@/components/home/HomeMatchingHero";
+import { TestimonialCard, CTABand, SectionHead } from "@/components/sections";
+import { HomeHeroV2 } from "@/components/home/HomeHeroV2";
 import { SplitJourney } from "@/components/home/SplitJourney";
 import { RegionSection } from "@/components/home/RegionSection";
 import { OFFICIAL_BUSINESS_FACTS } from "@/data/official-business-facts";
@@ -47,11 +48,37 @@ function HomeVacancySnapshotCard({ job }: { job: Job }) {
 
 function HomeHero() {
   return (
-    <section className="hero-light" style={{ position: "relative", overflow: "hidden" }}>
-      <div className="wrap" style={{ position: "relative", zIndex: 2 }}>
-        <HomeMatchingHero />
+    <section className="hero-light hero-atmos" style={{ position: "relative", overflow: "hidden" }}>
+      {/* hero-only 3D-like atmosphere — soft depth glows, faint grid, blurred light layers */}
+      <div className="hero-atmos-bg" aria-hidden="true">
+        <span className="hero-atmos-mesh" />
+        <span className="hero-atmos-grid" />
+        <span className="hero-atmos-blob hero-atmos-blob-g" />
+        <span className="hero-atmos-blob hero-atmos-blob-b" />
+        <span className="hero-atmos-blob hero-atmos-blob-t" />
+        {/* subtle curved flow lines drifting toward the match atlas (right) */}
+        <svg className="hero-atmos-flow" viewBox="0 0 900 600" preserveAspectRatio="xMidYMid slice" fill="none">
+          <defs>
+            <linearGradient id="heroFlowG" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stopColor="#5FA82A" stopOpacity="0" />
+              <stop offset=".5" stopColor="#5FA82A" stopOpacity=".5" />
+              <stop offset="1" stopColor="#1AA39A" stopOpacity="0" />
+            </linearGradient>
+            <linearGradient id="heroFlowB" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stopColor="#1AA39A" stopOpacity="0" />
+              <stop offset=".5" stopColor="#1E6FB8" stopOpacity=".5" />
+              <stop offset="1" stopColor="#1E6FB8" stopOpacity="0" />
+            </linearGradient>
+          </defs>
+          <path className="hero-flow-ln" d="M120 470 C 320 470, 360 250, 600 250 S 880 150, 980 150" stroke="url(#heroFlowG)" strokeWidth="1.5" />
+          <path className="hero-flow-ln hero-flow-ln-2" d="M80 360 C 300 360, 380 300, 620 300 S 860 320, 980 300" stroke="url(#heroFlowB)" strokeWidth="1.5" />
+          <path className="hero-flow-ln hero-flow-ln-3" d="M140 540 C 360 540, 420 360, 640 360 S 880 400, 980 380" stroke="url(#heroFlowG)" strokeWidth="1.25" />
+        </svg>
+        <span className="hero-atmos-veil" />
       </div>
-      <TrustStrip />
+      <div className="wrap" style={{ position: "relative", zIndex: 2 }}>
+        <HomeHeroV2 />
+      </div>
     </section>
   );
 }

@@ -29,9 +29,15 @@ export function Navbar() {
   return (
     <header className={"nav " + (solid || open ? "solid" : "")}>
       <div className="wrap" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 72 }}>
-        <Link href="/" aria-label="thefutureworks home">
-          <TheFutureWorksLogo variant="navbar" label="thefutureworks" />
-        </Link>
+        <div style={{ display: "flex", alignItems: "center", gap: 14, minWidth: 0 }}>
+          <Link href="/" aria-label="thefutureworks home">
+            <TheFutureWorksLogo variant="navbar" label="thefutureworks" />
+          </Link>
+          <span className="nav-trust" title="Coventry University-owned recruitment">
+            <Icon name="shield" size={13} stroke={2} />
+            Coventry University&#8209;owned
+          </span>
+        </div>
 
         <nav style={{ display: "flex", alignItems: "center", gap: 30 }} className="nav-desktop" aria-label="Primary">
           {NAV.map((item) => (
