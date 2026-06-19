@@ -184,12 +184,23 @@ export function CTABand({
 // TRUST STRIP
 // ============================================================
 export function TrustStrip() {
-  const items = ["Coventry University Group", "REC Member", "BIOR Affiliated", "Disability Confident", "Living Wage"];
+  const items = [
+    { label: "Coventry University Group", icon: "cap", tone: "blue" },
+    { label: "REC Member", icon: "award", tone: "green" },
+    { label: "BIOR Affiliated", icon: "layers", tone: "blue" },
+    { label: "Disability Confident", icon: "accessibility", tone: "green" },
+    { label: "Living Wage", icon: "pound", tone: "warm" },
+  ];
   return (
     <div style={{ borderTop: "1px solid var(--paper-line)", background: "rgba(0,0,0,.03)", padding: "14px 0" }}>
       <div className="wrap trust-strip-row">
         {items.map((item) => (
-          <span key={item} className="trust-item"><Orb size={11} /> {item}</span>
+          <span key={item.label} className="trust-item">
+            <span className={`trust-icon trust-icon-${item.tone}`} aria-hidden="true">
+              <Icon name={item.icon} size={12.5} stroke={2.1} />
+            </span>
+            {item.label}
+          </span>
         ))}
       </div>
     </div>

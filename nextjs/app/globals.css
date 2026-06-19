@@ -761,6 +761,27 @@ body.no-anim .hero-beam { stroke-dasharray: none; opacity: .55; }
   border-right: 1px solid var(--paper-line); line-height: 1;
 }
 .trust-item:last-child { border-right: none; }
+.trust-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(95,168,42,.20);
+  background: rgba(95,168,42,.08);
+  color: var(--g-green);
+  flex: 0 0 auto;
+}
+.trust-icon-blue {
+  border-color: rgba(30,111,184,.22);
+  background: rgba(30,111,184,.08);
+  color: var(--g-blue);
+}
+.trust-icon-warm {
+  border-color: rgba(240,138,36,.24);
+  background: rgba(240,138,36,.10);
+  color: var(--g-orange);
+}
 
 .hero-cta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
 

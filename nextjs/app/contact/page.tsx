@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Icon } from "@/components/Icon";
-import { Orb, Reveal } from "@/components/primitives";
+import { Reveal } from "@/components/primitives";
 import { Button } from "@/components/Button";
 import { PageHero } from "@/components/sections";
 import { ContactForm } from "@/components/forms/ContactForm";
@@ -51,7 +51,7 @@ export default function ContactPage() {
               <Reveal d={1} style={{ marginTop: 14, position: "relative" }}>
                 <div className="media-slot" data-label="Map / office photo" style={{ width: "100%", height: 220, borderRadius: 18 }} />
                 <div className="glass" style={{ position: "absolute", left: 16, bottom: 16, padding: "10px 14px", display: "flex", alignItems: "center", gap: 10, color: "#fff" }}>
-                  <Orb size={26} /> <span style={{ fontSize: 13, fontWeight: 600 }}>Coventry · CV1 5FJ</span>
+                  <Icon name="mapPin" size={18} stroke={2} /> <span style={{ fontSize: 13, fontWeight: 600 }}>Coventry · CV1 5FJ</span>
                 </div>
               </Reveal>
             </div>

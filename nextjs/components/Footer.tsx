@@ -40,6 +40,12 @@ const COLS: { title: string; links: { label: string; to: string }[] }[] = [
 
 import { CONTACT } from "@/data/site";
 
+const TRUST_BADGES = [
+  { label: "REC Member", icon: "award" },
+  { label: "BIOR Member", icon: "layers" },
+  { label: "Coventry University-owned", icon: "cap" },
+];
+
 export function Footer() {
   return (
     <footer className="ink-deep" style={{ position: "relative", overflow: "hidden", paddingTop: 72 }}>
@@ -86,8 +92,10 @@ export function Footer() {
 
         <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 14, marginTop: 56, paddingTop: 26, borderTop: "1px solid var(--line)" }}>
           <span style={{ fontSize: 12.5, fontWeight: 700, color: "var(--t-on-dark-dim)", letterSpacing: ".08em", textTransform: "uppercase" }}>Accredited &amp; trusted</span>
-          {["REC Member", "BIOR Member", "Coventry University-owned"].map((b) => (
-            <span key={b} className="chip on-dark" style={{ fontSize: 12 }}>{b}</span>
+          {TRUST_BADGES.map((badge) => (
+            <span key={badge.label} className="chip on-dark" style={{ fontSize: 12 }}>
+              <Icon name={badge.icon} size={12} stroke={2} /> {badge.label}
+            </span>
           ))}
         </div>
 
